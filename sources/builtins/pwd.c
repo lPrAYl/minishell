@@ -9,7 +9,6 @@ int	cmd_pwd(char *ignore)
 	if (getcwd(pwd, 4096))
 	{
 		ft_putendl_fd(pwd, 1);
-		printf("%s\n", pwd);
 		free (pwd);
 		return (0);
 	}

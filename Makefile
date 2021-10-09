@@ -13,7 +13,7 @@ HEADERS					=	$(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 HEADERS_BONUS			=	$(addprefix $(HEADERS_DIRECTORY_BONUS), $(HEADERS_BONUS_LIST))
 
 SOURCES_LIST			=	minishell.c	\
-							echo.c	pwd.c	\
+							echo.c	pwd.c	exit.c\
 							utils.c
 SOURCES_DIRECTORY		=	./sources/builtins/
 SOURCES_LIST_BONUS		=	
@@ -36,10 +36,11 @@ GREEN					=	\033[0;32m
 RED						=	\033[0;31m
 RESET					=	\033[0m
 
-$(LIBFT)				:
-							@$(MAKE) -C ./libft/
-
 all						:	$(NAME)
+
+$(LIBFT)				:	./libft/
+							@$(MAKE) -C ./libft/
+							@$(MAKE) clean -C ./libft
 
 $(NAME)					:	$(OBJECTS_DIRECTORY) $(OBJECTS) $(HEADER) $(LIBFT)
 							@$(GCC) $(INCLUDES) $(OBJECTS) $(LIBFTFLAGS) -lreadline -o $(NAME)

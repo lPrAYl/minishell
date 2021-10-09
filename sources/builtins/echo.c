@@ -14,12 +14,17 @@ int	cmd_echo(char *line)
 		if (i == 0 && argv[i] && ft_strcmp(argv[i], "-n") == 0)
 		{
 			n_option = 0;
-			while (argv[++i] && ft_strcmp(argv[i], "-n") == 0)
+			i++;
+			while (argv[i] && ft_strcmp(argv[i], "-n") == 0)
 				i++;
 		}
-		ft_putstr_fd(argv[i], 1);
-		if (argv[i + 1] && ft_strlen(argv[i + 1]))
-			write(1, " ", 1);
+		else if (argv[i])
+		{
+			ft_putstr_fd(argv[i], 1);
+			if (argv[i + 1] && ft_strlen(argv[i + 1]))
+				write(1, " ", 1);
+			printf("sdf\n");
+		}
 		i++;
 	}
 	if (n_option)

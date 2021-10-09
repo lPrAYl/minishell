@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 13:24:57 by yfu               #+#    #+#             */
-/*   Updated: 2021/05/04 19:50:52 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/10/09 15:41:21 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(char *str)
+long long int	ft_atoi(char *str)
 {
 	long long int	ct[3];
 
@@ -35,5 +35,6 @@ int	ft_atoi(char *str)
 			return (ct[1] * ct[2]);
 		ct[1] = 10 * ct[1] + str[ct[0]] - '0';
 	}
+	printf("%lld\n", ct[1]);
 	return (ct[1] * ct[2]);
 }

@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 11:22:42 by yfu               #+#    #+#             */
-/*   Updated: 2021/09/26 18:39:03 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/09 15:42:50 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include "get_next_line.h"
 # include "printf/ft_printf.h"
 
@@ -72,7 +73,7 @@ char			*ft_strrchr(const char *string, int searchedchar);
 char			*ft_strnstr(const char *s1, const char *s2, size_t len);
 int				ft_strncmp(const char *f, const char *s, size_t len);
 int				ft_strcmp(const char *s1, const char *s2);
-int				ft_atoi(char *str);
+long long int	ft_atoi(char *str);
 int				ft_isalpha(int character);
 int				ft_isdigit(int character);
 int				ft_isalnum(int character);

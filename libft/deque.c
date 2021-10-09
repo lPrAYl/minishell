@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deque.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:46:06 by yfu               #+#    #+#             */
-/*   Updated: 2021/05/04 23:08:13 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/10/09 15:44:11 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	deque_pop_back(t_deque *deque, void (*f)(void *))
 	if (deque->tail)
 		deque->tail->next = NULL;
 	if (f)
-		f(temp->content);
+		f(temp->val);
 	ft_free(temp);
 }
 
@@ -91,6 +91,6 @@ void	deque_pop_front(t_deque *deque, void (*f)(void*))
 	if (deque->head)
 		deque->head->last = NULL;
 	if (f)
-		f(temp->content);
+		f(temp->val);
 	ft_free(temp);
 }

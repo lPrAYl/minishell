@@ -25,7 +25,7 @@ static int	is_num(char *code)
 	return (0);
 }
 
-static void	check_exit(char *line)
+static int	check_exit(char *line)
 {
 	int		i;
 	char	**argv;
@@ -35,20 +35,26 @@ static void	check_exit(char *line)
 	while (argv[i])
 		i++;
 	if (i > 1)
+	{
 		ft_putendl_fd("minishell: exit: too many arguments", 1);
+		return (0);
+	}
 	else if (!is_num(argv[0]))
 	{
 		ft_putstr_fd("minishell: exit: ", 1);
 		ft_putstr_fd(argv[0], 1);
 		ft_putendl_fd(": numeric argument required", 1);
+		return (0);
 	}
 	free(argv);
+	return (1);
 }
 
 int	cmd_exit(char *line)
 {
 	ft_putendl_fd("exit", 1);
-	if (line)
-		check_exit(line);
-	exit(0);
+	if (*line)
+		if (!check_exit(line))
+			return (255);
+	exit(ft_atoi(line) % 255);
 }

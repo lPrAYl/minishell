@@ -23,6 +23,7 @@
 
 int	cmd_echo(char *line);
 int	cmd_pwd(char *line);
+int	cmd_exit(char *line);
 
 /*	utils	*/
 
