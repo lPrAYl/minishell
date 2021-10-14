@@ -50,11 +50,13 @@ static int	check_exit(char *line)
 	return (1);
 }
 
-int	cmd_exit(char *line)
+int	cmd_exit(char *line, t_list **env_ms)
 {
+	(void)env_ms;
+
 	ft_putendl_fd("exit", 1);
 	if (*line)
 		if (!check_exit(line))
-			return (255);
-	exit(ft_atoi(line) % 255);
+			exit (2);
+	exit(ft_atoi(line) % 256);
 }

@@ -1,10 +1,11 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-int	cmd_echo(char *line)
+int	cmd_echo(char *line, t_list **env_ms)
 {
 	int		i;
 	int		n_option;
 	char	**argv;
+	(void)env_ms;
 
 	i = 0;
 	n_option = 1;

@@ -19,9 +19,16 @@
 # include "get_next_line.h"
 # include "printf/ft_printf.h"
 
+typedef struct s_env
+{
+	char	*key;
+	char 	*value;
+	char 	*line;
+}	t_env;
+
 typedef struct s_list
 {
-	char			*val;
+	t_env			*val;
 	struct s_list	*next;
 }				t_list;
 

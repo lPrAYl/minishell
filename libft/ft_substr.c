@@ -23,6 +23,8 @@ char	*ft_substr(char const *s, size_t start, size_t len)
 		ans = ft_calloc(1, sizeof(char));
 		return (ans);
 	}
+	if (len > 2147483647)
+		len = ft_strlen(s) - start;
 	l = (size_t)ft_min((int)(ft_strlen(s) - start), (int)len);
 	if (!s)
 		return (NULL);

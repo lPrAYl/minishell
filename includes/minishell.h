@@ -19,14 +19,17 @@
 # define false		0
 # define BUILTINS	"echo:cd:pwd:export:unset:env:exit"
 
+
+
 /*	builtins	*/
 
-int	cmd_echo(char *line);
-int	cmd_pwd(char *line);
-int	cmd_exit(char *line);
+int		cmd_echo(char *line, t_list **env_ms);
+int		cmd_pwd(char *line,t_list **env_ms);
+int		cmd_exit(char *line, t_list **env_ms);
+int 	cmd_env(char *line, t_list **env_ms);
 
 /*	utils	*/
 
-int	print_errno(void);
+int		print_errno(void);
 
 #endif

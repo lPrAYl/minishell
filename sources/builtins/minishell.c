@@ -17,15 +17,10 @@ int	cmd_unset()
 	return (0);
 }
 
-int	cmd_env()
-{
-	return (0);
-}
-
 typedef struct s_command
 {
 	char	*name;				/*	User printable name of the function. */
-	int		(*func)(char *);	/*	Function to call to do the job. */
+	int		(*func)(char *, t_list **);	/*	Function to call to do the job. */
 }			t_command;
 
 t_command	commands[] = {
@@ -62,7 +57,7 @@ char	*stripwhite(char *str)
 {
 	char	*begin;
 	char	*end;
-	
+
 	begin = str;
 	while (ft_isspace(*begin))
 		begin++;
@@ -77,7 +72,7 @@ char	*stripwhite(char *str)
 
 /*	Strip whitespaces ftom the start and end of STRING. Return a pointer
 	into STRING. */
-int	execute_line(char *line)
+int	execute_line(char *line, t_list **env_ms)
 {
 	int			i;
 	t_command	*command;
@@ -102,18 +97,44 @@ int	execute_line(char *line)
 		i++;
 	word = line + i;
 	/*	Call function. */
-	return (command->func(word));
+	return (command->func(word, env_ms));
+}
+
+void	init_start_struct(t_list **env_ms, char **env)
+{
+	int		i;
+	int		j;
+	t_env	*field;
+
+	i = 0;
+	while (env[i])
+	{
+		field = malloc(sizeof(t_env *));
+		field->line = ft_strdup(env[i]);
+		j = 0;
+		while (field->line[j] != '=')
+			j++;
+		//printf("%d\n", j);
+		field->key = ft_substr(field->line, 0, j);
+		field->value = ft_substr(field->line, j + 1, -1);
+		ft_lstadd_back(env_ms, ft_lstnew(field));
+		i++;
+	}
+	printf("%s\n", (*env_ms)->val->key);
+	printf("%s\n", (*env_ms)->val->value);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
-	(void)env;
-	char	*command;
+	(void)argv;
+	//char	*command;
 	char	*line;
 	char	*str;
-	
-	command = argv[0];
+	t_list	*env_ms;
+
+	//command = argv[0];
+	init_start_struct(&env_ms, env);
 	/*	Loop reading and executing lines until the use quit. */
 	while (1)
 	{
@@ -127,19 +148,19 @@ int	main(int argc, char **argv, char **env)
 		if (*str)
 		{
 			add_history(line);
-			execute_line(line);
+			execute_line(line, &env_ms);
 		}
 		free(line);
 	}
 	exit(0);
 }
 
-//	External finctions : 
+//	External finctions :
 //	readline, rl_clear_history, rl_on_new_line, rl_replace_line,
-//	rl_redisplay, add_history, 
+//	rl_redisplay, add_history,
 //	malloc, free,
 //	printf, write,
-//	access, open, read, close, 
+//	access, open, read, close,
 //	fork, wait, waitpid, wait3, wait4, execve, dup, dup2, pipe,
 //	signal, sigaction, kill, exit,
 //	getcwd, chdir, stat, lstat, fstat,

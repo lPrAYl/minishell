@@ -1,7 +1,7 @@
 NAME					=	minishell
 NAME_BONUS				=	
 
-GCC						=	gcc -Wall -Wextra -Werror -g -O2
+GCC						=	gcc -Wall -Wextra -Werror -g
 INCLUDES				=	-I$(HEADERS_DIRECTORY)
 INCLUDES_BONUS			=	-I$(HEADERS_DIRECTORY)
 
@@ -13,7 +13,7 @@ HEADERS					=	$(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 HEADERS_BONUS			=	$(addprefix $(HEADERS_DIRECTORY_BONUS), $(HEADERS_BONUS_LIST))
 
 SOURCES_LIST			=	minishell.c	\
-							echo.c	pwd.c	exit.c\
+							echo.c	pwd.c	exit.c	env.c	export.c\
 							utils.c
 SOURCES_DIRECTORY		=	./sources/builtins/
 SOURCES_LIST_BONUS		=	
@@ -36,10 +36,10 @@ GREEN					=	\033[0;32m
 RED						=	\033[0;31m
 RESET					=	\033[0m
 
-all						:	$(NAME)
+all						:	$(NAME) $(LIBFT)
 
 $(LIBFT)				:	./libft/
-							@$(MAKE) -C ./libft/
+							@#$(MAKE) -C ./libft/
 							@$(MAKE) clean -C ./libft
 
 $(NAME)					:	$(OBJECTS_DIRECTORY) $(OBJECTS) $(HEADER) $(LIBFT)
