@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 11:43:27 by yfu               #+#    #+#             */
-/*   Updated: 2021/09/26 17:50:24 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/15 22:41:57 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 		return ;
 	while (lst)
 	{
-		f(lst->val);
+		f(lst->data);
 		lst = lst->next;
 	}
 }

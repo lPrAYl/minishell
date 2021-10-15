@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 11:43:22 by yfu               #+#    #+#             */
-/*   Updated: 2021/09/26 17:50:09 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/15 22:42:41 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void	ft_lstdelone(t_list **head, t_list *lst, void (*del)(void *))
 		temp->next = lst->next;
 	}
 	if (del)
-		del(lst->val);
+		del(lst->data);
 	ft_free(lst);
 }

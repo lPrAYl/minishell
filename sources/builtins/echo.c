@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	cmd_echo(char *line, t_list **env_ms)
+int	cmd_echo(char *line, t_deque **env_ms)
 {
 	int		i;
 	int		n_option;

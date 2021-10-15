@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 11:22:42 by yfu               #+#    #+#             */
-/*   Updated: 2021/10/09 15:42:50 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/16 00:44:21 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,26 @@ typedef struct s_env
 {
 	char	*key;
 	char 	*value;
-	char 	*line;
-}	t_env;
+}			t_env;
 
 typedef struct s_list
 {
-	t_env			*val;
+	t_env			*data;
 	struct s_list	*next;
 }				t_list;
 
-typedef struct s_double_list
+typedef struct s_node
 {
-	void					*val;
-	struct s_double_list	*next;
-	struct s_double_list	*last;
-}				t_double_list;
+	t_env			*data;
+	struct s_node	*next;
+	struct s_node	*prev;
+}				t_node;
 
 typedef struct s_deque
 {
-	struct s_double_list	*head;
-	struct s_double_list	*tail;
-	int						size;
+	struct s_node	*head;
+	struct s_node	*tail;
+	size_t			size;
 }				t_deque;
 
 typedef enum e_memory
@@ -57,11 +56,11 @@ int				ft_abs(int numb);
 void			ft_error(char *s);
 void			ft_sort(int *head, int *tail, int (*cmp)(int, int));
 void			deque_clear(t_deque *deque, void (*f)(void*));
-t_double_list	*double_list_init(void *ptr);
+t_node			*double_list_init(void *ptr);
 void			deque_push_back(t_deque *deque, void *ptr);
 void			deque_push_front(t_deque *deque, void *ptr);
 void			deque_pop_back(t_deque *deque, void (*f)(void*));
-void			deque_pop_front(t_deque *deque, void (*f)(void*));
+t_node			*deque_pop_front(t_deque *deque, void (*f)(void*));
 t_deque			*deque_init(void);
 void			*ft_malloc(size_t elem_cnt, size_t elem_size);
 void			ft_free(void *del);

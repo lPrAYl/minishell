@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 08:19:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/10/09 15:43:43 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/15 22:43:07 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_list	*ft_lstnew_2(void *content)
 		ft_putstr_fd("ERROR_IN_FT_LSTNEW_2\n", 1);
 		return (NULL);
 	}
-	nw->val = content;
+	nw->data = content;
 	nw->next = NULL;
 	return (nw);
 }
@@ -55,7 +55,7 @@ static void	ft_lstdelone_2(t_list **head, t_list *lst, void (*del)(void *))
 		temp->next = lst->next;
 	}
 	if (del)
-		del(lst->val);
+		del(lst->data);
 	free(lst);
 }
 
@@ -88,7 +88,7 @@ static void	ft_lstclear_2(t_list **lst, void (*del)(void *))
 	while (temp)
 	{
 		if (del)
-			del(temp->val);
+			del(temp->data);
 		dd = temp;
 		temp = temp->next;
 		free(dd);

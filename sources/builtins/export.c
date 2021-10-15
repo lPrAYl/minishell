@@ -1,11 +1,26 @@
 #include "minishell.h"
 
-int	cmd_export(char *line, t_list **env_ms)
+int	cmd_export(char *line, t_deque **env_ms)
 {
 	(void)line;
-	if (ft_strcmp((*env_ms)->val->key, (*env_ms)->next->val->key) > 0)
+	(void)env_ms;
+	t_deque	*env_export;
+	t_deque	*tmp;
+	t_node	*field;
+
+	env_export = deque_init();
+	env_export = *env_ms;
+	tmp = env_export;
+	if (ft_strcmp(tmp->head->data->key, tmp->head->next->data->key) > 0)
 	{
-		printf("good!\n");
+		if (!tmp->head->prev)
+		{
+			field = deaque_pop_front(tmp, NULL);
+			deque_push_front(tmp, field);
+		}
 	}
+
+
+	
 	return (0);
 }

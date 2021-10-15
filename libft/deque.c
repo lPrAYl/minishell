@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:46:06 by yfu               #+#    #+#             */
-/*   Updated: 2021/10/09 15:44:11 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/16 00:43:41 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_deque	*deque_init(void)
 
 void	deque_push_back(t_deque *deque, void *ptr)
 {
-	t_double_list	*temp;
+	t_node	*temp;
 
 	(deque->size)++;
 	temp = double_list_init(ptr);
@@ -39,14 +39,14 @@ void	deque_push_back(t_deque *deque, void *ptr)
 		deque->tail = temp;
 		return ;
 	}
-	temp->last = deque->tail;
+	temp->prev = deque->tail;
 	deque->tail->next = temp;
 	deque->tail = deque->tail->next;
 }
 
 void	deque_push_front(t_deque *deque, void *ptr)
 {
-	t_double_list	*temp;
+	t_node	*temp;
 
 	(deque->size)++;
 	temp = double_list_init(ptr);
@@ -59,38 +59,38 @@ void	deque_push_front(t_deque *deque, void *ptr)
 		return ;
 	}
 	temp->next = deque->head;
-	deque->head->last = temp;
-	deque->head = deque->head->last;
+	deque->head->prev = temp;
+	deque->head = deque->head->prev;
 }
 
 void	deque_pop_back(t_deque *deque, void (*f)(void *))
 {
-	t_double_list	*temp;
+	t_node	*temp;
 
 	if (deque->size < 1 || !deque->tail)
 		return ;
 	(deque->size)--;
 	temp = deque->tail;
-	deque->tail = deque->tail->last;
+	deque->tail = deque->tail->prev;
 	if (deque->tail)
 		deque->tail->next = NULL;
 	if (f)
-		f(temp->val);
+		f(temp->data);
 	ft_free(temp);
 }
 
-void	deque_pop_front(t_deque *deque, void (*f)(void*))
+t_node	*deque_pop_front(t_deque *deque, void (*f)(void*))
 {
-	t_double_list	*temp;
+	t_node	*temp;
 
 	if (deque->size < 1 || !deque->head)
-		return ;
+		return (NULL);
 	(deque->size)--;
 	temp = deque->head;
 	deque->head = deque->head->next;
 	if (deque->head)
-		deque->head->last = NULL;
+		deque->head->prev = NULL;
 	if (f)
-		f(temp->val);
-	ft_free(temp);
+		f(temp->data);
+	return (temp);
 }

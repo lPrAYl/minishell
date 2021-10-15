@@ -14,7 +14,7 @@ int	cmd_unset()
 typedef struct s_command
 {
 	char	*name;				/*	User printable name of the function. */
-	int		(*func)(char *, t_list **);	/*	Function to call to do the job. */
+	int		(*func)(char *, t_deque **);	/*	Function to call to do the job. */
 }			t_command;
 
 t_command	commands[] = {
@@ -66,7 +66,7 @@ char	*stripwhite(char *str)
 
 /*	Strip whitespaces ftom the start and end of STRING. Return a pointer
 	into STRING. */
-int	execute_line(char *line, t_list **env_ms)
+int	execute_line(char *line, t_deque **env_ms)
 {
 	int			i;
 	t_command	*command;
@@ -94,7 +94,7 @@ int	execute_line(char *line, t_list **env_ms)
 	return (command->func(word, env_ms));
 }
 
-void	init_start_struct(t_list **env_ms, char **env)
+void	init_start_struct(t_deque **env_ms, char **env)
 {
 	int		i;
 	int		j;
@@ -109,7 +109,7 @@ void	init_start_struct(t_list **env_ms, char **env)
 			j++;
 		field->key = ft_substr(env[i], 0, j);
 		field->value = ft_substr(env[i], j + 1, -1);
-		ft_lstadd_back(env_ms, ft_lstnew(field));
+		deque_push_back(*env_ms, field);
 		i++;
 	}
 }
@@ -121,9 +121,10 @@ int	main(int argc, char **argv, char **env)
 	//char	*command;
 	char	*line;
 	char	*str;
-	t_list	*env_ms;
+	t_deque	*env_ms;
 
 	//command = argv[0];
+	env_ms = deque_init();
 	init_start_struct(&env_ms, env);
 	/*	Loop reading and executing lines until the use quit. */
 	while (1)
