@@ -6,12 +6,6 @@ int	cmd_cd()
 	return (0);
 }
 
-int	cmd_export()
-{
-	printf("asdf\n");
-	return (0);
-}
-
 int	cmd_unset()
 {
 	return (0);
@@ -110,18 +104,14 @@ void	init_start_struct(t_list **env_ms, char **env)
 	while (env[i])
 	{
 		field = malloc(sizeof(t_env *));
-		field->line = ft_strdup(env[i]);
 		j = 0;
-		while (field->line[j] != '=')
+		while (env[i][j] != '=')
 			j++;
-		//printf("%d\n", j);
-		field->key = ft_substr(field->line, 0, j);
-		field->value = ft_substr(field->line, j + 1, -1);
+		field->key = ft_substr(env[i], 0, j);
+		field->value = ft_substr(env[i], j + 1, -1);
 		ft_lstadd_back(env_ms, ft_lstnew(field));
 		i++;
 	}
-	printf("%s\n", (*env_ms)->val->key);
-	printf("%s\n", (*env_ms)->val->value);
 }
 
 int	main(int argc, char **argv, char **env)

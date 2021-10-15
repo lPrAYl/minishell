@@ -12,7 +12,7 @@ int	cmd_env(char *line, t_list **env_ms)
 	}
 	while (*env_ms)
 	{
-		ft_putendl_fd((*env_ms)->val->line, 1);
+		printf("%s=%s\n", (*env_ms)->val->key, (*env_ms)->val->value);
 		*env_ms = (*env_ms)->next;
 	}
 	return (0);

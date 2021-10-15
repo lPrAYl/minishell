@@ -27,6 +27,7 @@ int		cmd_echo(char *line, t_list **env_ms);
 int		cmd_pwd(char *line,t_list **env_ms);
 int		cmd_exit(char *line, t_list **env_ms);
 int 	cmd_env(char *line, t_list **env_ms);
+int		cmd_export(char *line, t_list **env_ms);
 
 /*	utils	*/
 

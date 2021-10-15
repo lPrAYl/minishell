@@ -1,12 +1,12 @@
 NAME					=	minishell
-NAME_BONUS				=	
+NAME_BONUS				=
 
 GCC						=	gcc -Wall -Wextra -Werror -g
 INCLUDES				=	-I$(HEADERS_DIRECTORY)
 INCLUDES_BONUS			=	-I$(HEADERS_DIRECTORY)
 
 HEADERS_LIST			=	minishell.h
-HEADERS_BONUS_LIST		=	
+HEADERS_BONUS_LIST		=
 HEADERS_DIRECTORY		= 	./includes/
 HEADERS_DIRECTORY_BONUS	=	./includes/
 HEADERS					=	$(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
@@ -16,7 +16,7 @@ SOURCES_LIST			=	minishell.c	\
 							echo.c	pwd.c	exit.c	env.c	export.c\
 							utils.c
 SOURCES_DIRECTORY		=	./sources/builtins/
-SOURCES_LIST_BONUS		=	
+SOURCES_LIST_BONUS		=
 SOURCES_DIRECTORY_BONUS	=	./bonus/
 SOURCES					=	$(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 SOURCES_BONUS			=	$(addprefix $(SOURCES_DIRECTORY_BONUS), $(SOURCES_LIST_BONUS))
@@ -83,7 +83,7 @@ fclean					:	clean
 							@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
 							@rm -f $(NAME_BONUS)
 							@echo "$(NAME_BONUS): $(RED)$(NAME_BONUS) was deleted$(RESET)"
-	
+
 re						:	fclean all
 
 norm					:
