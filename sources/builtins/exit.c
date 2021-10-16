@@ -50,7 +50,7 @@ static int	check_exit(char *line)
 	return (1);
 }
 
-int	cmd_exit(char *line, t_deque **env_ms)
+int	cmd_exit(char *line, t_list **env_ms)
 {
 	(void)env_ms;
 

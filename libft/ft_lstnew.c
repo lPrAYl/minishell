@@ -6,13 +6,13 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 11:43:47 by yfu               #+#    #+#             */
-/*   Updated: 2021/10/15 22:42:24 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/16 15:35:28 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(t_env *content)
 {
 	t_list	*nw;
 

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	cmd_echo(char *line, t_deque **env_ms)
+int	cmd_echo(char *line, t_list **env_ms)
 {
 	int		i;
 	int		n_option;
@@ -24,7 +24,6 @@ int	cmd_echo(char *line, t_deque **env_ms)
 			ft_putstr_fd(argv[i], 1);
 			if (argv[i + 1] && ft_strlen(argv[i + 1]))
 				write(1, " ", 1);
-			printf("sdf\n");
 		}
 		i++;
 	}

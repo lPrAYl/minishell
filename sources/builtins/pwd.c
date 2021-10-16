@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	cmd_pwd(char *ignore, t_deque **env_ms)
+int	cmd_pwd(char *ignore, t_list **env_ms)
 {
 	(void)ignore;
 	(void)env_ms;

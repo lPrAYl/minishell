@@ -1,8 +1,9 @@
 #include "minishell.h"
 
-int	cmd_env(char *line, t_deque **env_ms)
+int	cmd_env(char *line, t_list **env_ms)
 {
-	(void)env_ms;
+	t_list	*tmp;
+
 	if (*line)
 	{
 		ft_putstr_fd("env: '", 1);
@@ -10,10 +11,12 @@ int	cmd_env(char *line, t_deque **env_ms)
 		ft_putendl_fd("': No such file or directory", 1);
 		return (127);
 	}
-	while ((*env_ms)->head)
+	tmp = *env_ms;
+	while (tmp)
 	{
-		printf("%s=%s\n", (*env_ms)->head->data->key, (*env_ms)->head->data->value);
-		(*env_ms)->head = (*env_ms)->head->next;
+		if (ft_strchr(tmp->data->line, '='))
+			printf("%s\n", tmp->data->line);
+		tmp = tmp->next;
 	}
 	return (0);
 }

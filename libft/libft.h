@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 11:22:42 by yfu               #+#    #+#             */
-/*   Updated: 2021/10/16 00:44:21 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/16 19:26:03 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_env
 {
 	char	*key;
 	char 	*value;
+	char	*line;
+	int		is_sort;
 }			t_env;
 
 typedef struct s_list
@@ -102,7 +104,7 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
-t_list			*ft_lstnew(void *val);
+t_list			*ft_lstnew(t_env *val);
 int				ft_lstadd_front(t_list **lst, t_list *new);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
