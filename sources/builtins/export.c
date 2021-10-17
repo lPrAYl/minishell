@@ -3,6 +3,8 @@
 int	cmd_export(char *line, t_list **env_ms)
 {
 	int		i;
+	int		j;
+	char	**argv;
 	t_list	**env_copy;
 	t_list	*tmp;
 	t_env	*bubble;
@@ -18,7 +20,7 @@ int	cmd_export(char *line, t_list **env_ms)
 	{
 		tmp = *env_copy;
 		while (tmp)
-		{	
+		{
 			if (!tmp->next || tmp->next->data->is_sort == 1)
 				tmp->data->is_sort = 1;
 			else if (ft_strcmp(tmp->data->key, tmp->next->data->key) > 0)
@@ -32,22 +34,42 @@ int	cmd_export(char *line, t_list **env_ms)
 	}
 	if (*line)
 	{
+		argv = ft_split(line, ' ');
 		i = 0;
-		while (line[i] != '=' && line[i])
+		while (argv[i])
+		{
+			j = 0;
+			while (argv[i][j] != '=' && argv[i][j])
+				j++;
+			bubble->key = ft_substr(argv[i], 0, j);
+			bubble->value = ft_substr(argv[i], j + 1, -1);
+			bubble->line = ft_strdup(argv[i]);
+			printf("%s\n", bubble->key);
+			ft_lstadd_back(env_copy, ft_lstnew(bubble));
+			tmp = *env_copy;
+			while (tmp)
+			{
+				if (!ft_strchr(tmp->data->line, '='))
+					printf("%s\n", tmp->data->key);
+				tmp = tmp->next;
+			}
+			printf("suka\n");
 			i++;
-		bubble->key = ft_substr(line, 0, i);
-		bubble->value = ft_substr(line, i + 1, -1);
-		bubble->line = ft_strdup(line);
-		ft_lstadd_back(env_copy, ft_lstnew(bubble));
+		}
 	}
 	tmp = *env_copy;
 	// printf("%s\n", tmp->data->line);
-	while (tmp)
-	{
-		tmp->data->is_sort = 0;
-		if (!*line)
-			printf("declare -x %s\n", (tmp)->data->line);
-		(tmp) = (tmp)->next;
-	}
+	// while (tmp)
+	// {
+	// 	tmp->data->is_sort = 0;
+	// 	if (!*line)
+	// 	{
+	// 		if (ft_strchr(tmp->data->line, '='))
+	// 			printf("declare -x %s=\"%s\"\n", tmp->data->key, tmp->data->value);
+	// 		else
+	// 			printf("declare -x %s\n", tmp->data->key);
+	// 	}
+	// 	tmp = tmp->next;
+	// }
 	return (0);
 }

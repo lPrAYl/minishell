@@ -15,7 +15,7 @@ int	cmd_env(char *line, t_list **env_ms)
 	while (tmp)
 	{
 		if (ft_strchr(tmp->data->line, '='))
-			printf("%s\n", tmp->data->line);
+			printf("%s=%s\n", tmp->data->key, tmp->data->value);
 		tmp = tmp->next;
 	}
 	return (0);
