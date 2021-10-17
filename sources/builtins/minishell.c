@@ -1,12 +1,7 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 /*	The names of functions that actually do the manipulation. */
 int	cmd_cd()
-{
-	return (0);
-}
-
-int	cmd_unset()
 {
 	return (0);
 }

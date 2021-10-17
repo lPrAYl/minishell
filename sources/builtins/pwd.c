@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	cmd_pwd(char *ignore, t_list **env_ms)
 {

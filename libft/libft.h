@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 11:22:42 by yfu               #+#    #+#             */
-/*   Updated: 2021/10/16 19:26:03 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/17 21:32:42 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int				ft_lstadd_back(t_list **lst, t_list *new);
 void			ft_lstdelone(t_list **head, t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
-t_list			*ft_lstfind(t_list *head, void	*target);
+t_list			*ft_lstfind(t_list *head, t_env *target);
 t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));
 int				ft_min(int a, int b);
 int				ft_max(int a, int b);

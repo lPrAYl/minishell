@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	cmd_env(char *line, t_list **env_ms)
 {
