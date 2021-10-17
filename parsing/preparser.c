@@ -18,6 +18,7 @@ char	*preparser(char *line)
 		if (line['\''])
 			i = searchnext(line, ++i, '\'');
 
+
 	}
 
 	return (line);
