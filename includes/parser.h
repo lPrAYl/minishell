@@ -15,6 +15,7 @@
 
 /*	builtins	*/
 char	*preparser(char *line);
+char	*outputError(char *str, char *line, int exit_status);
 
 int	cmd_echo(char *line);
 int	cmd_pwd(char *line);
