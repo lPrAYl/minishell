@@ -7,6 +7,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
+# include <string.h>
+# include <fcntl.h>
+# include <errno.h>
+
 # include "../libft/libft.h"
 
 # define true		1

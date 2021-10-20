@@ -6,6 +6,7 @@ char	*outputError(char *str, char *line, int exit_status)
 	printf(" %s\n", str);
 	if (line)
 		free(line);
-	g_exit_status.curr = exit_status;
+	//g_exit_status.curr = exit_status;
+	exit(EXIT_FAILURE);
 	return (NULL);
 }

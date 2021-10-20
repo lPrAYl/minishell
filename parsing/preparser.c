@@ -12,12 +12,17 @@ static int		searchPipe(char *line, int i)
 	int	j;
 	int	k;
 
-	j = 0;
+	j = i;
+	//printf("iii= %d\n", i);
 	while (line[j])
 		j++;
+	//printf("line[k]= %c", line[k]);
 	k = i++;
-	while (line[k] == ' ' && line[k] != '\0')
+	while (line[k] != ' ' && line[k] != '\0')
+	{
+		//printf("k==== %d line[k]= %c\n", k, line[k]);
 		k++;
+	}
 	if (line[k] == '|' || line[k] == '\0' || i == 0)
 		return (j);
 	return (i);
@@ -62,7 +67,7 @@ static char	*deleteSpace(char *line)
 	{
 		while (line[i] != '\0' && (line[i] == ' ' && line[i + 1] == ' '))
 			i++;
-		str[++j] = line(i);
+		str[++j] = line[i];
 		i++;
 	}
 	free(line);
@@ -79,6 +84,7 @@ char	*preparser(char *line)
 	char	*tmpline;
 
 	i = 0;
+	//printf("line= %s\n", line);
 	while (line[i])
 	{
 		if (line[i] == '\'')
@@ -89,10 +95,16 @@ char	*preparser(char *line)
 			i = searchPipe(line, i);
 		if (line[i] == '<' || line[i] == '>')
 			i = searchRed(line, i);
+		if (line[i] == ';')
+			return (outputError("syntax error1", line, 258));
 		if (line[i] == '\0')
-			return (outputError("syntax error", line, 258));
+			return (outputError("syntax error2", line, 258));
+//		printf("i= %d line[i]= %c ", i, line[i]);
+//		if (i == 10)
+//			printf("\n");
 		i++;
 	}
+	//while(1);
 	tmpline = line;
 	line = deleteSpace(line);
 	if (line)

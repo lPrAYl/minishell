@@ -39,7 +39,9 @@ char	*ft_gap(char *str, int *i)
 		tmp2 = ft_substr(str, j + 1, *i - j - 1);
 		tmp3 = ft_strdup(str + *i + 1);
 		tmp = ft_strjoin(tmp, tmp2);
+		free(tmp2);
 		tmp = ft_strjoin(tmp, tmp3);
+		free(tmp3);
 		printf("tmp = %s\n", tmp);
 		free(str);
 		return (tmp);
@@ -110,8 +112,19 @@ char	*ft_dollar(char *str, int *i, char **env)
 					break ;
 			}
 		}
-		tmp2 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
+		if (env[k] == NULL)
+			tmp2 = ft_strdup("");
+		else
+			tmp2 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
+		//printf("env[k]= %s", env[k]);
+		tmp3 = ft_substr(str, 0, j);
+		tmp3 = ft_strjoin(tmp3, tmp2);
+		tmp3 = ft_strjoin(tmp3, ft_substr(str, *i, ft_strlen(str)));
+		free(str);
+		str = tmp3;
 		printf("tmp2 = %s\n", tmp2);
+		printf("tmp  = %s\n", tmp);
+		printf("tmp3 = %s\n", tmp3);
 		return (str);
 }
 
@@ -140,7 +153,8 @@ int	main(int argc, char **argv, char **env)
 	int	i;
 
 	i = -1;
-	char	*str = ft_strdup("com$USER ma'n'daaa'fsdfsf'");
-	preparser(str);
+	//char	*str = ft_strdup("com $USERR m$ sd a'n'daaa'fsdfsf'");
+	char	*str = ft_strdup(argv[1]);
+	str = preparser(str);
 	parser(str, env);
 }
