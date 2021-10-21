@@ -128,10 +128,11 @@ char	*ft_dollar(char *str, int *i, char **env)
 		return (str);
 }
 
-void	parser(char *str, char **env)
+t_token *parser(char *str, char **env)
 {
 	//	"", '', \, $, ;, |, >, >>, <, ' '
-	int	i;
+	int		i;
+	t_token	*token;
 
 	i = -1;
 	while (str[++i])
@@ -144,17 +145,12 @@ void	parser(char *str, char **env)
 			str = ft_gap2(str, &i, env);
 		if (str[i] == '$')
 			str = ft_dollar(str, &i, env);
+		if (str[i] == '|' || str[i + 1] == '\0' )
+		{
+			//str = ft_strdup(str, 0, (i - 1));
+			token = ft_token(str, &i, env);
+		}
 	}
 	printf("\nstr = %s\n", str);
-}
-
-int	main(int argc, char **argv, char **env)
-{
-	int	i;
-
-	i = -1;
-	//char	*str = ft_strdup("com $USERR m$ sd a'n'daaa'fsdfsf'");
-	char	*str = ft_strdup(argv[1]);
-	str = preparser(str);
-	parser(str, env);
+	return (token);
 }
