@@ -11,35 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0f9c8b4-6d60-4eba-8c56-1c074d2d75ec" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/minishell.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libft/ft_lstfind.c" beforeDir="false" afterPath="$PROJECT_DIR$/libft/ft_lstfind.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libft/libft.a" beforeDir="false" afterPath="$PROJECT_DIR$/libft/libft.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libft/libft.h" beforeDir="false" afterPath="$PROJECT_DIR$/libft/libft.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libft/printf/libftprintf.a" beforeDir="false" afterPath="$PROJECT_DIR$/libft/printf/libftprintf.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/builtins/echo.c" beforeDir="false" afterPath="$PROJECT_DIR$/sources/builtins/echo.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/builtins/env.c" beforeDir="false" afterPath="$PROJECT_DIR$/sources/builtins/env.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/builtins/exit.c" beforeDir="false" afterPath="$PROJECT_DIR$/sources/builtins/exit.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/builtins/export.c" beforeDir="false" afterPath="$PROJECT_DIR$/sources/builtins/export.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/builtins/minishell.c" beforeDir="false" afterPath="$PROJECT_DIR$/sources/builtins/minishell.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/builtins/pwd.c" beforeDir="false" afterPath="$PROJECT_DIR$/sources/builtins/pwd.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/builtins/utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/sources/builtins/utils.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/objects/echo.o" beforeDir="false" afterPath="$PROJECT_DIR$/sources/objects/echo.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/objects/env.o" beforeDir="false" afterPath="$PROJECT_DIR$/sources/objects/env.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/objects/exit.o" beforeDir="false" afterPath="$PROJECT_DIR$/sources/objects/exit.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/objects/export.o" beforeDir="false" afterPath="$PROJECT_DIR$/sources/objects/export.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/objects/minishell.o" beforeDir="false" afterPath="$PROJECT_DIR$/sources/objects/minishell.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/objects/pwd.o" beforeDir="false" afterPath="$PROJECT_DIR$/sources/objects/pwd.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/objects/utils.o" beforeDir="false" afterPath="$PROJECT_DIR$/sources/objects/utils.o" afterDir="false" />
-    </list>
+    <list default="true" id="b0f9c8b4-6d60-4eba-8c56-1c074d2d75ec" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,7 +20,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -74,11 +45,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -91,6 +57,7 @@
       <workItem from="1634477411024" duration="759000" />
       <workItem from="1634482290633" duration="2694000" />
       <workItem from="1634489951302" duration="4046000" />
+      <workItem from="1634885568392" duration="32000" />
     </task>
     <servers />
   </component>

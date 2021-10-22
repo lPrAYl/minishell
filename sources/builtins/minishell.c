@@ -1,11 +1,6 @@
 #include "../../includes/minishell.h"
 
 /*	The names of functions that actually do the manipulation. */
-int	cmd_cd()
-{
-	return (0);
-}
-
 typedef struct s_command
 {
 	char	*name;				/*	User printable name of the function. */
