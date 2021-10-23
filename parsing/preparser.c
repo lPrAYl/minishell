@@ -1,13 +1,13 @@
 #include "../includes/parser.h"
 
-static int	searchNext(char *line, int i, char letter)
+int	searchNext(char *line, int i, char letter)
 {
 	while (line[i] != letter && line[i] != '\0')
 		i++;
 	return (i);
 }
 
-static int		searchPipe(char *line, int i)
+int		searchPipe(char *line, int i)
 {
 	int	j;
 	int	k;
@@ -28,7 +28,7 @@ static int		searchPipe(char *line, int i)
 	return (i);
 }
 
-static int		searchRed(char *line, int i)
+int		searchRed(char *line, int i)
 {
 	int	j;
 
@@ -50,7 +50,7 @@ static int		searchRed(char *line, int i)
 	return (i);
 }
 
-static char	*deleteSpace(char *line)
+char	*deleteSpace(char *line)
 {
 	char	*str;
 	int		i;

@@ -17,8 +17,10 @@ typedef struct s_token
 {
 	char			**cmd;
 	int				redOrPipe;
+	int				fd1;
+	int				fd2;
 	struct s_token	*next;
-}			t_token;
+}				t_token;
 
 # define true		1
 # define false		0
@@ -26,9 +28,14 @@ typedef struct s_token
 
 /*	builtins	*/
 char	*preparser(char *line);
-t_token *parser(char *line, char **env);
+char	*ft_dollar(char *str, int *i, char **env);
+char	*deleteSpace(char *line);
+int		searchRed(char *line, int i);
+int		searchPipe(char *line, int i);
+int		searchNext(char *line, int i, char letter);
+t_token *parser_str(char *line, char **env);
 char	*outputError(char *str, char *line, int exit_status);
-t_token	*ft_token(char *str, int *i, char **env);
+char	*ft_token(t_token **token, char *str, int *i, char **env);
 
 int	cmd_echo(char *line);
 int	cmd_pwd(char *line);

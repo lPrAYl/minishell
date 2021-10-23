@@ -10,4 +10,6 @@ int	main(int argc, char **argv, char **env)
 	char	*str = ft_strdup(argv[1]);
 	str = preparser(str);
 	token = parser(str, env);
+
+
 }
