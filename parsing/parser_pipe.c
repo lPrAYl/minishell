@@ -1,23 +1,16 @@
 #include "../includes/parser.h"
 
-t_token	*parserPipe(char *line, int i)
+int	parserPipe(t_token **token, t_parser *pr)
 {
-	int	j;
-	int	k;
+	char	*tmp;
+	char	*tmp2;
 
-	j = i;
-	//printf("iii= %d\n", i);
-	while (line[j])
-		j++;
-	//printf("line[k]= %c", line[k]);
-	k = i++;
-	while (line[k] != ' ' && line[k] != '\0')
-	{
-		//printf("k==== %d line[k]= %c\n", k, line[k]);
-		k++;
-	}
-	if (line[k] == '|' || line[k] == '\0' || i == 0)
-		return (j);
-	return (i);
+	tmp = ft_substr(pr->line, pr->k, pr->i - 1);
+	printf("tmpParserPipe = %s pr.k= %d pr.i= %d \n", tmp, pr->k, pr->i);
+	ft_token(token, parser_str(tmp,pr->env), pr);
+
+	//tmp2 = ft_substr(line, i + 1, ft_strlen(line));
+	//free(line);
+	return (pr->i++);
 }
 

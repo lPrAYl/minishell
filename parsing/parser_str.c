@@ -160,6 +160,6 @@ char	*parser_str(char *str, char **env)
 //			}
 //		}
 	}
-	//printf("\nstr = %s\n", str);
+	printf("\nstr = %s\n", str);
 	return (str);
 }

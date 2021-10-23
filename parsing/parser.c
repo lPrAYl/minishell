@@ -1,31 +1,37 @@
 #include "../includes/parser.h"
 
-t_token	*parser(char *line, char **env)
+void	parser(t_token **token, t_parser *pr)
 {
-	int		i;
+	//int		i;
+	//int		k;
 	char	*tmpline;
-	t_token *token;
+	//t_token *token;
 
-	i = 0;
+	pr->i = 0;
+	pr->k = 0;
 	//printf("line= %s\n", line);
-	while (line[i])
+	while (pr->line[pr->i])
 	{
-		if (line[i] == '\'')
-			i = searchNext(line, ++i, '\'');
-		if (line[i] == '"')
-			i = searchNext(line, ++i, '"');
-		if (line[i] == '|')
-			token = parserPipe(line, i);
-		//		if (line[i] == '<' || line[i] == '>')
+		if (pr->line[pr->i] == '\'')
+			pr->i = searchNext(pr->line, ++pr->i, '\'');
+		if (pr->line[pr->i] == '"')
+			pr->i = searchNext(pr->line, ++pr->i, '"');
+		if (pr->line[pr->i] == '|' || pr->line[pr->i] == '\0')
+		{
+			pr->i = parserPipe(token, pr);
+			pr->k = pr->i;
+			pr->k++;
+		}
+		//		if (pr.line[i] == '<' || pr.line[i] == '>')
 		//			i = searchRed(line, i);
-		//		if (line[i] == ';')
+		//		if (pr.line[i] == ';')
 		//			return (outputError("syntax error1", line, 258));
-		//		if (line[i] == '\0')
+		//		if (pr.line[i] == '\0')
 		//			return (outputError("syntax error2", line, 258));
-		//		printf("i= %d line[i]= %c ", i, line[i]);
+		//		printf("i= %d pr.line[i]= %c ", i, pr.line[i]);
 		//		if (i == 10)
 		//			printf("\n");
-		i++;
+		pr->i++;
 	}
 	//while(1);
 	//	tmpline = line;
@@ -34,5 +40,5 @@ t_token	*parser(char *line, char **env)
 	//		return (line);
 	//	else
 	//		return (outputError("error malloc", tmpline, 42));
-	return (token);
+	//return (&token);
 }

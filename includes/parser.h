@@ -22,6 +22,15 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
+typedef struct s_parser
+{
+	char	*line;
+	char	**env;
+	int		i;
+	int		k;
+	int		j;
+}			t_parser;
+
 # define true		1
 # define false		0
 # define BUILTINS	"echo:cd:pwd:export:unset:env:exit"
@@ -33,9 +42,14 @@ char	*deleteSpace(char *line);
 int		searchRed(char *line, int i);
 int		searchPipe(char *line, int i);
 int		searchNext(char *line, int i, char letter);
-t_token *parser_str(char *line, char **env);
+char	*parser_str(char *line, char **env);
 char	*outputError(char *str, char *line, int exit_status);
-char	*ft_token(t_token **token, char *str, int *i, char **env);
+int		parserPipe(t_token **token, t_parser *pr);
+void	createToken(t_token **token, char *str, int redOrPipe);
+void	*free_token(t_token **t);
+void	ft_token(t_token **token, char *str, t_parser *pr);
+
+void	parser(t_token **token, t_parser *pr);
 
 int	cmd_echo(char *line);
 int	cmd_pwd(char *line);
