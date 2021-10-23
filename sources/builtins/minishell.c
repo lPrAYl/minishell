@@ -89,7 +89,7 @@ void	init_start_struct(t_list **env_ms, char **env)
 	int		i;
 	int		j;
 	t_env	*field;
-
+	
 	i = 0;
 	while (env[i])
 	{

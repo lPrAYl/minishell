@@ -24,8 +24,8 @@ int	cmd_echo(char *line, t_list **env_ms)
 			ft_putstr_fd(argv[i], 1);
 			if (argv[i + 1] && ft_strlen(argv[i + 1]))
 				write(1, " ", 1);
+			i++;
 		}
-		i++;
 	}
 	if (n_option)
 		write(1, "\n", 1);

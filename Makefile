@@ -38,7 +38,7 @@ RESET					=	\033[0m
 
 all						:	$(NAME) $(LIBFT)
 
-$(LIBFT)				:	./libft/
+$(LIBFT)				:	./libft/*.c ./libft/*.h
 							@$(MAKE) -C ./libft/
 							@$(MAKE) clean -C ./libft
 

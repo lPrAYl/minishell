@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 11:43:47 by yfu               #+#    #+#             */
-/*   Updated: 2021/10/16 15:35:28 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/23 22:48:40 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ t_list	*ft_lstnew(t_env *content)
 	}
 	nw->data = content;
 	nw->next = NULL;
+	// free(content->key);
+	// free(content->value);
 	return (nw);
 }
