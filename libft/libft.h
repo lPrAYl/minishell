@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 11:22:42 by yfu               #+#    #+#             */
-/*   Updated: 2021/09/26 18:39:03 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/10/23 22:13:52 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,36 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include "get_next_line.h"
 # include "printf/ft_printf.h"
 
+typedef struct s_env
+{
+	char	*key;
+	char 	*value;
+	char	*line;
+	int		is_sort;
+}			t_env;
+
 typedef struct s_list
 {
-	char			*val;
+	t_env			*data;
 	struct s_list	*next;
 }				t_list;
 
-typedef struct s_double_list
+typedef struct s_node
 {
-	void					*val;
-	struct s_double_list	*next;
-	struct s_double_list	*last;
-}				t_double_list;
+	t_env			*data;
+	struct s_node	*next;
+	struct s_node	*prev;
+}				t_node;
 
 typedef struct s_deque
 {
-	struct s_double_list	*head;
-	struct s_double_list	*tail;
-	int						size;
+	struct s_node	*head;
+	struct s_node	*tail;
+	size_t			size;
 }				t_deque;
 
 typedef enum e_memory
@@ -49,11 +58,11 @@ int				ft_abs(int numb);
 void			ft_error(char *s);
 void			ft_sort(int *head, int *tail, int (*cmp)(int, int));
 void			deque_clear(t_deque *deque, void (*f)(void*));
-t_double_list	*double_list_init(void *ptr);
+t_node			*double_list_init(void *ptr);
 void			deque_push_back(t_deque *deque, void *ptr);
 void			deque_push_front(t_deque *deque, void *ptr);
 void			deque_pop_back(t_deque *deque, void (*f)(void*));
-void			deque_pop_front(t_deque *deque, void (*f)(void*));
+t_node			*deque_pop_front(t_deque *deque, void (*f)(void*));
 t_deque			*deque_init(void);
 void			*ft_malloc(size_t elem_cnt, size_t elem_size);
 void			ft_free(void *del);
@@ -72,7 +81,7 @@ char			*ft_strrchr(const char *string, int searchedchar);
 char			*ft_strnstr(const char *s1, const char *s2, size_t len);
 int				ft_strncmp(const char *f, const char *s, size_t len);
 int				ft_strcmp(const char *s1, const char *s2);
-int				ft_atoi(char *str);
+long long int	ft_atoi(char *str);
 int				ft_isalpha(int character);
 int				ft_isdigit(int character);
 int				ft_isalnum(int character);
@@ -95,7 +104,7 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
-t_list			*ft_lstnew(void *val);
+t_list			*ft_lstnew(t_env *val);
 int				ft_lstadd_front(t_list **lst, t_list *new);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
@@ -103,7 +112,7 @@ int				ft_lstadd_back(t_list **lst, t_list *new);
 void			ft_lstdelone(t_list **head, t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
-t_list			*ft_lstfind(t_list *head, void	*target);
+t_list			*ft_lstfind(t_list *head, t_env *target);
 t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));
 int				ft_min(int a, int b);
 int				ft_max(int a, int b);

@@ -1,54 +1,63 @@
 #include "../../includes/minishell.h"
 
-int	cmd_pwd(char *ignore, int i)
+int	cmd_cd(char *line, t_list **env_ms)
 {
-	(void)ignore;
-	(void)i;
-	char	dir[1024];
-	char	*s;
+	(void)env_ms;
+	t_list	*tmp;
+	char	*pwd;
+	char	*old_pwd;
 
-	s = getwd(dir);
-	if (s == 0)
+	pwd = ft_calloc(4096, 1);
+	if (!getcwd(pwd, 4096))
 	{
-		printf("Error getting pwd: %s\n", dir);
+		print_errno();
+		free(pwd);
 		return (1);
 	}
-	printf ("Current directory is %s\n", dir);
+	if (ft_strlen(line) == 1)
+	{
+		if (*line == '-')
+		{
+			tmp = *env_ms;
+			while (tmp)
+			{
+				if (!ft_strcmp(tmp->data->key, "OLDPWD"))
+					break;
+				tmp = tmp->next;
+			}
+			if (tmp)
+			{
+				ft_putendl_fd(tmp->data->value, 1);
+				line = ft_strdup(tmp->data->value);
+			}
+			else
+			{
+				ft_putendl_fd("minishell: cd: OLDPWD not set", 1);
+				line = ft_strdup(pwd);
+			}
+		}
+		if (*line == '~')
+		{
+			tmp = *env_ms;
+			while (tmp)
+			{
+				if (!ft_strcmp(tmp->data->key, "HOME"))
+					break;
+				tmp = tmp->next;
+			}
+			if (tmp)
+				line = ft_strdup(tmp->data->value);
+			else
+				line = ft_strdup("/Users/gtyene");
+		}
+	}
+	if (chdir(line) == -1)
+	{
+		ft_putstr_fd("minishell: cd: ", 1);
+		perror(line);
+		return (1);
+	}
+	old_pwd = ft_strjoin("OLDPWD=", pwd);
+	cmd_export(old_pwd, env_ms);
 	return (0);
 }
-
-int	count_of_word(char **argv)
-{
-	int	count;
-
-	count = 0;
-	while (argv[count])
-		count++;
-	return (count);
-}
-
-int	cmd_cd(char *line, int i)
-{
-	(void)i;
-	if (count_of_word(argv) > 2)
-	{
-		ft_putstr_fd("minishell: cd: to many arguments\n", 2);
-		return (1);
-	}
-	if (chdir(argv[1]) == -1)
-	{
-		perror(argv[1]);
-		return (1);
-	}
-	cmd_pwd("", 0);
-	return (0);
-}
-
-
-// int	main(int argc, char **argv)
-// {
-// 	(void)argc;
-
-// 	cmd_cd(argv);
-// 	return (0);
-// }

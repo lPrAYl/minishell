@@ -1,22 +1,22 @@
 NAME					=	minishell
-NAME_BONUS				=	
+NAME_BONUS				=
 
-GCC						=	gcc -Wall -Wextra -Werror -g -O2
+GCC						=	gcc -Wall -Wextra -Werror -g
 INCLUDES				=	-I$(HEADERS_DIRECTORY)
 INCLUDES_BONUS			=	-I$(HEADERS_DIRECTORY)
 
 HEADERS_LIST			=	minishell.h
-HEADERS_BONUS_LIST		=	
+HEADERS_BONUS_LIST		=
 HEADERS_DIRECTORY		= 	./includes/
 HEADERS_DIRECTORY_BONUS	=	./includes/
 HEADERS					=	$(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 HEADERS_BONUS			=	$(addprefix $(HEADERS_DIRECTORY_BONUS), $(HEADERS_BONUS_LIST))
 
 SOURCES_LIST			=	minishell.c	\
-							echo.c	pwd.c	\
+							echo.c	pwd.c	exit.c	env.c	export.c	unset.c	cd.c\
 							utils.c
 SOURCES_DIRECTORY		=	./sources/builtins/
-SOURCES_LIST_BONUS		=	
+SOURCES_LIST_BONUS		=
 SOURCES_DIRECTORY_BONUS	=	./bonus/
 SOURCES					=	$(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 SOURCES_BONUS			=	$(addprefix $(SOURCES_DIRECTORY_BONUS), $(SOURCES_LIST_BONUS))
@@ -36,10 +36,11 @@ GREEN					=	\033[0;32m
 RED						=	\033[0;31m
 RESET					=	\033[0m
 
-$(LIBFT)				:
-							@$(MAKE) -C ./libft/
+all						:	$(NAME) $(LIBFT)
 
-all						:	$(NAME)
+$(LIBFT)				:	./libft/*.c ./libft/*.h
+							@$(MAKE) -C ./libft/
+							@$(MAKE) clean -C ./libft
 
 $(NAME)					:	$(OBJECTS_DIRECTORY) $(OBJECTS) $(HEADER) $(LIBFT)
 							@$(GCC) $(INCLUDES) $(OBJECTS) $(LIBFTFLAGS) -lreadline -o $(NAME)
@@ -82,7 +83,7 @@ fclean					:	clean
 							@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
 							@rm -f $(NAME_BONUS)
 							@echo "$(NAME_BONUS): $(RED)$(NAME_BONUS) was deleted$(RESET)"
-	
+
 re						:	fclean all
 
 norm					:

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 13:24:57 by yfu               #+#    #+#             */
-/*   Updated: 2021/05/04 19:50:52 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/10/23 19:30:20 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(char *str)
+long long int	ft_atoi(char *str)
 {
 	long long int	ct[3];
 

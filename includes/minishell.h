@@ -21,11 +21,18 @@
 
 /*	builtins	*/
 
-int	cmd_echo(char *line);
-int	cmd_pwd(char *line);
+int		cmd_echo(char *line, t_list **env_ms);
+int		cmd_pwd(char *line,t_list **env_ms);
+int		cmd_exit(char *line, t_list **env_ms);
+int 	cmd_env(char *line, t_list **env_ms);
+int		cmd_export(char *line, t_list **env_ms);
+int		cmd_unset(char *line, t_list **env_ms);
+int		cmd_cd(char *line, t_list **env_ms);
 
 /*	utils	*/
 
-int	print_errno(void);
+int		print_errno(void);
+void	free_array(char **argv);
+void	free_list(t_list **list);
 
 #endif

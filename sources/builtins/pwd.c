@@ -1,15 +1,15 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-int	cmd_pwd(char *ignore)
+int	cmd_pwd(char *ignore, t_list **env_ms)
 {
 	(void)ignore;
+	(void)env_ms;
 	char	*pwd;
 
 	pwd = ft_calloc(4096, 1);
 	if (getcwd(pwd, 4096))
 	{
 		ft_putendl_fd(pwd, 1);
-		printf("%s\n", pwd);
 		free (pwd);
 		return (0);
 	}
