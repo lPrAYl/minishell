@@ -53,6 +53,8 @@ int		searchRed(char *line, int i)
 char	*deleteSpace(char *line)
 {
 	char	*str;
+	char	*tmp;
+	char	*tmp2;
 	int		i;
 	int		j;
 
@@ -61,6 +63,17 @@ char	*deleteSpace(char *line)
 	str = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (!str)
 		return (str);
+//	while (line[i] != '\0')
+//	{
+//		if (line[i] != ' ' && line[i + 1] != ' ')
+//			str[j] = line[i];
+//		else
+//			str[j] = ' ';
+//		i++;
+//		j++;
+//	}
+//	str[j] = '\0';
+//	free(line);
 	while (line[i] == ' ' && line[i] != '\0')
 		i++;
 	while (line[i])
@@ -70,7 +83,8 @@ char	*deleteSpace(char *line)
 		str[++j] = line[i];
 		i++;
 	}
-	free(line);
+	if (line)
+		free(line);
 	if (str[j] == ' ')
 		str[j] = '\0';
 	else
@@ -106,7 +120,7 @@ char	*preparser(char *line)
 	}
 	//while(1);
 	tmpline = line;
-//	line = deleteSpace(line);
+	line = deleteSpace(line);
 	if (line)
 		return (line);
 	else

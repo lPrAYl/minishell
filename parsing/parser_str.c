@@ -100,13 +100,13 @@ char	*ft_dollar(char *str, int *i, char **env)
 		k = -1;
 		while (env[++k])
 		{
-			if (strstr(env[k], tmp))
+			if (ft_strnstr(env[k], tmp, ft_strlen(env[k])))
 			{
 				n = 0;
 				while (env[k][n] != '=' && env[k][n])
 					n++;
 				tmp2 = ft_substr(env[k], 0, n);
-				if (strcmp(tmp, tmp2) == 0)
+				if (ft_strncmp(tmp, tmp2, ft_strlen(tmp2)) == 0)
 					break ;
 			}
 		}
@@ -160,6 +160,6 @@ char	*parser_str(char *str, char **env)
 //			}
 //		}
 	}
-	printf("\nstr = %s\n", str);
+	//printf("\nstr = %s\n", str);
 	return (str);
 }

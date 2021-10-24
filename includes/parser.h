@@ -44,10 +44,11 @@ int		searchPipe(char *line, int i);
 int		searchNext(char *line, int i, char letter);
 char	*parser_str(char *line, char **env);
 char	*outputError(char *str, char *line, int exit_status);
-int		parserPipe(t_token **token, t_parser *pr);
+int		parserToken(t_token **token, t_parser *pr, int pp);
 void	createToken(t_token **token, char *str, int redOrPipe);
 void	*free_token(t_token **t);
-void	ft_token(t_token **token, char *str, t_parser *pr);
+void	ft_token(t_token **token, char *str, t_parser *pr, int pp);
+char	*changeSpace(char *str);
 
 void	parser(t_token **token, t_parser *pr);
 

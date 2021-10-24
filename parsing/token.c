@@ -31,11 +31,11 @@ void	createToken(t_token **token, char *str, int redOrPipe)
 		outputError("error create new token", NULL, 258);
 		return ;
 	}
-	new->cmd = ft_split(str, ' ');
+	new->cmd = ft_split(str, ';');
 	//new->cmd = str;
-	printf("new->cmd0= %s\n", new->cmd[0]);
-	printf("new->cmd1= %s\n", new->cmd[1]);
-	printf("new->cmd2= %s\n", new->cmd[2]);
+//	printf("new->cmd0= %s\n", new->cmd[0]);
+//	printf("new->cmd1= %s\n", new->cmd[1]);
+//	printf("new->cmd2= %s\n", new->cmd[2]);
 	new->redOrPipe = redOrPipe;
 	new->next = NULL;
 	ptr = *token;
@@ -47,12 +47,12 @@ void	createToken(t_token **token, char *str, int redOrPipe)
 		{
 			//write(1, "stop\n", 5);
 			ptr = ptr->next;
-			printf("ptr->next21= %p\n", ptr->next);
+//			printf("ptr->next21= %p\n", ptr->next);
 //			if (++i == 4)
 //				break ;
 		}
 		if (ptr)
-			printf("ptr-cmd11= %s\n", ptr->cmd[0]);
+//			printf("ptr-cmd11= %s\n", ptr->cmd[0]);
 		ptr->next = new;
 		//ptr->next->next = NULL;
 	}
@@ -67,20 +67,20 @@ void	createToken(t_token **token, char *str, int redOrPipe)
 	//printf("");
 }
 
-void	ft_token(t_token **token, char *str, t_parser *pr)
+void	ft_token(t_token **token, char *str, t_parser *pr, int pp)
 {
 	int		k;
 	char	*tmp;
 	char	*tmp2;
 
 	tmp = str;
-	write(1, tmp, ft_strlen(str));
-	write(1, "\n", 1);
-	printf("substr= %s\n", tmp);
+//	write(1, tmp, ft_strlen(str));
+//	write(1, "\n", 1);
+//	printf("substr= %s\n", tmp);
 	//tmp2 = ft_substr(str, k + 1 , ft_strlen(str));
 	//printf("ft_token tmp2= %s\n", tmp2);
 	//free(str);
-	createToken(token, tmp, 1); // 1 - pipe, 20 - < , 21 - > , 22 - >>
+	createToken(token, tmp, pp); // 1 - pipe, 20 - < , 21 - > , 22 - >>
 	free(tmp);
 
 
