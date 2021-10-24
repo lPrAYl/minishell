@@ -1,7 +1,6 @@
 #include "../../includes/minishell.h"
 
-
-static void	ft_lstdelone_2(t_list **head, t_list *lst, void (*del)(void *))
+static void	ft_lstdelone_2(t_list **head, t_list *lst)
 {
 	t_list	*temp;
 
@@ -21,8 +20,9 @@ static void	ft_lstdelone_2(t_list **head, t_list *lst, void (*del)(void *))
 		}
 		temp->next = lst->next;
 	}
-	if (del)
-		del(lst->data);
+	free(lst->data->key);
+	free(lst->data->value);
+	free(lst->data);
 	free(lst);
 }
 
@@ -41,12 +41,13 @@ int	cmd_unset(char *line, t_list **env_ms)
 		{
 			if (!ft_strcmp(argv[i], tmp->data->key))
 			{
-				ft_lstdelone_2(env_ms, tmp, NULL);
+				ft_lstdelone_2(env_ms, tmp);
 				break;
 			}
 			tmp = tmp->next;
 		}
 		i++;
 	}
+	free_array(argv);
 	return (0);
 }

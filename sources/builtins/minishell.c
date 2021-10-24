@@ -93,7 +93,7 @@ void	init_start_struct(t_list **env_ms, char **env)
 	i = 0;
 	while (env[i])
 	{
-		field = ft_calloc(1, sizeof(t_env *));
+		field = malloc(sizeof(t_env));
 		j = 0;
 		while (env[i][j] != '=')
 			j++;

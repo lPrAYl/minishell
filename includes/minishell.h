@@ -32,5 +32,7 @@ int		cmd_cd(char *line, t_list **env_ms);
 /*	utils	*/
 
 int		print_errno(void);
+void	free_array(char **argv);
+void	free_list(t_list **list);
 
 #endif

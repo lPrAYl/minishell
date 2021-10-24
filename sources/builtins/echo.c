@@ -1,5 +1,16 @@
 #include "../../includes/minishell.h"
 
+static int	set_flag_n(char **argv, int *n_option)
+{
+	int	i;
+
+	i = 0;
+	*n_option = 0;
+	while (argv[i] && ft_strcmp(argv[i], "-n") == 0)
+		i++;
+	return (i);
+}
+
 int	cmd_echo(char *line, t_list **env_ms)
 {
 	int		i;
@@ -13,12 +24,7 @@ int	cmd_echo(char *line, t_list **env_ms)
 	while (argv[i])
 	{
 		if (i == 0 && argv[i] && ft_strcmp(argv[i], "-n") == 0)
-		{
-			n_option = 0;
-			i++;
-			while (argv[i] && ft_strcmp(argv[i], "-n") == 0)
-				i++;
-		}
+			i = set_flag_n(argv, &n_option);			
 		else if (argv[i])
 		{
 			ft_putstr_fd(argv[i], 1);
@@ -29,6 +35,6 @@ int	cmd_echo(char *line, t_list **env_ms)
 	}
 	if (n_option)
 		write(1, "\n", 1);
-	free(argv);
+	free_array(argv);
 	return (0);
 }

@@ -25,43 +25,40 @@ static int	is_num(char *code)
 	return (0);
 }
 
-static void	check_exit(char *line, int *code)
+static int	check_exit(char *argv)
 {
-	int		i;
-	char	**argv;
-
-	i = 0;
-	*code = 0;
-	argv = ft_split(line, ' ');
-	while (argv[i])
-		i++;
-	if (i > 1)
-	{
-		ft_putendl_fd("minishell: exit: too many arguments", 1);
-		*code = 1;
-	}
-	else if (!is_num(argv[0]))
+	if (!is_num(argv))
 	{
 		ft_putstr_fd("minishell: exit: ", 1);
-		ft_putstr_fd(argv[0], 1);
+		ft_putstr_fd(argv, 1);
 		ft_putendl_fd(": numeric argument required", 1);
-		*code = 255;
+		free(argv);
+		return (255);
 	}
 	free(argv);
+	return (ft_atoi(argv));
 }
 
 int	cmd_exit(char *line, t_list **env_ms)
 {
 	(void)env_ms;
-	int	code;
-
+	int		i;
+	int		code;
+	char	**argv;
+	
 	// ft_putendl_fd("exit", 1);
-	if (*line)
+	if (!*line)
+		exit(0);
+	argv = ft_split(line, ' ');
+	i = 0;
+	while (argv[i])
+		i++;
+	if (i > 1 && is_num(argv[0]))
 	{
-		check_exit(line, &code);
-		if (code)
-			exit(code);
+		ft_putendl_fd("minishell: exit: too many arguments", 1);
+		free(argv);
+		return (0);
 	}
-	printf("%lld\n", ft_atoi(line) % 256);
-	exit(ft_atoi(line) % 256);
+	code = check_exit(argv[0]) % 256;
+	exit(code);
 }
