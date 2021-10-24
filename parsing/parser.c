@@ -4,7 +4,7 @@ void	parser(t_token **token, t_parser *pr)
 {
 	//int		i;
 	//int		k;
-	char	*tmpline;
+	//char	*tmpline;
 	//t_token *token;
 
 	pr->i = 0;

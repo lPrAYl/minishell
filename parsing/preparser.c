@@ -53,8 +53,8 @@ int		searchRed(char *line, int i)
 char	*deleteSpace(char *line)
 {
 	char	*str;
-	char	*tmp;
-	char	*tmp2;
+	//char	*tmp;
+	//char	*tmp2;
 	int		i;
 	int		j;
 

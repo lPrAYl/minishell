@@ -5,11 +5,12 @@ int	main(int argc, char **argv, char **env)
 	t_parser *pr;
 	t_token	*token;
 	t_token *tmp_token;
-	char	*str;
+	int ads;
 
-	//i = -1;
+	ads = argc;
 	//token = (t_token *) malloc(sizeof(t_token));
-	//str = ft_strdup('cat -e $USER | cd '$USER' |ls fg sd|echo test > 1.txt');
+	//str = ft_strdup("cat \" $USER\" | cd '$USER' |ls fg sd|echo test > 1
+	// .txt");
 	pr = (t_parser *) malloc(sizeof(t_parser));
 	pr->line = preparser(ft_strdup(argv[1]));
 	//pr->line = preparser(str);
@@ -21,8 +22,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		//write(1, "stop\n", 5);
 		printf("token->cmd0= %10s cmd1= %10s cmd2= %10s cmd3= %10s ",
-			   tmp_token->cmd[0],
-			   tmp_token->cmd[1], tmp_token->cmd[2], tmp_token->cmd[3]);
+			   tmp_token->cmd[0], tmp_token->cmd[1], tmp_token->cmd[2],
+			   tmp_token->cmd[3]);
 		printf("token->next= %p\n", tmp_token->next);
 		tmp_token = tmp_token->next;
 		//			if (++i == 4)
