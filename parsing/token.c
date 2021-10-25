@@ -32,14 +32,14 @@ void	createToken(t_token **token, char *str, int redOrPipe)
 		return ;
 	}
 	new->cmd = ft_split(str, ';');
-	//new->cmd = str;
-//	printf("new->cmd0= %s\n", new->cmd[0]);
-//	printf("new->cmd1= %s\n", new->cmd[1]);
-//	printf("new->cmd2= %s\n", new->cmd[2]);
 	new->redOrPipe = redOrPipe;
-	new->fd1 = 0;
-	new->fd2 = 1;
 	new->next = NULL;
+	ft_red(new);
+
+	printf("new->fd0= %d\n", new->fd0);
+	printf("new->fd1= %d\n", new->fd1);
+
+//	printf("new->cmd2= %s\n", new->cmd[2]);
 	ptr = *token;
 	if (!ptr)
 		*token = new;

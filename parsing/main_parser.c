@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **env)
 	while (tmp_token)
 	{
 		//write(1, "stop\n", 5);
-		printf("token->cmd0= %10s cmd1= %10s cmd2= %10s cmd3= %10s ",
+		printf("token->cmd0= |%s| cmd1= |%s| cmd2= |%s| cmd3= |%s| ",
 			   tmp_token->cmd[0], tmp_token->cmd[1], tmp_token->cmd[2],
 			   tmp_token->cmd[3]);
 		printf("token->next= %p\n", tmp_token->next);

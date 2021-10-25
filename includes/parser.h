@@ -17,8 +17,8 @@ typedef struct s_token
 {
 	char			**cmd;
 	int				redOrPipe;
+	int				fd0;
 	int				fd1;
-	int				fd2;
 	struct s_token	*next;
 }				t_token;
 
@@ -49,6 +49,7 @@ void	createToken(t_token **token, char *str, int redOrPipe);
 void	*free_token(t_token **t);
 void	ft_token(t_token **token, char *str, t_parser *pr, int pp);
 char	*changeSpace(char *str);
+void	ft_red(t_token *new);
 
 void	parser(t_token **token, t_parser *pr);
 
