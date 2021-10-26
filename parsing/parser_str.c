@@ -75,7 +75,7 @@ char	*ft_gap2(char *str, int *i, char **env)
 
 int	ifkey(char c)
 {
-	if (c == '_' || ft_isalnum(c))
+	if (c == '_' || c == '*' || c == '!' || ft_isalnum(c))
 		return (1);
 	return (0);
 }

@@ -35,7 +35,6 @@ void	createToken(t_token **token, char *str, int redOrPipe)
 	new->redOrPipe = redOrPipe;
 	new->next = NULL;
 	ft_red(new);
-
 	printf("new->fd0= %d\n", new->fd0);
 	printf("new->fd1= %d\n", new->fd1);
 

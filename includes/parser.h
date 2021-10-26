@@ -15,10 +15,11 @@
 
 typedef struct s_token
 {
-	char			**cmd;
-	int				redOrPipe;
-	int				fd0;
-	int				fd1;
+	char	**cmd;
+	int		redOrPipe;
+	int		fd0;
+	int		fd1;
+	char	*stopheredoc;
 	struct s_token	*next;
 }				t_token;
 
@@ -50,6 +51,7 @@ void	*free_token(t_token **t);
 void	ft_token(t_token **token, char *str, t_parser *pr, int pp);
 char	*changeSpace(char *str);
 void	ft_red(t_token *new);
+void	ft_append_red(t_token *new, int *i);
 
 void	parser(t_token **token, t_parser *pr);
 
