@@ -34,7 +34,7 @@ void	createToken(t_token **token, char *str, int redOrPipe)
 	new->cmd = ft_split(str, ';');
 	new->redOrPipe = redOrPipe;
 	new->next = NULL;
-	ft_red(new);
+	ft_parser_red(new);
 	printf("new->fd0= %d\n", new->fd0);
 	printf("new->fd1= %d\n", new->fd1);
 

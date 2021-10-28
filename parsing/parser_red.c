@@ -22,7 +22,7 @@ void	ft_append_red(t_token *new, int *i)
 }
 
 
-void	ft_red(t_token *new)
+void	ft_parser_red(t_token *new)
 {
 	//	t_token	*ptr;
 	//	t_token	*new;
@@ -58,7 +58,7 @@ void	ft_red(t_token *new)
 		}
 		if (new->cmd[i][0] == '>' && new->cmd[i][1] == '>')
 		{
-			//ft_append_red(new, &i);
+			ft_append_red(new, &i);
 //			printf(" nashel redirect= %c\n", new->cmd[i][0]);
 //			if (new->fd0 != 0)
 //				close(new->fd0);

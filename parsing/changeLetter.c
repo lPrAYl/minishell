@@ -1,6 +1,6 @@
 #include "../includes/parser.h"
 
-char	*changeSpace(char *str)
+char	*changeLetter(char *str, char in, char out)
 {
 	int		i;
 
@@ -11,8 +11,8 @@ char	*changeSpace(char *str)
 			i = searchNext(str, ++i, '\'');
 		if (str[i] == '"')
 			i = searchNext(str, ++i, '"');
-		if (str[i] == ' ')
-			str[i] = ';';
+		if (str[i] == in)
+			str[i] = out;
 		i++;
 	}
 	return (str);

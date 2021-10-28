@@ -24,7 +24,7 @@ void	parser(t_token **token, t_parser *pr)
 		}
 		if (pr->line[pr->i + 1] == '\0')
 		{
-			pr->i = parserToken(token, pr, 0);
+ 			pr->i = parserToken(token, pr, 0);
 			pr->k = pr->i;
 			pr->k++;
 		}

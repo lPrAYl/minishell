@@ -13,3 +13,10 @@ char	*outputError(char *str, char *line, int exit_status)
 	exit(EXIT_FAILURE);
 	return (NULL);
 }
+
+int	ifkey(char c)
+{
+	if (c == '_' || c == '*' || c == '!' || ft_isalnum(c))
+		return (1);
+	return (0);
+}
