@@ -15,10 +15,11 @@
 
 typedef struct s_token
 {
-	char			**cmd;
-	int				redOrPipe;
-	int				fd1;
-	int				fd2;
+	char	**cmd;
+	int		redOrPipe;
+	int		fd0;
+	int		fd1;
+	char	*stopheredoc;
 	struct s_token	*next;
 }				t_token;
 
@@ -38,6 +39,11 @@ typedef struct s_parser
 /*	builtins	*/
 char	*preparser(char *line);
 char	*ft_dollar(char *str, int *i, char **env);
+char	*ft_slesh(char *str, int *i);
+char	*ft_gap(char *str, int *i);
+char	*ft_gap2(char *str, int *i, char **env);
+char	*ft_insert_space_after_red(char *str, int *i);
+int		ifkey(char c);
 char	*deleteSpace(char *line);
 int		searchRed(char *line, int i);
 int		searchPipe(char *line, int i);
@@ -48,7 +54,9 @@ int		parserToken(t_token **token, t_parser *pr, int pp);
 void	createToken(t_token **token, char *str, int redOrPipe);
 void	*free_token(t_token **t);
 void	ft_token(t_token **token, char *str, t_parser *pr, int pp);
-char	*changeSpace(char *str);
+char	*changeLetter(char *str, char in, char out);
+void	ft_parser_red(t_token *new);
+void	ft_append_red(t_token *new, int *i);
 
 void	parser(t_token **token, t_parser *pr);
 
