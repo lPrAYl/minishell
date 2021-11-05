@@ -85,18 +85,37 @@ int	execute_line(char *line, t_list **env_ms)
 	t_command	*command;
 	char		**env;
 	char		**argv;
+	pid_t		pid;
 
-	/*	Isolate the command word. */
-	argv = ft_split(line, ' ');
-	command = find_command(argv[0]);
-	if (!command)
+	pid = fork();
+	if (!pid)
 	{
-		env = list_to_array(*env_ms);
-		execve(get_command(argv[0], *env_ms), argv, env);
-		return (1);
+		argv = ft_split(line, ' ');
+		command = find_command(argv[0]);
+		if (!command)
+		{
+			if (!ft_strcmp(argv[0], "./minishell"))
+			{
+				int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
+				char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+				cmd_export(for_export, env_ms);
+			}
+			env = list_to_array(*env_ms);
+			execve(get_command(argv[0], *env_ms), argv, env);
+			if (errno == 13 && opendir(argv[0]))
+			{
+				printf("minishell: %s: %s\n", argv[0], strerror(21));
+				closedir(opendir(argv[0]));
+			}
+			else
+				printf("minishell: %s: %s\n", argv[0], strerror(errno));
+			return (1);
+		}
+		/*	Call function. */
+		return (command->func(line + ft_strlen(argv[0]) + 1, env_ms));
 	}
-	/*	Call function. */
-	return (command->func(line + ft_strlen(argv[0]) + 1, env_ms));
+	wait(NULL);
+	return (0);
 }
 
 void	init_start_struct(t_list **env_ms, char **env)

@@ -13,6 +13,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/errno.h>
+# include <dirent.h>
 # include "../libft/libft.h"
 
 # define true		1

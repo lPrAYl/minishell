@@ -94,7 +94,7 @@ static void	export_line(char *line, t_list **env_ms)
 		}
 		i++;
 	}
-	free_array(argv);
+	// free_array(argv);
 }
 
 int	cmd_export(char *line, t_list **env_ms)
@@ -119,6 +119,6 @@ int	cmd_export(char *line, t_list **env_ms)
 		}
 		point = point->next;
 	}
-	free_list(env_copy);
+	// free_list(env_copy);
 	return (0);
 }
