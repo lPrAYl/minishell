@@ -140,6 +140,8 @@ void	init_start_struct(t_list **env_ms, char **env)
 	}
 }
 
+asdfdgf
+
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
