@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void	ft_lstdelone_2(t_list **head, t_list *lst)
+static void	lst_del_one(t_list **head, t_list *lst)
 {
 	t_list	*temp;
 
@@ -41,7 +41,7 @@ int	cmd_unset(char *line, t_list **env_ms)
 		{
 			if (!ft_strcmp(argv[i], tmp->data->key))
 			{
-				ft_lstdelone_2(env_ms, tmp);
+				lst_del_one(env_ms, tmp);
 				break;
 			}
 			tmp = tmp->next;

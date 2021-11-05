@@ -14,7 +14,8 @@ HEADERS_BONUS			=	$(addprefix $(HEADERS_DIRECTORY_BONUS), $(HEADERS_BONUS_LIST))
 
 SOURCES_LIST			=	minishell.c	\
 							echo.c	pwd.c	exit.c	env.c	export.c	unset.c	cd.c\
-							utils.c
+							utils.c\
+							list_to_array.c
 SOURCES_DIRECTORY		=	./sources/builtins/
 SOURCES_LIST_BONUS		=
 SOURCES_DIRECTORY_BONUS	=	./bonus/

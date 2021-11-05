@@ -54,34 +54,49 @@ char	*stripwhite(char *str)
 	return (begin);
 }
 
-/*	Strip whitespaces ftom the start and end of STRING. Return a pointer
-	into STRING. */
+char	*get_command(char *command, t_list *env_ms)
+{
+	int		i;
+	char	*tmp;
+	char	*path;
+	char	**paths;
+
+	if (ft_strchr(command, '/'))
+		return (command);
+	paths = ft_split(search_value_by_key(env_ms, "PATH"), ':');
+	i = 0;
+	while (paths[i])
+	{
+		tmp = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(tmp, command);
+		free(tmp);
+		free(paths[i]);
+		if (!access(path, F_OK | X_OK))
+			return (path);
+		free(path);
+		i++;
+	}
+	free(paths);
+	return (path);
+}
+
 int	execute_line(char *line, t_list **env_ms)
 {
-	int			i;
 	t_command	*command;
-	char		*word;
+	char		**env;
+	char		**argv;
 
 	/*	Isolate the command word. */
-	i = 0;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	word = line + i;
-	while (line[i] && !ft_isspace(line[i]))
-		i++;
-	if (line[i])
-		line[i++] = '\0';
-	command = find_command(word);
-	// if (!command)
-	// {
-	// 	execve
-	// }
-	/*	Get argument to command, if any. */
-	while (ft_isspace(line[i]))
-		i++;
-	word = line + i;
+	argv = ft_split(line, ' ');
+	command = find_command(argv[0]);
+	if (!command)
+	{
+		env = list_to_array(*env_ms);
+		execve(get_command(argv[0], *env_ms), argv, env);
+		return (1);
+	}
 	/*	Call function. */
-	return (command->func(word, env_ms));
+	return (command->func(line + ft_strlen(argv[0]) + 1, env_ms));
 }
 
 void	init_start_struct(t_list **env_ms, char **env)
@@ -89,7 +104,7 @@ void	init_start_struct(t_list **env_ms, char **env)
 	int		i;
 	int		j;
 	t_env	*field;
-	
+
 	i = 0;
 	while (env[i])
 	{
