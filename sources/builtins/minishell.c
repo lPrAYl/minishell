@@ -80,39 +80,89 @@ char	*get_command(char *command, t_list *env_ms)
 	return (path);
 }
 
+typedef struct s_cmd
+{
+	char			*line;
+	int				fd[2];
+	int				in;
+	int				out;
+	struct s_cmd	*next;
+}			t_cmd;
+
+t_cmd	*command;
+
 int	execute_line(char *line, t_list **env_ms)
 {
-	t_command	*command;
+	t_cmd		*cmd;
+	// t_command	*command;
 	char		**env;
 	char		**argv;
+	char		**arg;
 	pid_t		pid;
 
-	pid = fork();
-	if (!pid)
+	arg = ft_split(line, '|');
+	
+	cmd = malloc(sizeof(t_cmd));
+	cmd->line = arg[0];
+	cmd->next = malloc(sizeof(t_cmd));
+	cmd->next->line = arg[1];
+	cmd->next->next = malloc(sizeof(t_cmd));
+	cmd->next->next->line = arg[2];
+	cmd->next->next->next = NULL;
+
+	t_cmd *tmp = cmd;
+	while (tmp->next)
 	{
-		argv = ft_split(line, ' ');
-		command = find_command(argv[0]);
-		if (!command)
+		pipe(tmp->fd);
+		tmp = tmp->next;
+	}
+
+	int	file = open("1", O_WRONLY | O_CREAT, 0644);
+	int i = 0;
+	while (cmd->next)
+	{
+		pid = fork();
+		if (!pid)
 		{
-			if (!ft_strcmp(argv[0], "./minishell"))
+			dup2(cmd->fd[1], 1);
+			close(cmd->fd[1]);
+			dup2(cmd->next->fd[0], 0);
+			// close(cmd->next->fd[0]);
+
+			dup2(file, 1);
+			tmp = cmd;
+			while(tmp->next)
 			{
-				int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
-				char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
-				cmd_export(for_export, env_ms);
+				close(tmp->fd[0]);
+				close(tmp->fd[1]);
+				tmp = tmp->next;
 			}
-			env = list_to_array(*env_ms);
-			execve(get_command(argv[0], *env_ms), argv, env);
-			if (errno == 13 && opendir(argv[0]))
-			{
-				printf("minishell: %s: %s\n", argv[0], strerror(21));
-				closedir(opendir(argv[0]));
-			}
-			else
-				printf("minishell: %s: %s\n", argv[0], strerror(errno));
-			return (1);
+			argv = ft_split(arg[i], ' ');
+			// command = find_command(argv[0]);
+			// if (!command)
+			// {
+				if (!ft_strcmp(argv[0], "./minishell"))
+				{
+					int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
+					char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+					cmd_export(for_export, env_ms);
+				}
+				env = list_to_array(*env_ms);
+				execve(get_command(argv[0], *env_ms), argv, env);
+				// if (errno == 13 && opendir(argv[0]))
+				// {
+				// 	printf("minishell: %s: %s\n", argv[0], strerror(21));
+				// 	closedir(opendir(argv[0]));
+				// }
+				// else
+				// 	printf("minishell: %s: %s\n", argv[0], strerror(errno));
+				// return (1);
+			// }
+			/*	Call function. */
+			// return (command->func(line + ft_strlen(argv[0]) + 1, env_ms));
 		}
-		/*	Call function. */
-		return (command->func(line + ft_strlen(argv[0]) + 1, env_ms));
+		cmd = cmd->next;
+		i++;
 	}
 	wait(NULL);
 	return (0);
