@@ -57,6 +57,9 @@ void	ft_token(t_token **token, char *str, t_parser *pr, int pp);
 char	*changeLetter(char *str, char in, char out);
 void	ft_parser_red(t_token *new);
 void	ft_append_red(t_token *new, int *i);
+void	ft_close_fd(t_token *new, int fd);
+void	ft_free_str_in_token(t_token *new, int i);
+void	ft_clear_empty_line(t_token *new, int max_i);
 
 void	parser(t_token **token, t_parser *pr);
 
