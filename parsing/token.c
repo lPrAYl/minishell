@@ -33,6 +33,7 @@ void	createToken(t_token **token, char *str, int redOrPipe)
 	}
 	new->cmd = ft_split(str, ';');
 	new->redOrPipe = redOrPipe;
+	new->stopheredoc = ft_strdup("");
 	new->next = NULL;
 	ft_parser_red(new);
 	printf("new->fd0= %d\n", new->fd0);
