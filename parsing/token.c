@@ -18,7 +18,7 @@ void	*free_token(t_token **t)
 	return (NULL);
 }
 
-void	createToken(t_token **token, char *str, int redOrPipe)
+void	createToken(t_token **token, t_parser *pr, char *str, int redOrPipe)
 {
 	t_token	*ptr;
 	t_token	*new;
@@ -31,11 +31,13 @@ void	createToken(t_token **token, char *str, int redOrPipe)
 		outputError("error create new token", NULL, 258);
 		return ;
 	}
-	new->cmd = ft_split(str, ';');
+	//new->cmd = ft_split(str, ';');
+	new->cmd = parser_split(str, ' ');
 	new->redOrPipe = redOrPipe;
-	new->stopheredoc = ft_strdup("");
+	new->stopheredoc = NULL;
+			//ft_strdup("");
 	new->next = NULL;
-	ft_parser_red(new);
+	ft_parser_red(new, pr);
 	printf("new->fd0= %d\n", new->fd0);
 	printf("new->fd1= %d\n", new->fd1);
 
@@ -83,7 +85,8 @@ void	ft_token(t_token **token, char *str, t_parser *pr, int pp)
 	//tmp2 = ft_substr(str, k + 1 , ft_strlen(str));
 	//printf("ft_token tmp2= %s\n", tmp2);
 	//free(str);
-	createToken(token, tmp, pp); // 1 - pipe, 20 - < , 21 - > , 22 - >>
+	createToken(token, pr, tmp, pp); // 1 - pipe, 20 - < , 21 - > , 22 - >> ,
+	// 23 - << - heredoc
 	free(tmp);
 
 

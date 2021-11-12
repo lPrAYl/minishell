@@ -32,14 +32,15 @@ int		searchRed(char *line, int i)
 {
 	int	j;
 
-	j = 0;
+	j = i;
 	while (line[j])
 		j++;
+
 	if (line[i] == '<')
 	{
-		if ((line[i + 1] == '\0') || (line[i + 2] !=
-		'\0' && (line[i + 2] == '<' || line[i + 2] == '>')) || (line[i + 1]
-		== '|'))
+		if ((line[i + 1] == '\0') || (line[i + 1] == '|') || (line[i + 1] ==
+		' ' && line[i + 2] ==
+		'|'))
 			return (j);
 	}
 	if (line[i] == '>')
