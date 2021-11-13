@@ -3,8 +3,8 @@
 int	parserToken(t_token **token, t_parser *pr, int pp)
 {
 	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
+	//char	*tmp2;
+	//char	*tmp3;
 	//char	*tmp4;
 	int		i;
 
