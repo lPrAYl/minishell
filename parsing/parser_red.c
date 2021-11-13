@@ -36,8 +36,9 @@ void	ft_clear_empty_line(t_token *new, int max_i)
 	k = -1;
 	t = 0;
 	while (++y <= max_i)
-		if (new->cmd[y] != ' ')
+		if (!(ft_strncmp(new->cmd[y], " ", ft_strlen(new->cmd[y]))))
 			t++;
+		//(new->cmd[y] != " ")
 	mass = (char **) malloc(sizeof(char *) * (t + 1));
 	while (++i <= max_i)
 	{
