@@ -51,12 +51,16 @@ int		searchNext(char *line, int i, char letter);
 char	*parser_str(char *line, char **env);
 char	*outputError(char *str, char *line, int exit_status);
 int		parserToken(t_token **token, t_parser *pr, int pp);
-void	createToken(t_token **token, char *str, int redOrPipe);
+void	createToken(t_token **token, t_parser *pr, char *str, int redOrPipe);
 void	*free_token(t_token **t);
 void	ft_token(t_token **token, char *str, t_parser *pr, int pp);
 char	*changeLetter(char *str, char in, char out);
-void	ft_parser_red(t_token *new);
+void	ft_parser_red(t_token *new, t_parser *pr);
 void	ft_append_red(t_token *new, int *i);
+void	ft_close_fd(t_token *new, int fd);
+void	ft_free_str_in_token(t_token *new, int i);
+void	ft_clear_empty_line(t_token *new, int max_i);
+char	**parser_split(char *s, char c);
 
 void	parser(t_token **token, t_parser *pr);
 

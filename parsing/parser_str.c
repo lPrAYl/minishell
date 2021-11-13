@@ -128,7 +128,7 @@ char	*ft_insert_space_after_red(char *str, int *i)
 
 
 	j = *i;
-	c = ft_strdup(";");
+	c = ft_strdup(" ");
 
 	if (str[j + 1] != '>' && str[j + 1] != '<' && str[j + 1] != ';')
 	{
