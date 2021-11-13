@@ -20,6 +20,7 @@ typedef struct s_token
 	int		fd0;
 	int		fd1;
 	char	*stopheredoc;
+	char	*error;
 	struct s_token	*next;
 }				t_token;
 
