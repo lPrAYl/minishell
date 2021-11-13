@@ -104,34 +104,45 @@ int	execute_line(char *line, t_list **env_ms)
 	
 	cmd = malloc(sizeof(t_cmd));
 	cmd->line = arg[0];
+	cmd->in = 0;
+	cmd->out = 1;
 	cmd->next = malloc(sizeof(t_cmd));
 	cmd->next->line = arg[1];
+	cmd->next->in = 0;
+	cmd->next->out = 1;
 	cmd->next->next = malloc(sizeof(t_cmd));
 	cmd->next->next->line = arg[2];
+	cmd->next->in = 0;
+	cmd->next->out = 1;
 	cmd->next->next->next = NULL;
 
 	t_cmd *tmp = cmd;
 	while (tmp->next)
 	{
 		pipe(tmp->fd);
+		tmp->out = tmp->fd[1];
+		tmp->next->in = tmp->fd[0];
 		tmp = tmp->next;
 	}
-
-	int	file = open("1", O_WRONLY | O_CREAT, 0644);
 	int i = 0;
+	t_cmd *temp = cmd;
 	while (cmd->next)
 	{
 		pid = fork();
 		if (!pid)
 		{
-			dup2(cmd->fd[1], 1);
-			close(cmd->fd[1]);
-			dup2(cmd->next->fd[0], 0);
-			// close(cmd->next->fd[0]);
-
-			dup2(file, 1);
+			if (cmd->in != 0)
+			{
+				dup2(cmd->in, 0);
+				close(cmd->in);
+			}
+			if (cmd->out != 1)
+			{
+				dup2(cmd->out, 0);
+				close(cmd->out);
+			}
 			tmp = cmd;
-			while(tmp->next)
+			while(tmp)
 			{
 				close(tmp->fd[0]);
 				close(tmp->fd[1]);
@@ -164,6 +175,12 @@ int	execute_line(char *line, t_list **env_ms)
 		cmd = cmd->next;
 		i++;
 	}
+	while (temp)
+	{
+		close(temp->fd[0]);
+		close(temp->fd[1]);
+		temp = temp->next;
+	} 
 	wait(NULL);
 	return (0);
 }
