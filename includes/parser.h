@@ -19,6 +19,7 @@ typedef struct s_token
 	int		redOrPipe;
 	int		fd0;
 	int		fd1;
+	int		fd[2];
 	char	*stopheredoc;
 	char	*error;
 	struct s_token	*next;
@@ -64,12 +65,5 @@ void	ft_clear_empty_line(t_token *new, int max_i);
 char	**parser_split(char *s, char c);
 
 void	parser(t_token **token, t_parser *pr);
-
-int	cmd_echo(char *line);
-int	cmd_pwd(char *line);
-
-/*	utils	*/
-
-int	print_errno(void);
 
 #endif
