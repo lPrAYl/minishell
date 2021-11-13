@@ -66,7 +66,7 @@ static void	export_line(char *line, t_list **env_ms)
 	while (argv[i])
 	{
 		j = 0;
-		tmp = malloc(sizeof(t_env));
+		tmp = malloc_x(sizeof(t_env));
 		while (argv[i][j] != '=' && argv[i][j])
 			j++;
 		tmp->key = ft_substr(argv[i], 0, j);
@@ -94,7 +94,7 @@ static void	export_line(char *line, t_list **env_ms)
 		}
 		i++;
 	}
-	free_array(argv);
+	// free_array(argv);
 }
 
 int	cmd_export(char *line, t_list **env_ms)
@@ -119,6 +119,6 @@ int	cmd_export(char *line, t_list **env_ms)
 		}
 		point = point->next;
 	}
-	free_list(env_copy);
+	// free_list(env_copy);
 	return (0);
 }

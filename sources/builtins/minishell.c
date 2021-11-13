@@ -54,34 +54,135 @@ char	*stripwhite(char *str)
 	return (begin);
 }
 
-/*	Strip whitespaces ftom the start and end of STRING. Return a pointer
-	into STRING. */
+char	*get_command(char *command, t_list *env_ms)
+{
+	int		i;
+	char	*tmp;
+	char	*path;
+	char	**paths;
+
+	if (ft_strchr(command, '/'))
+		return (command);
+	paths = ft_split(search_value_by_key(env_ms, "PATH"), ':');
+	i = 0;
+	while (paths[i])
+	{
+		tmp = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(tmp, command);
+		free(tmp);
+		free(paths[i]);
+		if (!access(path, F_OK | X_OK))
+			return (path);
+		free(path);
+		i++;
+	}
+	free(paths);
+	return (path);
+}
+
+typedef struct s_cmd
+{
+	char			*line;
+	int				fd[2];
+	int				in;
+	int				out;
+	struct s_cmd	*next;
+}			t_cmd;
+
+t_cmd	*command;
+
 int	execute_line(char *line, t_list **env_ms)
 {
-	int			i;
-	t_command	*command;
-	char		*word;
+	t_cmd		*cmd;
+	// t_command	*command;
+	char		**env;
+	char		**argv;
+	char		**arg;
+	pid_t		pid;
 
-	/*	Isolate the command word. */
-	i = 0;
-	while (line[i] && ft_isspace(line[i]))
+	arg = ft_split(line, '|');
+	
+	cmd = malloc(sizeof(t_cmd));
+	cmd->line = arg[0];
+	cmd->in = 0;
+	cmd->out = 1;
+	cmd->next = malloc(sizeof(t_cmd));
+	cmd->next->line = arg[1];
+	cmd->next->in = 0;
+	cmd->next->out = 1;
+	cmd->next->next = malloc(sizeof(t_cmd));
+	cmd->next->next->line = arg[2];
+	cmd->next->in = 0;
+	cmd->next->out = 1;
+	cmd->next->next->next = NULL;
+
+	t_cmd *tmp = cmd;
+	while (tmp->next)
+	{
+		pipe(tmp->fd);
+		tmp->out = tmp->fd[1];
+		tmp->next->in = tmp->fd[0];
+		tmp = tmp->next;
+	}
+	int i = 0;
+	t_cmd *temp = cmd;
+	while (cmd->next)
+	{
+		pid = fork();
+		if (!pid)
+		{
+			if (cmd->in != 0)
+			{
+				dup2(cmd->in, 0);
+				close(cmd->in);
+			}
+			if (cmd->out != 1)
+			{
+				dup2(cmd->out, 0);
+				close(cmd->out);
+			}
+			tmp = cmd;
+			while(tmp)
+			{
+				close(tmp->fd[0]);
+				close(tmp->fd[1]);
+				tmp = tmp->next;
+			}
+			argv = ft_split(arg[i], ' ');
+			// command = find_command(argv[0]);
+			// if (!command)
+			// {
+				if (!ft_strcmp(argv[0], "./minishell"))
+				{
+					int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
+					char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+					cmd_export(for_export, env_ms);
+				}
+				env = list_to_array(*env_ms);
+				execve(get_command(argv[0], *env_ms), argv, env);
+				// if (errno == 13 && opendir(argv[0]))
+				// {
+				// 	printf("minishell: %s: %s\n", argv[0], strerror(21));
+				// 	closedir(opendir(argv[0]));
+				// }
+				// else
+				// 	printf("minishell: %s: %s\n", argv[0], strerror(errno));
+				// return (1);
+			// }
+			/*	Call function. */
+			// return (command->func(line + ft_strlen(argv[0]) + 1, env_ms));
+		}
+		cmd = cmd->next;
 		i++;
-	word = line + i;
-	while (line[i] && !ft_isspace(line[i]))
-		i++;
-	if (line[i])
-		line[i++] = '\0';
-	command = find_command(word);
-	// if (!command)
-	// {
-	// 	execve
-	// }
-	/*	Get argument to command, if any. */
-	while (ft_isspace(line[i]))
-		i++;
-	word = line + i;
-	/*	Call function. */
-	return (command->func(word, env_ms));
+	}
+	while (temp)
+	{
+		close(temp->fd[0]);
+		close(temp->fd[1]);
+		temp = temp->next;
+	} 
+	wait(NULL);
+	return (0);
 }
 
 void	init_start_struct(t_list **env_ms, char **env)
@@ -89,7 +190,7 @@ void	init_start_struct(t_list **env_ms, char **env)
 	int		i;
 	int		j;
 	t_env	*field;
-	
+
 	i = 0;
 	while (env[i])
 	{
