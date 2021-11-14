@@ -26,14 +26,14 @@ static void	lst_del_one(t_list **head, t_list *lst)
 	free(lst);
 }
 
-int	cmd_unset(char *line, t_list **env_ms)
+int	cmd_unset(char **argv, t_list **env_ms)
 {
 	int 	i;
-	char	**argv;
+	// char	**argv;
 	t_list	*tmp;
 
-	argv = ft_split(line, ' ');
-	i = 0;
+	// argv = ft_split(line, ' ');
+	i = 1;
 	while (argv[i])
 	{
 		tmp = *env_ms;
@@ -48,6 +48,6 @@ int	cmd_unset(char *line, t_list **env_ms)
 		}
 		i++;
 	}
-	free_array(argv);
+	// free_array(argv);
 	return (0);
 }

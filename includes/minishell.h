@@ -24,13 +24,13 @@ int		g_status;
 
 /*	builtins	*/
 
-int		cmd_echo(char *line, t_list **env_ms);
-int		cmd_pwd(char *line,t_list **env_ms);
-int		cmd_exit(char *line, t_list **env_ms);
-int 	cmd_env(char *line, t_list **env_ms);
-int		cmd_export(char *line, t_list **env_ms);
-int		cmd_unset(char *line, t_list **env_ms);
-int		cmd_cd(char *line, t_list **env_ms);
+int		cmd_echo(char **argv, t_list **env_ms);
+int		cmd_pwd(char **argv,t_list **env_ms);
+int		cmd_exit(char **argv, t_list **env_ms);
+int 	cmd_env(char **argv, t_list **env_ms);
+int		cmd_export(char **argv, t_list **env_ms);
+int		cmd_unset(char **argv, t_list **env_ms);
+int		cmd_cd(char **argv, t_list **env_ms);
 
 /*	utils	*/
 

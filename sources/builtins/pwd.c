@@ -8,7 +8,7 @@ void	get_current_pwd(char **pwd, t_list *env_ms)
 		*pwd = search_value_by_key(env_ms, "PWD");
 }
 
-int	cmd_pwd(char *ignore, t_list **env_ms)
+int	cmd_pwd(char **ignore, t_list **env_ms)
 {
 	(void)ignore;
 	char	pwd[1024];

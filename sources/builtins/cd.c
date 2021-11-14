@@ -28,28 +28,28 @@ static void	cd_tilda(char **line, t_list *env_ms)
 		*line = ft_strdup("/Users/gtyene");
 }
 
-int	cmd_cd(char *line, t_list **env_ms)
+int	cmd_cd(char **argv, t_list **env_ms)
 {
 	char	*pwd;
 	char	*old_pwd;
 	char	*new_pwd;
 
 	get_current_pwd(&pwd, *env_ms);
-	if (!*line || !ft_strcmp(line, "-"))
-		cd_minus(&line, pwd, *env_ms);
-	else if (!ft_strcmp(line, "~"))
-		cd_tilda(&line, *env_ms);
-	if (chdir(line) == -1)
+	if (!argv[1] || !ft_strcmp(argv[1], "-"))
+		cd_minus(&argv[1], pwd, *env_ms);
+	else if (!ft_strcmp(argv[1], "~"))
+		cd_tilda(&argv[1], *env_ms);
+	if (chdir(argv[1]) == -1)
 	{
 		ft_putstr_fd("minishell: cd: ", 1);
-		perror(line);
+		perror(argv[1]);
 		return (1);
 	}
 	old_pwd = ft_strjoin("OLDPWD=", pwd);
-	cmd_export(old_pwd, env_ms);
+	cmd_export(ft_split(old_pwd, ' '), env_ms);
 	get_current_pwd(&pwd, *env_ms);
 	new_pwd = ft_strjoin("PWD=", pwd);
-	cmd_export(new_pwd, env_ms);
+	cmd_export(ft_split(new_pwd, ' '), env_ms);
 	free(pwd);
 	return (0);
 }

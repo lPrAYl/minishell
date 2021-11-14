@@ -1,13 +1,13 @@
 #include "../../includes/minishell.h"
 
-int	cmd_env(char *line, t_list **env_ms)
+int	cmd_env(char **argv, t_list **env_ms)
 {
 	t_list	*tmp;
 
-	if (*line)
+	if (argv[1])
 	{
 		ft_putstr_fd("env: '", 1);
-		ft_putstr_fd(line, 1);
+		ft_putstr_fd(argv[1], 1);
 		ft_putendl_fd("': No such file or directory", 1);
 		return (127);
 	}
