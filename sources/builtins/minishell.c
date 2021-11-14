@@ -243,6 +243,7 @@ int	main(int argc, char **argv, char **env)
 			execute_line(token, &env_ms);
 		}
 		free(line);
+		clear_token(token);
 	}
 	exit(0);
 }

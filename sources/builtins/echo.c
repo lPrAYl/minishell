@@ -4,7 +4,7 @@ static int	set_flag_n(char **argv, int *n_option)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	*n_option = 0;
 	while (argv[i] && ft_strcmp(argv[i], "-n") == 0)
 		i++;
@@ -15,16 +15,15 @@ int	cmd_echo(char **argv, t_list **env_ms)
 {
 	int		i;
 	int		n_option;
-	// char	**argv;
 	(void)env_ms;
 
 	i = 1;
 	n_option = 1;
-	// argv = ft_split(line, ' ');
+	printf("%s\n", argv[1]);
 	while (argv[i])
 	{
 		if (i == 1 && argv[i] && ft_strcmp(argv[i], "-n") == 0)
-			i = set_flag_n(argv, &n_option);			
+			i = set_flag_n(argv, &n_option);
 		else if (argv[i])
 		{
 			ft_putstr_fd(argv[i], 1);
@@ -35,6 +34,5 @@ int	cmd_echo(char **argv, t_list **env_ms)
 	}
 	if (n_option)
 		write(1, "\n", 1);
-	free_array(argv);
 	return (0);
 }
