@@ -81,24 +81,24 @@ char	*get_command(char *command, t_list *env_ms)
 	return (path);
 }
 
-static void	print_token(t_token *token)
-{
-	t_token	*tmp;
+// static void	print_token(t_token *token)
+// {
+// 	t_token	*tmp;
 
-	tmp = token;
-	while (tmp)
-	{
-		int	i = 0;
-		while (tmp->cmd[i])
-		{
-			if (tmp->cmd[i])
-				printf("token->cmd%d = |%s|\tfd0 = %d\tfd1 = %d\n", i, tmp->cmd[i], tmp->fd0, tmp->fd1);
-			i++;
-		}
-		printf("\n");
-		tmp = tmp->next;
-	}
-}
+// 	tmp = token;
+// 	while (tmp)
+// 	{
+// 		int	i = 0;
+// 		while (tmp->cmd[i])
+// 		{
+// 			if (tmp->cmd[i])
+// 				printf("token->cmd%d = |%s|\tfd0 = %d\tfd1 = %d\n", i, tmp->cmd[i], tmp->fd0, tmp->fd1);
+// 			i++;
+// 		}
+// 		printf("\n");
+// 		tmp = tmp->next;
+// 	}
+// }
 
 int	execute_line(t_token *token, t_list **env_ms)
 {
@@ -223,8 +223,6 @@ int	main(int argc, char **argv, char **env)
 		line = readline("minishell > ");
 		if (!line)
 			break ;
-		pr->line = preparser(ft_strdup(line));
-		parser(&token, pr);
 		// print_token(token);
 		/*	Remove leading and trailing whitespace from the line.
 			Then, if there is anything left, add it to the history list
@@ -232,10 +230,12 @@ int	main(int argc, char **argv, char **env)
 		// str = stripwhite(line);
 		if (line)
 		{
+			pr->line = preparser(ft_strdup(line));
+			parser(&token, pr);
 			add_history(line);
 			execute_line(token, &env_ms);
+			clear_token(&token);
 		}
-		// clear_token(token);
 		free(line);
 	}
 	exit(0);
