@@ -31,23 +31,23 @@ static unsigned int	ft_count_new_str(char *s, char c)
 	return (nb_str);
 }
 
-static char	**ft_mem_error(char **arr)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-	return (NULL);
-}
+//static char	**ft_mem_error(char **arr)
+//{
+//	unsigned int	i;
+//
+//	i = 0;
+//	while (arr[i])
+//	{
+//		free(arr[i]);
+//		i++;
+//	}
+//	free(arr);
+//	return (NULL);
+//}
 
 static void	ft_get_next_str(char *s, unsigned int *k, unsigned int *i, char c)
 {
-	char	*tmp;
+	//char	*tmp;
 
 	while (s[*i] && s[*i] == c)
 		(*i)++;

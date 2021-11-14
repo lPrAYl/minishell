@@ -154,6 +154,6 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 		new->cmd[i] = parser_str(new->cmd[i], pr->env);
 		i++;
 	}
-	if (new->redOrPipe != 1)
+	if (new->redOrPipe >= 20)
 		ft_clear_empty_line(new, i);
 }
