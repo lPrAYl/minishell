@@ -1,0 +1,15 @@
+1.txt
+CMakeLists.txt
+Makefile
+README.md
+check_leaks.sh
+cmake-build-debug
+functions_example
+git_ignore.sh
+hello.c
+includes
+libft
+minishell
+parsing
+parsing.c
+sources

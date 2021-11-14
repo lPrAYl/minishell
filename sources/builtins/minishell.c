@@ -228,7 +228,7 @@ int	main(int argc, char **argv, char **env)
 			Then, if there is anything left, add it to the history list
 			and execute it. */
 		// str = stripwhite(line);
-		if (line)
+		if (*line)
 		{
 			pr->line = preparser(ft_strdup(line));
 			parser(&token, pr);
