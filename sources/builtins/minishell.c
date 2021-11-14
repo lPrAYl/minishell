@@ -81,111 +81,101 @@ char	*get_command(char *command, t_list *env_ms)
 	return (path);
 }
 
-// typedef struct s_cmd
-// {
-// 	char			*line;
-// 	int				fd[2];
-// 	int				in;
-// 	int				out;
-// 	struct s_cmd	*next;
-// }			t_cmd;
-// t_cmd	*command;
+static void	print_token(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp)
+	{
+		int	i = 0;
+		while (tmp->cmd[i])
+		{
+			if (tmp->cmd[i])
+				printf("token->cmd%d = |%s|\tfd0 = %d\tfd1 = %d\n", i, tmp->cmd[i], tmp->fd0, tmp->fd1);
+			i++;
+		}
+		printf("\n");
+		tmp = tmp->next;
+	}
+}
 
 int	execute_line(t_token *token, t_list **env_ms)
 {
 	// t_cmd		*cmd;
-	// t_token		*tmp;
-	t_command	*command;
-	// char		**env;
+	t_token		*tmp;
+	// t_command	*command;
+	char		**env;
 	// char		**argv;
 	// char		**arg;
-	// pid_t		pid;
+	pid_t		pid;
 
-	// arg = ft_split(line, '|');
 	
-	// cmd = malloc(sizeof(t_cmd));
-	// cmd->line = arg[0];
-	// cmd->in = 0;
-	// cmd->out = 1;
-	// cmd->next = malloc(sizeof(t_cmd));
-	// cmd->next->line = arg[1];
-	// cmd->next->in = 0;
-	// cmd->next->out = 1;
-	// cmd->next->next = malloc(sizeof(t_cmd));
-	// cmd->next->next->line = arg[2];
-	// cmd->next->in = 0;
-	// cmd->next->out = 1;
-	// cmd->next->next->next = NULL;
-
-	// tmp = token;
-	// while (tmp->next)
-	// {
-	// 	pipe(tmp->fd);
-	// 	tmp->fd1 = tmp->fd[1];
-	// 	tmp->next->fd0 = tmp->fd[0];
-	// 	tmp = tmp->next;
-	// }
-	// int i = 0;
-	// tmp = token;
-	// while (token)
-	// {
-		printf("|%s|\n", token->cmd[0]);
-		command = find_command(token->cmd[0]);
-		// printf("%s\n", command->name);
-		// pid = fork();
-		// if (!pid)
-		// {
-			// if (token->fd0 != 0)
-			// {
-			// 	dup2(token->fd0, 0);
-			// 	close(token->fd0);
-			// }
-			// if (token->fd1 != 1)
-			// {
-			// 	dup2(token->fd1, 0);
-			// 	close(token->fd1);
-			// }
-			// t_token *temp = tmp;
-			// while(temp)
-			// {
-			// 	close(temp->fd0);
-			// 	close(temp->fd1);
-			// 	temp = temp->next;
-			// }
-			// argv = ft_split(arg[i], ' ');
+	tmp = token;
+	while (tmp->next)
+	{
+		pipe(tmp->fd);
+		tmp->fd1 = tmp->fd[1];
+		tmp->next->fd0 = tmp->fd[0];
+		tmp = tmp->next;
+	}
+	print_token(token);
+	tmp = token;
+	while (token)
+	{
+		pid = fork();
+		if (!pid)
+		{
+			if (token->fd0 != 0)
+			{
+				dup2(token->fd0, 0);
+				close(token->fd0);
+			}
+			if (token->fd1 != 1)
+			{
+				dup2(token->fd1, 1);
+				close(token->fd1);
+			}
+			t_token *temp = tmp;
+			while(temp->next)
+			{
+				close(temp->fd[0]);
+				close(temp->fd[1]);
+				temp = temp->next;
+			}
 			// command = find_command(token->cmd[0]);
 			// if (!command)
 			// {
-			// 	if (!ft_strcmp(token->cmd[0], "./minishell"))
-			// 	{
-			// 		int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
-			// 		char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
-			// 		cmd_export(for_export, env_ms);
-			// 	}
-			// 	env = list_to_array(*env_ms);
-			// 	execve(get_command(token->cmd[0], *env_ms), argv, env);
-			// 	if (errno == 13 && opendir(token->cmd[0]))
-			// 	{
-			// 		printf("minishell: %s: %s\n", token->cmd[0], strerror(21));
-			// 		closedir(opendir(token->cmd[0]));
-			// 	}
-			// 	else
-			// 		printf("minishell: %s: %s\n", token->cmd[0], strerror(errno));
-			// 	return (1);
+				// if (!ft_strcmp(token->cmd[0], "./minishell"))
+				// {
+				// 	int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
+				// 	char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+				// 	cmd_export(ft_split(for_export, ' '), env_ms);
+				// }
+				env = list_to_array(*env_ms);
+				// printf("%s\n", token->cmd[0]);
+				execve(get_command(token->cmd[0], *env_ms), token->cmd, env);
+				// if (errno == 13 && opendir(token->cmd[0]))
+				// {
+				// 	printf("minishell: %s: %s\n", token->cmd[0], strerror(21));
+				// 	closedir(opendir(token->cmd[0]));
+				// }
+				// else
+				// 	printf("minishell: %s: %s\n", token->cmd[0], strerror(errno));
+				// return (1);
 			// }
-			/*	Call function. */
-			return (command->func(token->cmd, env_ms));
-		// }
-		// token = token->next;
-		// i++;
-	// }
-	// while (tmp)
-	// {
-	// 	close(tmp->fd[0]);
-	// 	close(tmp->fd[1]);
-	// 	tmp = tmp->next;
-	// } 
-	// wait(NULL);
+			// /*	Call function. */
+			// return (command->func(token->cmd, env_ms));
+		}
+		token = token->next;
+	}
+	while (tmp->next)
+	{
+		close(tmp->fd[0]);
+		close(tmp->fd[1]);
+		tmp = tmp->next;
+	} 
+	wait(NULL);
 	return (0);
 }
 
@@ -211,6 +201,7 @@ void	init_start_struct(t_list **env_ms, char **env)
 	}
 }
 
+
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
@@ -228,11 +219,13 @@ int	main(int argc, char **argv, char **env)
 	/*	Loop reading and executing lines until the use quit. */
 	while (1)
 	{
+		line = NULL;
 		line = readline("minishell > ");
 		if (!line)
 			break ;
 		pr->line = preparser(ft_strdup(line));
 		parser(&token, pr);
+		// print_token(token);
 		/*	Remove leading and trailing whitespace from the line.
 			Then, if there is anything left, add it to the history list
 			and execute it. */
@@ -242,8 +235,8 @@ int	main(int argc, char **argv, char **env)
 			add_history(line);
 			execute_line(token, &env_ms);
 		}
+		// clear_token(token);
 		free(line);
-		clear_token(token);
 	}
 	exit(0);
 }

@@ -36,7 +36,7 @@ void	parser(t_token **token, t_parser *pr)
 	{
 		//write(1, "stop\n", 5);
 		tmp_i = 0;
-		while (tmp_token->cmd[tmp_i] != NULL)
+		while (tmp_token->cmd[tmp_i])
 		{
 			if (tmp_token->cmd[tmp_i])
 				printf("token->cmd%d= |%s|", tmp_i, tmp_token->cmd[tmp_i]);
