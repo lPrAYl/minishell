@@ -233,23 +233,17 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		pr->line = preparser(ft_strdup(line));
 		parser(&token, pr);
-
 		/*	Remove leading and trailing whitespace from the line.
 			Then, if there is anything left, add it to the history list
 			and execute it. */
 		// str = stripwhite(line);
-		print_token(token);
 		if (line)
 		{
 			add_history(line);
 			execute_line(token, &env_ms);
 		}
 		free(line);
-		if (token)
-			clear_token(token);
-		//clear_token(token);
-		printf("clear token\n");
-		print_token(token);
+		clear_token(token);
 	}
 	exit(0);
 }
