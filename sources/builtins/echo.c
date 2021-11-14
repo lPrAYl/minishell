@@ -11,19 +11,19 @@ static int	set_flag_n(char **argv, int *n_option)
 	return (i);
 }
 
-int	cmd_echo(char *line, t_list **env_ms)
+int	cmd_echo(char **argv, t_list **env_ms)
 {
 	int		i;
 	int		n_option;
-	char	**argv;
+	// char	**argv;
 	(void)env_ms;
 
-	i = 0;
+	i = 1;
 	n_option = 1;
-	argv = ft_split(line, ' ');
+	// argv = ft_split(line, ' ');
 	while (argv[i])
 	{
-		if (i == 0 && argv[i] && ft_strcmp(argv[i], "-n") == 0)
+		if (i == 1 && argv[i] && ft_strcmp(argv[i], "-n") == 0)
 			i = set_flag_n(argv, &n_option);			
 		else if (argv[i])
 		{

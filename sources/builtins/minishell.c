@@ -5,7 +5,7 @@
 typedef struct s_command
 {
 	char	*name;				/*	User printable name of the function. */
-	int		(*func)(char *, t_list **);	/*	Function to call to do the job. */
+	int		(*func)(char **, t_list **);	/*	Function to call to do the job. */
 }			t_command;
 
 t_command	commands[] = {
@@ -174,14 +174,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 			// 	return (1);
 			// }
 			/*	Call function. */
-			int i = -1;
-			char	*tmpline = ft_strdup("");
-			while (token->cmd[++i] != NULL)
-			{
-				tmpline = ft_strjoin(tmpline, token->cmd[i]);
-			}
-			printf("tmpline=%s\n", tmpline);
-			return (command->func(tmpline , env_ms));
+			return (command->func(token->cmd, env_ms));
 		// }
 		// token = token->next;
 		// i++;

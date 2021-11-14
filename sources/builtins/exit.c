@@ -39,26 +39,26 @@ static int	check_exit(char *argv)
 	return (ft_atoi(argv));
 }
 
-int	cmd_exit(char *line, t_list **env_ms)
+int	cmd_exit(char **argv, t_list **env_ms)
 {
 	(void)env_ms;
 	int		i;
 	int		code;
-	char	**argv;
+	// char	**argv;
 
 	// ft_putendl_fd("exit", 1);
-	if (!*line)
+	if (!argv[1])
 		exit(0);
-	argv = ft_split(line, ' ');
-	i = 0;
+	// argv = ft_split(line, ' ');
+	i = 1;
 	while (argv[i])
 		i++;
-	if (i > 1 && is_num(argv[0]))
+	if (i > 2 && is_num(argv[1]))
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", 1);
-		free(argv);
+		// free(argv);
 		return (0);
 	}
-	code = check_exit(argv[0]) % 256;
+	code = check_exit(argv[1]) % 256;
 	exit(code);
 }

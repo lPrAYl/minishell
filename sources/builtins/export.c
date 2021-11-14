@@ -53,16 +53,16 @@ static void	sort_copy_env(t_list **env_copy)
 // static void	add_new_line()
 // {}
 
-static void	export_line(char *line, t_list **env_ms)
+static void	export_line(char **argv, t_list **env_ms)
 {
 	int		i;
 	int		j;
-	char	**argv;
+	// char	**argv;
 	t_env	*tmp;
 	t_list	*point;
 
-	argv = ft_split(line, ' ');
-	i = 0;
+	// argv = ft_split(line, ' ');
+	i = 1;
 	while (argv[i])
 	{
 		j = 0;
@@ -97,20 +97,20 @@ static void	export_line(char *line, t_list **env_ms)
 	// free_array(argv);
 }
 
-int	cmd_export(char *line, t_list **env_ms)
+int	cmd_export(char **argv, t_list **env_ms)
 {
 	t_list	**env_copy;
 	t_list	*point;
 
 	make_copy_env(&env_copy, *env_ms);
 	sort_copy_env(env_copy);
-	if (*line)
-		export_line(line, env_ms);
+	if (argv[1])
+		export_line(&argv[1], env_ms);
 	point = *env_copy;
 	while (point)
 	{
 		point->data->is_sort = 0;
-		if (!*line)
+		if (argv[1])
 		{
 			if (ft_strchr(point->data->line, '='))
 				printf("declare -x %s=\"%s\"\n", point->data->key, point->data->value);
