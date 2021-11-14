@@ -20,3 +20,31 @@ int	ifkey(char c)
 		return (1);
 	return (0);
 }
+
+void clear_token(t_token *token)
+{
+	//t_token	*tmp_token;
+	int		tmp_i;
+
+	//tmp_token = *token;
+	while (token)
+	{
+		//write(1, "stop\n", 5);
+		tmp_i = 0;
+		while (token->cmd[tmp_i] != NULL)
+		{
+			if (token->cmd[tmp_i])
+				free(token->cmd[tmp_i]);
+				//printf("token->cmd%d= |%s|", tmp_i, tmp_token->cmd[tmp_i]);
+			tmp_i++;
+		}
+		if (token->cmd)
+			free(token->cmd);
+		if (token->error)
+			free(token->error);
+		if (token->stopheredoc)
+			free(token->stopheredoc);
+		token = token->next;
+	}
+	//token = NULL;
+}

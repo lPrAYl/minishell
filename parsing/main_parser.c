@@ -4,7 +4,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_parser *pr;
 	t_token	*token;
-	t_token *tmp_token;
+//	t_token *tmp_token;
 	int ads;
 
 	ads = argc;
@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **env)
 	printf("pr.line =%s\n", pr->line);
 	pr->env = env;
 	parser(&token, pr);
-	tmp_token = token;
+//	tmp_token = token;
 //	while (tmp_token)
 //	{
 //		//write(1, "stop\n", 5);
@@ -33,4 +33,6 @@ int	main(int argc, char **argv, char **env)
 //		//				break ;
 //	}
 	//while (1);
+	clear_token(token);
+	return (0);
 }

@@ -35,6 +35,7 @@ void	createToken(t_token **token, t_parser *pr, char *str, int redOrPipe)
 	new->cmd = parser_split(str, ' ');
 	new->redOrPipe = redOrPipe;
 	new->stopheredoc = NULL;
+	new->error = NULL;
 			//ft_strdup("");
 	new->next = NULL;
 	ft_parser_red(new, pr);

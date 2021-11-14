@@ -65,5 +65,6 @@ void	ft_clear_empty_line(t_token *new, int max_i);
 char	**parser_split(char *s, char c);
 
 void	parser(t_token **token, t_parser *pr);
+void	clear_token(t_token *token);
 
 #endif
