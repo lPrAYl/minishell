@@ -56,6 +56,7 @@ void	createToken(t_token **token, t_parser *pr, char *str, int redOrPipe)
 //			if (++i == 4)
 //				break ;
 		}
+
 		if (ptr)
 //			printf("ptr-cmd11= %s\n", ptr->cmd[0]);
 		ptr->next = new;

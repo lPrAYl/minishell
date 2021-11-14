@@ -7,6 +7,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libft/)
 
 FILE(GLOB SRC
         "parsing/*.c"
+        "sources/builtins/*.c"
         )
 
 #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
