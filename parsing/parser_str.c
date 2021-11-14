@@ -130,7 +130,7 @@ char	*ft_insert_space_after_red(char *str, int *i)
 	j = *i;
 	c = ft_strdup(" ");
 
-	if (str[j + 1] != '>' && str[j + 1] != '<' && str[j + 1] != ';')
+	if (str[j + 1] != '>' && str[j + 1] != '<' && str[j + 1] != ' ')
 	{
 		printf("tmp in= %s\n", str);
 		tmp = ft_substr(str, 0, (j + 1));

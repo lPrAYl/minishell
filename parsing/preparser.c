@@ -66,21 +66,14 @@ char	*deleteSpace(char *line)
 	str = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (!str)
 		return (str);
-//	while (line[i] != '\0')
-//	{
-//		if (line[i] != ' ' && line[i + 1] != ' ')
-//			str[j] = line[i];
-//		else
-//			str[j] = ' ';
-//		i++;
-//		j++;
-//	}
-//	str[j] = '\0';
-//	free(line);
 	while (line[i] == ' ' && line[i] != '\0')
 		i++;
 	while (line[i])
 	{
+		if (line[i] == '\'')
+			i = searchNext(line, ++i, '\'');
+		if (line[i] == '"')
+			i = searchNext(line, ++i, '"');
 		while (line[i] != '\0' && (line[i] == ' ' && line[i + 1] == ' '))
 			i++;
 		str[++j] = line[i];

@@ -33,6 +33,9 @@ int	main(int argc, char **argv, char **env)
 //		//				break ;
 //	}
 	//while (1);
+	print_token(token);
 	clear_token(token);
+	printf("clear token\n");
+	print_token(token);
 	return (0);
 }
