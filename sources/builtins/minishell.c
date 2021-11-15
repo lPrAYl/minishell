@@ -121,6 +121,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 	}
 	print_token(token);
 	tmp = token;
+	t_token *temp;
 	while (token)
 	{
 		pid = fork();
@@ -136,7 +137,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 				dup2(token->fd1, 1);
 				close(token->fd1);
 			}
-			t_token *temp = tmp;
+			temp = tmp;
 			while(temp->next)
 			{
 				close(temp->fd[0]);
@@ -169,13 +170,25 @@ int	execute_line(t_token *token, t_list **env_ms)
 		}
 		token = token->next;
 	}
+	temp = tmp;
 	while (tmp->next)
 	{
 		close(tmp->fd[0]);
 		close(tmp->fd[1]);
 		tmp = tmp->next;
-	} 
-	wait(NULL);
+	}
+	int status;
+	while (temp)
+	{
+		waitpid(temp->pid, &status, 0);
+		g_status = WEXITSTATUS(status);
+		if (!g_status && WIFSIGNALED(status))
+		{
+			g_status = 128 + WTERMSIG(status);
+		}
+		temp = temp->next;
+	}
+	// wait(NULL);
 	return (0);
 }
 
@@ -220,15 +233,15 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = NULL;
-		line = readline("minishell > ");
-		if (!line)
-			break ;
+		line = readline("minishell § ");
+		// if (!line)
+		// 	break ;
 		// print_token(token);
 		/*	Remove leading and trailing whitespace from the line.
 			Then, if there is anything left, add it to the history list
 			and execute it. */
 		// str = stripwhite(line);
-		if (line)
+		if (*line)
 		{
 			pr->line = preparser(ft_strdup(line));
 			parser(&token, pr);
