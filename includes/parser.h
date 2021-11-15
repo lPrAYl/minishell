@@ -22,6 +22,7 @@ typedef struct s_token
 	int		fd[2];
 	char	*stopheredoc;
 	char	*error;
+	pid_t	pid;
 	struct s_token	*next;
 }				t_token;
 
