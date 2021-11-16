@@ -10,6 +10,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <errno.h>
+# include "minishell.h"
 
 # include "../libft/libft.h"
 
