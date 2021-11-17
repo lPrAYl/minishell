@@ -7,7 +7,7 @@ char	*outputError(char *str, char *line, int exit_status)
 	//tmp = exit_status;
 	//printf("\033[0;31m\033[1mminishell §\033[0m");
 	printf("minishell:");
-	printf(" %s", str);
+	printf(" %s\n", str);
 	if (line)
 		free(line);
 	//g_exit_status.curr = exit_status;
