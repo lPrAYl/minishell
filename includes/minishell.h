@@ -1,5 +1,5 @@
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -16,8 +16,6 @@
 # include <dirent.h>
 # include "../libft/libft.h"
 
-# define true		1
-# define false		0
 # define BUILTINS	"echo:cd:pwd:export:unset:env:exit"
 
 /*	The names of functions that actually do the manipulation. */
