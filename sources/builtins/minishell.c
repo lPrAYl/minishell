@@ -1,13 +1,6 @@
 #include "../../includes/minishell.h"
 #include "../../includes/parser.h"
 
-/*	The names of functions that actually do the manipulation. */
-typedef struct s_command
-{
-	char	*name;				/*	User printable name of the function. */
-	int		(*func)(char **, t_list **);	/*	Function to call to do the job. */
-}			t_command;
-
 t_command	commands[] = {
 	{"echo", cmd_echo},
 	{"cd", cmd_cd},
