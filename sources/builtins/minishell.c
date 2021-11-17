@@ -1,31 +1,23 @@
 #include "../../includes/minishell.h"
 #include "../../includes/parser.h"
 
-/*	A structure which contains information on the commands this program
-	can understand */
-t_command	commands[] = {
-	{"echo", cmd_echo},
-	{"cd", cmd_cd},
-	{"pwd", cmd_pwd},
-	{"export", cmd_export},
-	{"unset", cmd_unset},
-	{"env", cmd_env},
-	{"exit", cmd_exit},
-	{(char *)NULL, NULL}
-};
-
-t_command	*find_command(char *name)
+int		(*find_builtins(char *name))(char **, t_list **)
 {
-	int	i;
-
-	i = 0;
-	while (commands[i].name)
-	{
-		if (ft_strcmp(name, commands[i].name) == 0)
-			return (&commands[i]);
-		i++;
-	}
-	return ((t_command *)NULL);
+	if (ft_strcmp(name, "echo") == 0)
+		return (cmd_echo);
+	if (ft_strcmp(name, "cd") == 0)
+		return (cmd_cd);
+	if (ft_strcmp(name, "pwd") == 0)
+		return (cmd_pwd);
+	if (ft_strcmp(name, "export") == 0)
+		return (cmd_export);
+	if (ft_strcmp(name, "unset") == 0)
+		return (cmd_unset);
+	if (ft_strcmp(name, "env") == 0)
+		return (cmd_env);
+	if (ft_strcmp(name, "exit") == 0)
+		return (cmd_exit);
+	return (0);
 }
 
 char	*get_command(char *command, t_list *env_ms)
@@ -72,7 +64,7 @@ void	open_pipe(t_token **token)
 int	execute_line(t_token *token, t_list **env_ms)
 {
 	t_token		*tmp;
-	t_command	*command;
+	int 	command;
 	char		**env;
 	
 	open_pipe(&token);
@@ -100,8 +92,8 @@ int	execute_line(t_token *token, t_list **env_ms)
 				close(temp->fd[1]);
 				temp = temp->next;
 			}
-			command = find_command(token->cmd[0]);
-			if (!command)
+			command = 1;
+			if (command)
 			{
 				if (!ft_strcmp(token->cmd[0], "./minishell"))
 				{
@@ -110,7 +102,6 @@ int	execute_line(t_token *token, t_list **env_ms)
 					cmd_export(ft_split(for_export, ' '), env_ms);
 				}
 				env = list_to_array(*env_ms);
-				printf("%s\n", token->cmd[0]);
 				execve(get_command(token->cmd[0], *env_ms), token->cmd, env);
 				if (errno == 13 && opendir(token->cmd[0]))
 				{
@@ -122,7 +113,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 				return (1);
 			}
 			/*	Call function. */
-			return (command->func(token->cmd, env_ms));
+			return ((find_builtins(token->cmd[0]))(token->cmd, env_ms));
 		}
 		token = token->next;
 	}

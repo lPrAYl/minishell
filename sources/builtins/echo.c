@@ -19,7 +19,6 @@ int	cmd_echo(char **argv, t_list **env_ms)
 
 	i = 1;
 	n_option = 1;
-	printf("%s\n", argv[1]);
 	while (argv[i])
 	{
 		if (i == 1 && argv[i] && ft_strcmp(argv[i], "-n") == 0)
