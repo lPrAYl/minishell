@@ -11,7 +11,8 @@ SRCS			=	./sources/builtins/minishell.c	\
 					./parsing/parser_split.c	./parsing/parser_str.c\
 					./parsing/parser_token.c\
 					./parsing/parser_urils1.c	./parsing/parser.c	\
-					./parsing/preparser.c	./parsing/token.c
+					./parsing/preparser.c	./parsing/token.c \
+					./parsing/signals_interactive_shell.c	./parsing/signals_non_interactive_shell.c
 
 OBJS			=	$(SRCS:.c=.o)
 
