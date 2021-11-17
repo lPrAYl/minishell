@@ -5,8 +5,9 @@ char	*outputError(char *str, char *line, int exit_status)
 	//int tmp;
 
 	//tmp = exit_status;
-	printf("\033[0;31m\033[1mms:\033[0m");
-	printf(" %s\n", str);
+	//printf("\033[0;31m\033[1mminishell §\033[0m");
+	printf("minishell:");
+	printf(" %s", str);
 	if (line)
 		free(line);
 	//g_exit_status.curr = exit_status;
@@ -32,7 +33,7 @@ void clear_token(t_token **tmp_token)
 	{
 		//write(1, "stop\n", 5);
 		tmp_i = 0;
-		printf("clear_token - start\n");
+		//printf("clear_token - start\n");
 		while (token->cmd[tmp_i] != NULL)
 		{
 			if (token->cmd[tmp_i])
@@ -56,7 +57,7 @@ void clear_token(t_token **tmp_token)
 	}
 	free(token);
 	token = NULL;
-	printf("clear_token - stop\n");
+	//printf("clear_token - stop\n");
 }
 
 void	print_token(t_token *token)

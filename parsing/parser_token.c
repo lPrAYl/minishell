@@ -14,7 +14,7 @@ int	parserToken(t_token **token, t_parser *pr, int pp)
 	else
 		tmp = ft_substr(pr->line, pr->k, (pr->i - pr->k));
 	//tmp4 = parser_str(deleteSpace(tmp), pr->env);
-	printf("tmp ParserPipe = %s pr.k= %d pr.i= %d \n", tmp, pr->k, pr->i);
+	//printf("tmp ParserPipe = %s pr.k= %d pr.i= %d \n", tmp, pr->k, pr->i);
 	while (tmp[++i])
 	{
 		if (tmp[i] == '>' || tmp[i] == '<')

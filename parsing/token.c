@@ -1,22 +1,22 @@
 #include "../includes/parser.h"
 
-void	*free_token(t_token **t)
-{
-	t_token	*ptr;
-	t_token	*copy;
-
-	ptr = *t;
-	while (ptr)
-	{
-		copy = ptr->next;
-		if (ptr->cmd)
-			free(ptr->cmd);
-		free(ptr);
-		ptr = copy;
-	}
-	t = NULL;
-	return (NULL);
-}
+//void	*free_token(t_token **t)
+//{
+//	t_token	*ptr;
+//	t_token	*copy;
+//
+//	ptr = *t;
+//	while (ptr)
+//	{
+//		copy = ptr->next;
+//		if (ptr->cmd)
+//			free(ptr->cmd);
+//		free(ptr);
+//		ptr = copy;
+//	}
+//	t = NULL;
+//	return (NULL);
+//}
 
 void	createToken(t_token **token, t_parser *pr, char *str, int redOrPipe)
 {
@@ -27,7 +27,7 @@ void	createToken(t_token **token, t_parser *pr, char *str, int redOrPipe)
 	new = malloc(sizeof(t_token));
 	if (!(new))
 	{
-		free_token(token);
+		clear_token(token);
 		outputError("error create new token", NULL, 258);
 		return ;
 	}
@@ -39,8 +39,8 @@ void	createToken(t_token **token, t_parser *pr, char *str, int redOrPipe)
 			//ft_strdup("");
 	new->next = NULL;
 	ft_parser_red(new, pr);
-	printf("new->fd0= %d\n", new->fd0);
-	printf("new->fd1= %d\n", new->fd1);
+//	printf("new->fd0= %d\n", new->fd0);
+//	printf("new->fd1= %d\n", new->fd1);
 
 //	printf("new->cmd2= %s\n", new->cmd[2]);
 	ptr = *token;

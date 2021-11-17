@@ -132,16 +132,16 @@ char	*ft_insert_space_after_red(char *str, int *i)
 
 	if (str[j + 1] != '>' && str[j + 1] != '<' && str[j + 1] != ' ')
 	{
-		printf("tmp in= %s\n", str);
+		//printf("tmp in= %s\n", str);
 		tmp = ft_substr(str, 0, (j + 1));
 		tmp2 = ft_substr(str, (j + 1), (ft_strlen(str) - j));
-		printf("tmp1= %s\n", tmp);
-		printf("tmp2 out= %s\n", tmp2);
+		//printf("tmp1= %s\n", tmp);
+		//printf("tmp2 out= %s\n", tmp2);
 		//tmp3 = ft_strdup(str + *i + 1);
 		tmp = ft_strjoin(tmp, c);
 		tmp = ft_strjoin(tmp, tmp2);
 		//tmp = ft_strjoin(tmp, tmp3);
-		printf("tmp out= %s\n", tmp);
+		//printf("tmp out= %s\n", tmp);
 		free(str);
 		free(c);
 		*i = j + 2;

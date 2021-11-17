@@ -2,11 +2,11 @@
 
 void	parser(t_token **token, t_parser *pr)
 {
-	int		tmp_i;
+	//int		tmp_i;
 	//int		k;
 	//char	*tmpline;
 	//t_token *token;
-	t_token *tmp_token;
+	//t_token *tmp_token;
 
 	pr->i = 0;
 	pr->k = 0;
@@ -31,18 +31,18 @@ void	parser(t_token **token, t_parser *pr)
 		}
 		pr->i++;
 	}
-	tmp_token = *token;
-	while (tmp_token)
-	{
-		//write(1, "stop\n", 5);
-		tmp_i = 0;
-		while (tmp_token->cmd[tmp_i])
-		{
-			if (tmp_token->cmd[tmp_i])
-				printf("token->cmd%d= |%s|", tmp_i, tmp_token->cmd[tmp_i]);
-			tmp_i++;
-		}
-		printf("\n");
+//	tmp_token = *token;
+//	while (tmp_token)
+//	{
+//		//write(1, "stop\n", 5);
+//		tmp_i = 0;
+//		while (tmp_token->cmd[tmp_i])
+//		{
+//			if (tmp_token->cmd[tmp_i])
+//				printf("token->cmd%d= |%s|", tmp_i, tmp_token->cmd[tmp_i]);
+//			tmp_i++;
+//		}
+//		printf("\n");
 
 //			printf("token->cmd0= |%s| cmd1= |%s| cmd2= |%s| cmd3= |%s| ",
 //				   tmp_token->cmd[0], tmp_token->cmd[1], tmp_token->cmd[2],
@@ -51,10 +51,10 @@ void	parser(t_token **token, t_parser *pr)
 //			   tmp_token->redOrPipe, tmp_token->fd0, tmp_token->fd1,
 //				   tmp_token->stopheredoc);
 //		printf("token->next= %p\n", tmp_token->next);
-		tmp_token = tmp_token->next;
+		//tmp_token = tmp_token->next;
 		//			if (++i == 4)
 		//				break ;
-	}
+	//}
 }
 
 

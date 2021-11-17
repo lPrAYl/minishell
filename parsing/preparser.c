@@ -95,8 +95,8 @@ char	*preparser(char *line)
 
 	i = 0;
 	tmpline = line;
-	line = deleteSpace(line);
-	printf("preparser_line= %s\n", line);
+	//line = deleteSpace(line);
+	//printf("preparser_line= %s\n", line);
 	while (line[i])
 	{
 		if (line[i] == '\'')
