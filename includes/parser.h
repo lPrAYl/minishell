@@ -70,4 +70,7 @@ void	print_token(t_token *token);
 void	parser(t_token **token, t_parser *pr);
 void	clear_token(t_token **token);
 
+void	signals_interactive_shell(void);
+void	signals_non_interactive_shell(void);
+
 #endif

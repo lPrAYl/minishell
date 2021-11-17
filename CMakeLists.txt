@@ -11,6 +11,6 @@ FILE(GLOB SRC
         )
 
 #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-add_executable(minishell ${SRC} parsing/parser.c)
+add_executable(minishell ${SRC} parsing/parser.c parsing/signals_interactive_shell.c parsing/signals_non_interactive_shell.c)
 target_link_libraries (minishell ${CMAKE_CURRENT_SOURCE_DIR}/libft/libft.a)
 target_link_libraries (minishell readline)
