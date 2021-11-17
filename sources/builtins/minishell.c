@@ -64,7 +64,7 @@ void	open_pipe(t_token **token)
 int	execute_line(t_token *token, t_list **env_ms)
 {
 	t_token		*tmp;
-	int 	command;
+	int command;
 	char		**env;
 	
 	open_pipe(&token);
@@ -93,7 +93,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 				temp = temp->next;
 			}
 			command = 1;
-			if (command)
+			if (!command)
 			{
 				if (!ft_strcmp(token->cmd[0], "./minishell"))
 				{
@@ -102,6 +102,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 					cmd_export(ft_split(for_export, ' '), env_ms);
 				}
 				env = list_to_array(*env_ms);
+				printf("%s\n", token->cmd[0]);
 				execve(get_command(token->cmd[0], *env_ms), token->cmd, env);
 				if (errno == 13 && opendir(token->cmd[0]))
 				{
@@ -113,7 +114,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 				return (1);
 			}
 			/*	Call function. */
-			return ((find_builtins(token->cmd[0]))(token->cmd, env_ms));
+			(find_builtins(token->cmd[0]))(token->cmd, env_ms);
 		}
 		token = token->next;
 	}
