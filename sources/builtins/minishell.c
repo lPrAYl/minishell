@@ -1,6 +1,8 @@
 #include "../../includes/minishell.h"
 #include "../../includes/parser.h"
 
+/*	A structure which contains information on the commands this program
+	can understand */
 t_command	commands[] = {
 	{"echo", cmd_echo},
 	{"cd", cmd_cd},
@@ -11,9 +13,6 @@ t_command	commands[] = {
 	{"exit", cmd_exit},
 	{(char *)NULL, NULL}
 };
-
-/*	A structure which contains information on the commands this program
-	can understand */
 
 t_command	*find_command(char *name)
 {
@@ -55,43 +54,28 @@ char	*get_command(char *command, t_list *env_ms)
 	return (path);
 }
 
-// static void	print_token(t_token *token)
-// {
-// 	t_token	*tmp;
+void	open_pipe(t_token **token)
+{
+	t_token	*point;
 
-// 	tmp = token;
-// 	while (tmp)
-// 	{
-// 		int	i = 0;
-// 		while (tmp->cmd[i])
-// 		{
-// 			if (tmp->cmd[i])
-// 				printf("token->cmd%d = |%s|\tfd0 = %d\tfd1 = %d\n", i, tmp->cmd[i], tmp->fd0, tmp->fd1);
-// 			i++;
-// 		}
-// 		printf("\n");
-// 		tmp = tmp->next;
-// 	}
-// }
+	point = *token;
+	while (point->next)
+	{
+		pipe(point->fd);	//	добавить обработку ошибки
+		point->fd1 = point->fd[1];
+		point->next->fd0 = point->fd[0];
+		point = point->next;
+	}
+}
+
 
 int	execute_line(t_token *token, t_list **env_ms)
 {
-	// t_cmd		*cmd;
 	t_token		*tmp;
 	t_command	*command;
 	char		**env;
-	// char		**argv;
-	// char		**arg;
 	
-	tmp = token;
-	while (tmp->next)
-	{
-		pipe(tmp->fd);
-		tmp->fd1 = tmp->fd[1];
-		tmp->next->fd0 = tmp->fd[0];
-		tmp = tmp->next;
-	}
-	print_token(token);
+	open_pipe(&token);
 	tmp = token;
 	t_token *temp;
 	while (token)
@@ -142,6 +126,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 		}
 		token = token->next;
 	}
+	// wait_children(&token)
 	temp = tmp;
 	while (tmp->next)
 	{
@@ -195,15 +180,13 @@ int	main(int argc, char **argv, char **env)
 	t_list	*env_ms;
 
 	init_start_struct(&env_ms, env);
-	pr = (t_parser *) malloc(sizeof(t_parser));
+	pr = (t_parser *)malloc(sizeof(t_parser));
 	pr->env = env;
 	/*	Loop reading and executing lines until the use quit. */
 	while (1)
 	{
 		line = NULL;
 		line = readline("minishell § ");
-		if (!line)
-			break ;
 		if (*line)
 		{
 			pr->line = preparser(ft_strdup(line));
