@@ -108,9 +108,15 @@ char	*preparser(char *line)
 		if (line[i] == '<' || line[i] == '>')
 			i = searchRed(line, i);
 		if (line[i] == ';')
-			return (outputError("syntax error", line, 258));
+		{
+			outputError("syntax error", line, 258);
+			break ;
+		}
 		if (line[i] == '\0')
-			return (outputError("syntax error", line, 258));
+		{
+			outputError("syntax error", line, 258);
+			break ;
+		}
 //		printf("i= %d line[i]= %c ", i, line[i]);
 //		if (i == 10)
 //			printf("\n");
