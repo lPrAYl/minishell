@@ -20,6 +20,13 @@
 # define false		0
 # define BUILTINS	"echo:cd:pwd:export:unset:env:exit"
 
+/*	The names of functions that actually do the manipulation. */
+typedef struct s_command
+{
+	char	*name;				/*	User printable name of the function. */
+	int		(*func)(char **, t_list **);	/*	Function to call to do the job. */
+}			t_command;
+
 int		g_status;
 
 /*	builtins	*/

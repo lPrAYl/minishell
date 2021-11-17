@@ -1,13 +1,6 @@
 #include "../../includes/minishell.h"
 #include "../../includes/parser.h"
 
-/*	The names of functions that actually do the manipulation. */
-typedef struct s_command
-{
-	char	*name;				/*	User printable name of the function. */
-	int		(*func)(char **, t_list **);	/*	Function to call to do the job. */
-}			t_command;
-
 t_command	commands[] = {
 	{"echo", cmd_echo},
 	{"cd", cmd_cd},
@@ -34,25 +27,6 @@ t_command	*find_command(char *name)
 		i++;
 	}
 	return ((t_command *)NULL);
-}
-
-/*	Strip whitespaces ftom the start and end of STRING. Return a pointer
-	into STRING. */
-char	*stripwhite(char *str)
-{
-	char	*begin;
-	char	*end;
-
-	begin = str;
-	while (ft_isspace(*begin))
-		begin++;
-	if (*begin == 0)
-		return (begin);
-	end = begin + ft_strlen(begin) - 1;
-	while (end > begin && ft_isspace(*end))
-		end--;
-	*++end = '\0';
-	return (begin);
 }
 
 char	*get_command(char *command, t_list *env_ms)
@@ -104,12 +78,10 @@ int	execute_line(t_token *token, t_list **env_ms)
 {
 	// t_cmd		*cmd;
 	t_token		*tmp;
-	// t_command	*command;
+	t_command	*command;
 	char		**env;
 	// char		**argv;
 	// char		**arg;
-	pid_t		pid;
-
 	
 	tmp = token;
 	while (tmp->next)
@@ -124,8 +96,8 @@ int	execute_line(t_token *token, t_list **env_ms)
 	t_token *temp;
 	while (token)
 	{
-		pid = fork();
-		if (!pid)
+		token->pid = fork();
+		if (!token->pid)
 		{
 			if (token->fd0 != 0)
 			{
@@ -144,29 +116,29 @@ int	execute_line(t_token *token, t_list **env_ms)
 				close(temp->fd[1]);
 				temp = temp->next;
 			}
-			// command = find_command(token->cmd[0]);
-			// if (!command)
-			// {
-				// if (!ft_strcmp(token->cmd[0], "./minishell"))
-				// {
-				// 	int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
-				// 	char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
-				// 	cmd_export(ft_split(for_export, ' '), env_ms);
-				// }
+			command = find_command(token->cmd[0]);
+			if (!command)
+			{
+				if (!ft_strcmp(token->cmd[0], "./minishell"))
+				{
+					int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
+					char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+					cmd_export(ft_split(for_export, ' '), env_ms);
+				}
 				env = list_to_array(*env_ms);
-				// printf("%s\n", token->cmd[0]);
+				printf("%s\n", token->cmd[0]);
 				execve(get_command(token->cmd[0], *env_ms), token->cmd, env);
-				// if (errno == 13 && opendir(token->cmd[0]))
-				// {
-				// 	printf("minishell: %s: %s\n", token->cmd[0], strerror(21));
-				// 	closedir(opendir(token->cmd[0]));
-				// }
-				// else
-				// 	printf("minishell: %s: %s\n", token->cmd[0], strerror(errno));
-				// return (1);
-			// }
-			// /*	Call function. */
-			// return (command->func(token->cmd, env_ms));
+				if (errno == 13 && opendir(token->cmd[0]))
+				{
+					printf("minishell: %s: %s\n", token->cmd[0], strerror(21));
+					closedir(opendir(token->cmd[0]));
+				}
+				else
+					printf("minishell: %s: %s\n", token->cmd[0], strerror(errno));
+				return (1);
+			}
+			/*	Call function. */
+			return (command->func(token->cmd, env_ms));
 		}
 		token = token->next;
 	}
@@ -188,7 +160,6 @@ int	execute_line(t_token *token, t_list **env_ms)
 		}
 		temp = temp->next;
 	}
-	// wait(NULL);
 	return (0);
 }
 
@@ -214,18 +185,15 @@ void	init_start_struct(t_list **env_ms, char **env)
 	}
 }
 
-
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
 	t_parser	*pr;
 	t_token		*token;
-	//char	*command;
 	char	*line;
 	t_list	*env_ms;
 
-	//command = token->cmd[0];
 	init_start_struct(&env_ms, env);
 	pr = (t_parser *) malloc(sizeof(t_parser));
 	pr->env = env;
@@ -234,13 +202,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		line = NULL;
 		line = readline("minishell § ");
-		// if (!line)
-		// 	break ;
-		// print_token(token);
-		/*	Remove leading and trailing whitespace from the line.
-			Then, if there is anything left, add it to the history list
-			and execute it. */
-		// str = stripwhite(line);
+		if (!line)
+			break ;
 		if (*line)
 		{
 			pr->line = preparser(ft_strdup(line));
@@ -253,18 +216,3 @@ int	main(int argc, char **argv, char **env)
 	}
 	exit(0);
 }
-
-//	External finctions :
-//	readline, rl_clear_history, rl_on_new_line, rl_replace_line,
-//	rl_redisplay, add_history,
-//	malloc, free,
-//	printf, write,
-//	access, open, read, close,
-//	fork, wait, waitpid, wait3, wait4, execve, dup, dup2, pipe,
-//	signal, sigaction, kill, exit,
-//	getcwd, chdir, stat, lstat, fstat,
-//	unlink, opendir, readdir, closedir, strerror,
-//	perror, isatty, ttyname, ttyslot, ioctl, getenv, tcsetattr, tcgetattr,
-//	tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-
-//	Builtins : echo (-n), cd, pwd, export, unset, env, exit
