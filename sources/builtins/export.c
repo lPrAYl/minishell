@@ -57,25 +57,20 @@ static void	export_line(char **argv, t_list **env_ms)
 {
 	int		i;
 	int		j;
-	// char	**argv;
 	t_env	*tmp;
 	t_list	*point;
 
-	// argv = ft_split(line, ' ');
 	i = 1;
 	while (argv[i])
 	{
 		j = 0;
 		tmp = malloc_x(sizeof(t_env));
-		printf("export argv1= %s\n", argv[i]);
 		while (argv[i][j] != '=' && argv[i][j])
 			j++;
 		tmp->key = ft_substr(argv[i], 0, j);
-		printf("tmp->key %s\n", tmp->key);
 		if (check_key(tmp->key))
 		{
 			tmp->value = ft_substr(argv[i], j + 1, -1);
-			printf("tmp->value %s\n", tmp->value);
 			tmp->line = argv[i];
 			tmp->is_sort = 0;
 			point = *env_ms;
@@ -83,8 +78,6 @@ static void	export_line(char **argv, t_list **env_ms)
 			{
 				if (!ft_strcmp(tmp->key, point->data->key))
 					break;
-				printf("point\n");
-				printf("point->key= %s %s\n", point->data->key, point->data->value);
 				point = point->next;
 			}
 			if (point && !ft_strcmp(tmp->key, point->data->key))
@@ -99,7 +92,6 @@ static void	export_line(char **argv, t_list **env_ms)
 		}
 		i++;
 	}
-	// free_array(argv);
 }
 
 int	cmd_export(char **argv, t_list **env_ms)
@@ -107,8 +99,6 @@ int	cmd_export(char **argv, t_list **env_ms)
 	t_list	**env_copy;
 	t_list	*point;
 
-	printf("%s\n", argv[0]);
-	printf("%s\n", argv[1]);
 	make_copy_env(&env_copy, *env_ms);
 	sort_copy_env(env_copy);
 	if (argv[1])

@@ -20,9 +20,9 @@ int	cmd_pwd(char **ignore, t_list **env_ms)
 	// if (pwd)
 	// {
 		ft_putendl_fd(pwd, 1);
-		return (0);
+		return (1);
 	// }
 	// print_errno();
 	// free(pwd);
-	return (1);
+	// return (1);
 }
