@@ -15,6 +15,25 @@ char	*outputError(char *str, char *line, int exit_status)
 	return (NULL);
 }
 
+char	*break_on_error(char *str1, char *str2, int exit_status)
+{
+	char *tmp;
+	char *tmp1;
+
+	tmp = ft_strdup("minishell: ");
+	tmp1 = ft_strjoin(tmp, str1);
+	free(tmp);
+	tmp = ft_strjoin(tmp1, ": ");
+	free(tmp1);
+	tmp1 = ft_strjoin(tmp, str2);
+	if (*str1)
+		free(str1);
+	if (*str2)
+		free(str2);
+	g_status = exit_status;
+	return(tmp1);
+}
+
 int	ifkey(char c)
 {
 	if (c == '_' || c == '*' || c == '!' || ft_isalnum(c))
