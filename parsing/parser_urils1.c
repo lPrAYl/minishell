@@ -26,9 +26,9 @@ char	*break_on_error(char *str1, char *str2, int exit_status)
 	tmp = ft_strjoin(tmp1, ": ");
 	free(tmp1);
 	tmp1 = ft_strjoin(tmp, str2);
-	if (*str1)
+	if (!str1)
 		free(str1);
-	if (*str2)
+	if (!str2)
 		free(str2);
 	g_status = exit_status;
 	return(tmp1);
