@@ -80,6 +80,36 @@ int	execute_line(t_token *token, t_list **env_ms)
 	print_token(token);
 	while (token)
 	{
+		if (token->stopheredoc)
+			{
+				int	fd[2];
+				int	pid;
+
+				pipe(fd);
+				pid = fork();
+				if (!pid)
+				{
+					close(fd[0]);
+					token->fd1 = fd[1];
+					char *line1;
+					while (1)
+					{
+						line1 = readline("> ");
+						if (!ft_strcmp(line1, token->stopheredoc))
+							break ;
+						ft_putendl_fd(line1, token->fd1);
+						free(line1);
+					}
+					close(token->fd1);
+					exit(0);
+				}
+				else
+				{
+					close(fd[1]);
+					waitpid(pid, NULL, 0);
+					token->fd0 = fd[0];
+				}
+			}
 		if (!tmp->next && !ft_strcmp(tmp->cmd[0], "exit"))
 			find_builtins(token->cmd[0])(token->cmd, env_ms);
 			// return (0);
@@ -89,37 +119,8 @@ int	execute_line(t_token *token, t_list **env_ms)
 		}
 		else 
 		{
+			
 			token->pid = fork();
-			// if (token->stopheredoc)
-			// {
-			// 	int	fd[2];
-			// 	int	pid;
-
-			// 	pipe(fd);
-			// 	pid = fork();
-			// 	if (!pid)
-			// 	{
-			// 		close(fd[0]);
-			// 		token->fd1 = fd[1];
-			// 		char *line;
-			// 		while (1)
-			// 		{
-			// 			line = readline("> ");
-			// 			if (!ft_strcmp(line, token->stopheredoc))
-			// 				break ;
-			// 			ft_putendl_fd(line, token->fd1);
-			// 			free(line);
-			// 		}
-			// 		close(token->fd1);
-			// 		// exit(0);
-			// 	}
-			// 	else
-			// 	{
-			// 		close(fd[1]);
-			// 		waitpid(pid, NULL, 0);
-			// 		token->fd0 = fd[0];
-			// 	}
-			// }
 			if (!token->pid)
 			{
 				if (token->fd0 != 0)
@@ -232,3 +233,45 @@ int	main(int argc, char **argv, char **env)
 	}
 	exit(0);
 }
+
+// static void	heredoc(t_cmd *cmd, char *stop)
+// {
+// 	char	*line;
+
+// 	while (1)
+// 	{
+// 		line = readline("> ");
+// 		if (!ft_strncmp(line, stop, ft_strlen(stop) + 1))
+// 			break ;
+// 		ft_putendl_fd(line, cmd->out);
+// 		free(line);
+// 	}
+// 	close(cmd->out);
+// 	exit(0);
+// }
+
+// static void	rdr_double_left(t_cmd *cmd, char *stop)
+// {
+// 	int	fd[2];
+// 	int	pid;
+
+// 	if (pipe(fd) < 0)
+// 	{
+// 		perror("Error");
+// 		g_status = 1;
+// 		exit (g_status);
+// 	}
+// 	pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		close(fd[0]);
+// 		cmd->out = fd[1];
+// 		heredoc(cmd, stop);
+// 	}
+// 	else
+// 	{
+// 		close(fd[1]);
+// 		waitpid(pid, NULL, 0);
+// 		cmd->in = fd[0];
+// 	}
+// }
