@@ -33,5 +33,5 @@ int	cmd_echo(char **argv, t_list **env_ms)
 	}
 	if (n_option)
 		write(1, "\n", 1);
-	return (0);
+	return (1);
 }

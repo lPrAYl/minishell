@@ -1,8 +1,16 @@
 #include "../../includes/minishell.h"
 #include "../../includes/parser.h"
 
-int		(*find_builtins(char *name))(char **, t_list **)
+int	cmd_null(char **argv, t_list **env_ms)
 {
+	(void)argv;
+	(void)env_ms;
+	return (0);
+}
+
+int	(*find_builtins(char *name))(char **, t_list **)
+{
+	(void)name;
 	if (ft_strcmp(name, "echo") == 0)
 		return (cmd_echo);
 	if (ft_strcmp(name, "cd") == 0)
@@ -17,7 +25,7 @@ int		(*find_builtins(char *name))(char **, t_list **)
 		return (cmd_env);
 	if (ft_strcmp(name, "exit") == 0)
 		return (cmd_exit);
-	return (0);
+	return (cmd_null);
 }
 
 char	*get_command(char *command, t_list *env_ms)
@@ -64,7 +72,6 @@ void	open_pipe(t_token **token)
 int	execute_line(t_token *token, t_list **env_ms)
 {
 	t_token		*tmp;
-	int command;
 	char		**env;
 	
 	open_pipe(&token);
@@ -72,29 +79,32 @@ int	execute_line(t_token *token, t_list **env_ms)
 	t_token *temp;
 	while (token)
 	{
-		token->pid = fork();
-		if (!token->pid)
+		if (!token->next && find_builtins(token->cmd[0])(token->cmd, env_ms))
+			return (0);
+		else 
 		{
-			if (token->fd0 != 0)
+			token->pid = fork();
+			if (!token->pid)
 			{
-				dup2(token->fd0, 0);
-				close(token->fd0);
-			}
-			if (token->fd1 != 1)
-			{
-				dup2(token->fd1, 1);
-				close(token->fd1);
-			}
-			temp = tmp;
-			while(temp->next)
-			{
-				close(temp->fd[0]);
-				close(temp->fd[1]);
-				temp = temp->next;
-			}
-			command = 1;
-			if (!command)
-			{
+				if (token->fd0 != 0)
+				{
+					dup2(token->fd0, 0);
+					close(token->fd0);
+				}
+				if (token->fd1 != 1)
+				{
+					dup2(token->fd1, 1);
+					close(token->fd1);
+				}
+				temp = tmp;
+				while(temp->next)
+				{
+					close(temp->fd[0]);
+					close(temp->fd[1]);
+					temp = temp->next;
+				}
+				if ((find_builtins(token->cmd[0]))(token->cmd, env_ms))
+					exit (0);
 				if (!ft_strcmp(token->cmd[0], "./minishell"))
 				{
 					int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
@@ -102,7 +112,6 @@ int	execute_line(t_token *token, t_list **env_ms)
 					cmd_export(ft_split(for_export, ' '), env_ms);
 				}
 				env = list_to_array(*env_ms);
-				printf("%s\n", token->cmd[0]);
 				execve(get_command(token->cmd[0], *env_ms), token->cmd, env);
 				if (errno == 13 && opendir(token->cmd[0]))
 				{
@@ -113,8 +122,6 @@ int	execute_line(t_token *token, t_list **env_ms)
 					printf("minishell: %s: %s\n", token->cmd[0], strerror(errno));
 				return (1);
 			}
-			/*	Call function. */
-			(find_builtins(token->cmd[0]))(token->cmd, env_ms);
 		}
 		token = token->next;
 	}

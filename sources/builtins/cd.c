@@ -43,13 +43,13 @@ int	cmd_cd(char **argv, t_list **env_ms)
 	{
 		ft_putstr_fd("minishell: cd: ", 1);
 		perror(argv[1]);
-		return (1);
+		return (0);
 	}
-	old_pwd = ft_strjoin("OLDPWD=", pwd);
+	old_pwd = ft_strjoin("export OLDPWD=", pwd);
 	cmd_export(ft_split(old_pwd, ' '), env_ms);
 	get_current_pwd(&pwd, *env_ms);
-	new_pwd = ft_strjoin("PWD=", pwd);
+	new_pwd = ft_strjoin("export PWD=", pwd);
 	cmd_export(ft_split(new_pwd, ' '), env_ms);
 	free(pwd);
-	return (0);
+	return (1);
 }
