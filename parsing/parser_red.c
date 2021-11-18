@@ -123,6 +123,7 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 	new->fd1 = 1;
 	while (new->cmd[i] != '\0')
 	{
+		new->cmd[i] = parser_str(new->cmd[i], pr->env);
 		if (new->cmd[i][0] == '>' && new->cmd[i][1] != '>')
 		{
 			//printf(" nashel redirect= %c\n", new->cmd[i][0]);
@@ -131,7 +132,11 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 							0644);
 			//printf("cmd%d = %s\n  %s\n", i, new->cmd[i + 1], strerror(errno));
 			if (new->fd1 < 0)
-				new->error = strerror(errno);
+			{
+				new->error = break_on_error(new->cmd[0], new->cmd[i + 1], 1);
+				break ;
+			}
+//				new->error = ft_strjoin(new->cmd[i + 1], strerror(errno));
 				//outputError(strerror(errno), NULL, errno);
 			ft_free_str_in_token(new, i + 1);
 			ft_free_str_in_token(new, i);
@@ -163,7 +168,6 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 			ft_free_str_in_token(new, i);
 			new->redOrPipe = 23;
 		}
-		new->cmd[i] = parser_str(new->cmd[i], pr->env);
 		i++;
 	}
 	if (new->redOrPipe >= 20)
