@@ -77,9 +77,11 @@ int	execute_line(t_token *token, t_list **env_ms)
 	open_pipe(&token);
 	tmp = token;
 	t_token *temp;
+	print_token(token);
 	while (token)
 	{
-		if (!token->next && find_builtins(token->cmd[0])(token->cmd, env_ms))
+		if (!token->next && !ft_strcmp(token->cmd[0], "exit") \
+			&& find_builtins(token->cmd[0])(token->cmd, env_ms))
 			return (0);
 		else 
 		{
