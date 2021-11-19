@@ -92,8 +92,10 @@ char	*preparser(char *line)
 {
 	int		i;
 	char	*tmpline;
+	int		flag;
 
 	i = 0;
+	flag = 0;
 	tmpline = line;
 	//line = deleteSpace(line);
 	//printf("preparser_line= %s\n", line);
@@ -110,11 +112,13 @@ char	*preparser(char *line)
 		if (line[i] == ';')
 		{
 			outputError("syntax error", line, 258);
+			flag = 1;
 			break ;
 		}
 		if (line[i] == '\0')
 		{
 			outputError("syntax error", line, 258);
+			flag = 1;
 			break ;
 		}
 //		printf("i= %d line[i]= %c ", i, line[i]);
@@ -123,8 +127,8 @@ char	*preparser(char *line)
 		i++;
 	}
 	//while(1);
-	if (line)
+	if (line && flag != 1)
 		return (line);
 	else
-		return (outputError("error malloc", tmpline, 42));
+		return (NULL);
 }
