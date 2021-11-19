@@ -10,7 +10,6 @@ int	cmd_null(char **argv, t_list **env_ms)
 
 int	(*find_builtins(char *name))(char **, t_list **)
 {
-	(void)name;
 	if (ft_strcmp(name, "echo") == 0)
 		return (cmd_echo);
 	if (ft_strcmp(name, "cd") == 0)
@@ -81,10 +80,13 @@ int	execute_line(t_token *token, t_list **env_ms)
 	while (token)
 	{
 		if (token->stopheredoc)
+		{
+			char **stop = ft_split(token->stopheredoc, ' ');
+			int i = 0;
+			while (stop[i])
 			{
 				int	fd[2];
 				int	pid;
-
 				pipe(fd);
 				pid = fork();
 				if (!pid)
@@ -95,7 +97,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 					while (1)
 					{
 						line1 = readline("> ");
-						if (!ft_strcmp(line1, token->stopheredoc))
+						if (!ft_strcmp(line1, stop[i]))
 							break ;
 						ft_putendl_fd(line1, token->fd1);
 						free(line1);
@@ -109,7 +111,9 @@ int	execute_line(t_token *token, t_list **env_ms)
 					waitpid(pid, NULL, 0);
 					token->fd0 = fd[0];
 				}
+				i++;
 			}
+		}
 		if (!tmp->next && !ft_strcmp(tmp->cmd[0], "exit"))
 			find_builtins(token->cmd[0])(token->cmd, env_ms);
 			// return (0);
@@ -233,45 +237,3 @@ int	main(int argc, char **argv, char **env)
 	}
 	exit(0);
 }
-
-// static void	heredoc(t_cmd *cmd, char *stop)
-// {
-// 	char	*line;
-
-// 	while (1)
-// 	{
-// 		line = readline("> ");
-// 		if (!ft_strncmp(line, stop, ft_strlen(stop) + 1))
-// 			break ;
-// 		ft_putendl_fd(line, cmd->out);
-// 		free(line);
-// 	}
-// 	close(cmd->out);
-// 	exit(0);
-// }
-
-// static void	rdr_double_left(t_cmd *cmd, char *stop)
-// {
-// 	int	fd[2];
-// 	int	pid;
-
-// 	if (pipe(fd) < 0)
-// 	{
-// 		perror("Error");
-// 		g_status = 1;
-// 		exit (g_status);
-// 	}
-// 	pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		close(fd[0]);
-// 		cmd->out = fd[1];
-// 		heredoc(cmd, stop);
-// 	}
-// 	else
-// 	{
-// 		close(fd[1]);
-// 		waitpid(pid, NULL, 0);
-// 		cmd->in = fd[0];
-// 	}
-// }
