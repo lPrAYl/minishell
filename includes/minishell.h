@@ -18,21 +18,23 @@
 
 # define BUILTINS	"echo:cd:pwd:export:unset:env:exit"
 
-/*	The names of functions that actually do the manipulation. */
+int		g_status;
+
+/*
+*	The names of functions that actually do the manipulation.
+*/
 typedef struct s_command
 {
-	char	*name;				/*	User printable name of the function. */
-	int		(*func)(char **, t_list **);	/*	Function to call to do the job. */
+	char	*name;
+	int		(*func)(char **, t_list **);
 }			t_command;
-
-int		g_status;
 
 /*	builtins	*/
 
 int		cmd_echo(char **argv, t_list **env_ms);
-int		cmd_pwd(char **argv,t_list **env_ms);
+int		cmd_pwd(char **argv, t_list **env_ms);
 int		cmd_exit(char **argv, t_list **env_ms);
-int 	cmd_env(char **argv, t_list **env_ms);
+int		cmd_env(char **argv, t_list **env_ms);
 int		cmd_export(char **argv, t_list **env_ms);
 int		cmd_unset(char **argv, t_list **env_ms);
 int		cmd_cd(char **argv, t_list **env_ms);
