@@ -51,7 +51,7 @@ void	ft_clear_empty_line(t_token *new, int max_i)
 	new->cmd = mass;
 }
 
-void	ft_append_red(t_token *new, int *i)
+int	ft_append_red(t_token *new, int *i)
 {
 //	if (new->cmd[*i][2])
 //	{
@@ -67,7 +67,10 @@ void	ft_append_red(t_token *new, int *i)
 		new->fd1 = open(new->cmd[*i + 1], O_WRONLY | O_CREAT | O_APPEND,
 						0644);
 		if (new->fd1 < 0)
-			new->error = strerror(errno);
+		{
+			new->error = break_on_error(new->cmd[*i + 1], strerror(errno),1);
+			return (1);
+		}
 		//printf("cmd%d = %s\n  %s\n", *i, new->cmd[*i], strerror(errno));
 		//printf("%s\n", strerror(errno));
 //		if (errno != 0)
@@ -75,6 +78,7 @@ void	ft_append_red(t_token *new, int *i)
 		ft_free_str_in_token(new, *i + 1);
 		//*i++;
 	}
+	return (0);
 }
 
 void	ft_red_heredoc(t_token *new, int *i)
@@ -133,8 +137,8 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 			//printf("cmd%d = %s\n  %s\n", i, new->cmd[i + 1], strerror(errno));
 			if (new->fd1 < 0)
 			{
-				new->error = break_on_error(new->cmd[0], new->cmd[i + 1], 1);
-				break ;
+				new->error = break_on_error(new->cmd[i + 1], strerror(errno),1);
+				break;
 			}
 //				new->error = ft_strjoin(new->cmd[i + 1], strerror(errno));
 				//outputError(strerror(errno), NULL, errno);
@@ -150,7 +154,10 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 			//printf("cmd%d = %s\n  %s\n", i, new->cmd[i], strerror(errno));
 			//printf("%s\n", strerror(errno));
 			if (new->fd0 < 0)
-				new->error = strerror(errno);
+			{
+				new->error = break_on_error(new->cmd[i + 1], strerror(errno),1);
+				break;
+			}
 				//outputError(strerror(errno), NULL, errno);
 			ft_free_str_in_token(new, i + 1);
 			ft_free_str_in_token(new, i);
@@ -158,7 +165,8 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 		}
 		if (new->cmd[i][0] == '>' && new->cmd[i][1] == '>')
 		{
-			ft_append_red(new, &i);
+			if (ft_append_red(new, &i) == 1)
+				break;
 			ft_free_str_in_token(new, i);
 			new->redOrPipe = 22;
 		}
