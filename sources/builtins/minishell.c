@@ -230,8 +230,8 @@ int	main(int argc, char **argv, char **env)
 			pr->line = preparser(ft_strdup(line));
 			if (pr->line)
 			{
-				parser(&token, pr);
 				add_history(line);
+				parser(&token, pr);
 				execute_line(token, &env_ms);
 				clear_token(&token);
 			}

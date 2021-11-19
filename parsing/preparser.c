@@ -18,7 +18,8 @@ int		searchPipe(char *line, int i)
 		j++;
 	//printf("line[k]= %c", line[k]);
 	k = i++;
-	while (line[k] != ' ' && line[k] != '\0')
+	//&& line[k] != ' ') && line[k] != '\0'
+	while (line[k] == '|')
 	{
 		//printf("k==== %d line[k]= %c\n", k, line[k]);
 		k++;
