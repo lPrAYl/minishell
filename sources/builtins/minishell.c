@@ -10,7 +10,6 @@ int	cmd_null(char **argv, t_list **env_ms)
 
 int	(*find_builtins(char *name))(char **, t_list **)
 {
-	(void)name;
 	if (ft_strcmp(name, "echo") == 0)
 		return (cmd_echo);
 	if (ft_strcmp(name, "cd") == 0)
@@ -80,6 +79,41 @@ int	execute_line(t_token *token, t_list **env_ms)
 	print_token(token);
 	while (token)
 	{
+		if (token->stopheredoc)
+		{
+			char **stop = ft_split(token->stopheredoc, ' ');
+			int i = 0;
+			while (stop[i])
+			{
+				int	fd[2];
+				int	pid;
+				pipe(fd);
+				pid = fork();
+				if (!pid)
+				{
+					close(fd[0]);
+					token->fd1 = fd[1];
+					char *line1;
+					while (1)
+					{
+						line1 = readline("> ");
+						if (!ft_strcmp(line1, stop[i]))
+							break ;
+						ft_putendl_fd(line1, token->fd1);
+						free(line1);
+					}
+					close(token->fd1);
+					exit(0);
+				}
+				else
+				{
+					close(fd[1]);
+					waitpid(pid, NULL, 0);
+					token->fd0 = fd[0];
+				}
+				i++;
+			}
+		}
 		if (!tmp->next && !ft_strcmp(tmp->cmd[0], "exit"))
 			find_builtins(token->cmd[0])(token->cmd, env_ms);
 			// return (0);
@@ -89,37 +123,8 @@ int	execute_line(t_token *token, t_list **env_ms)
 		}
 		else 
 		{
+			
 			token->pid = fork();
-			// if (token->stopheredoc)
-			// {
-			// 	int	fd[2];
-			// 	int	pid;
-
-			// 	pipe(fd);
-			// 	pid = fork();
-			// 	if (!pid)
-			// 	{
-			// 		close(fd[0]);
-			// 		token->fd1 = fd[1];
-			// 		char *line;
-			// 		while (1)
-			// 		{
-			// 			line = readline("> ");
-			// 			if (!ft_strcmp(line, token->stopheredoc))
-			// 				break ;
-			// 			ft_putendl_fd(line, token->fd1);
-			// 			free(line);
-			// 		}
-			// 		close(token->fd1);
-			// 		// exit(0);
-			// 	}
-			// 	else
-			// 	{
-			// 		close(fd[1]);
-			// 		waitpid(pid, NULL, 0);
-			// 		token->fd0 = fd[0];
-			// 	}
-			// }
 			if (!token->pid)
 			{
 				if (token->fd0 != 0)
