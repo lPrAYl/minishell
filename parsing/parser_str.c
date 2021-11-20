@@ -87,11 +87,14 @@ char	*ft_dollar(char *str, int *i, char **env)
 	while (str[++(*i)])
 		if (!ifkey(str[*i]))
 			break ;
-		if (*i == j + 1)
-			return (str);
-		tmp = ft_substr(str, j + 1, *i - j - 1);
-		//printf("key = %s\n", tmp);
-		k = -1;
+	if (*i == j + 1)
+		return (str);
+	tmp = ft_substr(str, j + 1, *i - j - 1);
+//	printf("key = %s\n", tmp);
+	k = -1;
+	if (ft_strcmp(tmp, "?") != 0)
+	{
+		//printf("tmp-if\n");
 		while (env[++k])
 		{
 			if (ft_strnstr(env[k], tmp, ft_strlen(env[k])))
@@ -112,12 +115,15 @@ char	*ft_dollar(char *str, int *i, char **env)
 		tmp3 = ft_substr(str, 0, j);
 		tmp3 = ft_strjoin(tmp3, tmp2);
 		tmp3 = ft_strjoin(tmp3, ft_substr(str, *i, ft_strlen(str)));
-		free(str);
-		str = tmp3;
-//		printf("tmp2 = %s\n", tmp2);
-//		printf("tmp  = %s\n", tmp);
-//		printf("tmp3 = %s\n", tmp3);
-		return (str);
+	}
+	else
+		tmp3 = ft_itoa(g_status);
+	free(str);
+	str = tmp3;
+//	printf("tmp2 = %s\n", tmp2);
+//	printf("tmp  = %s\n", tmp);
+//	printf("tmp3 = %s\n", tmp3);
+	return (str);
 }
 
 char	*ft_insert_space_after_red(char *str, int *i)

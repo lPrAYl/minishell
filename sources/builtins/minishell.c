@@ -219,15 +219,18 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	t_list	*env_ms;
 
+	g_status = 0;
 	init_start_struct(&env_ms, env);
 	pr = (t_parser *)malloc(sizeof(t_parser));
-	pr->env = env;
 	/*	Loop reading and executing lines until the use quit. */
 	while (1)
 	{
+		pr->env = list_to_array(env_ms);
 		signals_interactive_shell();
 		line = NULL;
 		line = readline("minishell § ");
+		if (!line)
+			signals_ctrl_D(12) ;
 		if (*line)
 		{
 			add_history(line);
@@ -242,6 +245,7 @@ int	main(int argc, char **argv, char **env)
 			}
 		}
 		free(line);
+		pr->env = ft_free_array(pr->env);
 	}
 	exit(0);
 }
