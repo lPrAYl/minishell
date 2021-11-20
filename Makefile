@@ -32,6 +32,7 @@ $(NAME)			:	$(OBJS) $(HDRS) $(LIBFT)
 					@echo "$(NAME): $(GREEN)project was created$(RESET)\n"
 
 clean			:
+					@rm -rvf $(OBJS)
 					@echo "\n$(NAME): $(BLUE)object files were deleted$(RESET)\n"
 
 fclean			:	clean

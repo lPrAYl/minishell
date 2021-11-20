@@ -110,12 +110,12 @@ char	*preparser(char *line)
 			i = searchPipe(line, i);
 		if (line[i] == '<' || line[i] == '>')
 			i = searchRed(line, i);
-		if (line[i] == ';')
-		{
-			outputError("syntax error", line, 258);
-			flag = 1;
-			break ;
-		}
+//		if (line[i] == ';')
+//		{
+//			outputError("syntax error", line, 258);
+//			flag = 1;
+//			break ;
+//		}
 		if (line[i] == '\0')
 		{
 			outputError("syntax error", line, 258);
