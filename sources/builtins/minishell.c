@@ -114,7 +114,17 @@ int	execute_line(t_token *token, t_list **env_ms)
 				i++;
 			}
 		}
-		if (!tmp->next && !ft_strcmp(tmp->cmd[0], "exit"))
+		if (!tmp->next && !ft_strcmp(tmp->cmd[0], "cd"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "exit"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "export"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "env"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "unset"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "echo"))
 			find_builtins(token->cmd[0])(token->cmd, env_ms);
 			// return (0);
 		else if (token->error)
