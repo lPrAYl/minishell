@@ -53,7 +53,6 @@ int	cmd_cd(char **argv, t_list **env_ms)
 	char	*line;
 
 	get_current_pwd(&pwd, *env_ms);
-	// printf("%s\n", pwd);
 	if (!argv[1])
 		cd_home(&line, pwd, *env_ms);
 	else if (!ft_strcmp(argv[1], "-"))
@@ -71,7 +70,6 @@ int	cmd_cd(char **argv, t_list **env_ms)
 	}
 	old_pwd = ft_strjoin("export OLDPWD=", pwd);
 	cmd_export(ft_split(old_pwd, ' '), env_ms);
-	// free(pwd);
 	get_current_pwd(&pwd, *env_ms);
 	new_pwd = ft_strjoin("export PWD=", pwd);
 	cmd_export(ft_split(new_pwd, ' '), env_ms);

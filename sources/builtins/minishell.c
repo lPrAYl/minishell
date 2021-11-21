@@ -1,5 +1,4 @@
 #include "../../includes/minishell.h"
-#include "../../includes/parser.h"
 
 int	cmd_null(char **argv, t_list **env_ms)
 {
@@ -85,6 +84,11 @@ static int	open_pipe(t_token **token)
 	return (1);
 }
 
+// void	child_process()
+// {
+	
+// }
+
 void	wait_children(t_token **token)
 {
 	int		status;
@@ -119,40 +123,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 	while (token)
 	{
 		if (token->stopheredoc)
-		{
-			char **stop = ft_split(token->stopheredoc, ' ');
-			int i = 0;
-			while (stop[i])
-			{
-				int	fd[2];
-				int	pid;
-				pipe(fd);
-				pid = fork();
-				if (!pid)
-				{
-					close(fd[0]);
-					token->fd1 = fd[1];
-					char *line1;
-					while (1)
-					{
-						line1 = readline("> ");
-						if (!ft_strcmp(line1, stop[i]))
-							break ;
-						ft_putendl_fd(line1, token->fd1);
-						free(line1);
-					}
-					close(token->fd1);
-					exit(0);
-				}
-				else
-				{
-					close(fd[1]);
-					waitpid(pid, NULL, 0);
-					token->fd0 = fd[0];
-				}
-				i++;
-			}
-		}
+			heredoc(token);
 		if (!tmp->next && !ft_strcmp(tmp->cmd[0], "cd"))
 			find_builtins(token->cmd[0])(token->cmd, env_ms);
 		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "exit"))
@@ -214,6 +185,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 				else
 					printf("minishell: %s: %s\n", token->cmd[0], strerror(errno));
 				exit(EXIT_FAILURE);
+				printf("%d\n", g_status);
 				//return (1);
 			}
 		}
