@@ -71,17 +71,25 @@ static void	export_line(char **argv, t_list **env_ms)
 		if (check_key(tmp->key))
 		{
 			tmp->value = ft_substr(argv[i], j + 1, -1);
-			tmp->line = argv[i];
+			// tmp->line = argv[i];
 			tmp->is_sort = 0;
 			point = *env_ms;
 			while (point)
 			{
 				if (!ft_strcmp(tmp->key, point->data->key))
-					break;
+						break;
 				point = point->next;
 			}
+			// printf("%s\t%s\n", tmp->key, tmp->value);
 			if (point && !ft_strcmp(tmp->key, point->data->key))
+			{
+				// printf("1%s\n", point->data->line);
+				free(point->data);
+				tmp->line = ft_strjoin(tmp->key, "=");
+				tmp->line = ft_strjoin(tmp->key, tmp->value);
 				point->data = tmp;
+				// printf("2%s\n", tmp->line);
+			}
 			else
 				ft_lstadd_back(env_ms, ft_lstnew(tmp));
 		}
@@ -103,6 +111,10 @@ int	cmd_export(char **argv, t_list **env_ms)
 	sort_copy_env(env_copy);
 	if (argv[1])
 		export_line(argv, env_ms);
+	char *value = search_value_by_key(*env_ms, "PWD");
+	printf("value = %s\n", value);
+	value = search_value_by_key(*env_ms, "OLDPWD");
+	printf("value_old = %s\n", value);
 	point = *env_copy;
 	while (point)
 	{
@@ -117,5 +129,5 @@ int	cmd_export(char **argv, t_list **env_ms)
 		point = point->next;
 	}
 	// free_list(env_copy);
-	return (0);
+	return (1);
 }
