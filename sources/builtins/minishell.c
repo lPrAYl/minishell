@@ -53,30 +53,69 @@ char	*get_command(char *command, t_list *env_ms)
 	return (path);
 }
 
-void	open_pipe(t_token **token)
+static int	error_create_pipe(t_token *token)
+{
+	ft_putstr_fd("minishell §", STDERR_FILENO);
+	ft_putendl_fd("fork: Resource temporarily unavailable", STDERR_FILENO);
+	while (token->next)
+	{
+		if (!token->fd[0] || !token->fd[1])
+			break ;
+		close(token->fd[0]);
+		close(token->fd[1]);
+		token = token->next;
+	}
+	g_status = 128;
+	return (0);
+}
+
+static int	open_pipe(t_token **token)
 {
 	t_token	*point;
 
 	point = *token;
 	while (point->next)
 	{
-		pipe(point->fd);	//	добавить обработку ошибки
+		if (pipe(point->fd) < 0)
+			return (error_create_pipe(*token));
 		point->fd1 = point->fd[1];
 		point->next->fd0 = point->fd[0];
 		point = point->next;
 	}
+	return (1);
 }
 
+void	wait_children(t_token **token)
+{
+	int		status;
+	t_token	*point;
+
+	point = *token;
+	while (point->next)
+	{
+		close(point->fd[0]);
+		close(point->fd[1]);
+		point = point->next;
+	}
+	while (*token)
+	{
+		waitpid((*token)->pid, &status, 0);
+		g_status = WEXITSTATUS(status);
+		if (!g_status && WIFSIGNALED(status))
+			g_status = 128 + WTERMSIG(status);
+		(*token) = (*token)->next;
+	}
+}
 
 int	execute_line(t_token *token, t_list **env_ms)
 {
 	t_token		*tmp;
 	char		**env;
 	
-	open_pipe(&token);
+	if (!open_pipe(&token))
+		return (0);
 	tmp = token;
 	t_token *temp;
-	//print_token(token);
 	while (token)
 	{
 		if (token->stopheredoc)
@@ -180,23 +219,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 		}
 		token = token->next;
 	}
-	// wait_children(&token)
-	temp = tmp;
-	while (tmp->next)
-	{
-		close(tmp->fd[0]);
-		close(tmp->fd[1]);
-		tmp = tmp->next;
-	}
-	int status;
-	while (temp)
-	{
-		waitpid(temp->pid, &status, 0);
-		g_status = WEXITSTATUS(status);
-		if (!g_status && WIFSIGNALED(status))
-			g_status = 128 + WTERMSIG(status);
-		temp = temp->next;
-	}
+	wait_children(&tmp);
 	return (0);
 }
 
@@ -222,19 +245,37 @@ void	init_start_struct(t_list **env_ms, char **env)
 	}
 }
 
+void	execution(char *line, t_parser **pr, t_token **token, t_list **env_ms)
+{
+	if (*line)
+	{
+		add_history(line);
+		(*pr)->line = preparser(ft_strdup(line));
+		if ((*pr)->line)
+		{
+			parser(token, *pr);
+			signals_non_interactive_shell();
+			execute_line(*token, env_ms);
+			signals_interactive_shell();
+			clear_token(token);
+		}
+	}
+	free(line);
+	(*pr)->env = ft_free_array((*pr)->env);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
 	t_parser	*pr;
 	t_token		*token;
-	char	*line;
-	t_list	*env_ms;
+	t_list		*env_ms;
+	char		*line;
 
 	g_status = 0;
 	init_start_struct(&env_ms, env);
-	pr = (t_parser *)malloc(sizeof(t_parser));
-	/*	Loop reading and executing lines until the use quit. */
+	pr = (t_parser *)malloc(sizeof(t_parser));	
 	while (1)
 	{
 		pr->env = list_to_array(env_ms);
@@ -243,21 +284,7 @@ int	main(int argc, char **argv, char **env)
 		line = readline("minishell § ");
 		if (!line)
 			signals_ctrl_D(12) ;
-		if (*line)
-		{
-			add_history(line);
-			pr->line = preparser(ft_strdup(line));
-			if (pr->line)
-			{
-				parser(&token, pr);
-				signals_non_interactive_shell();
-				execute_line(token, &env_ms);
-				signals_interactive_shell();
-				clear_token(&token);
-			}
-		}
-		free(line);
-		pr->env = ft_free_array(pr->env);
+		execution(line, &pr, &token, &env_ms);
 	}
-	exit(0);
+	exit(g_status);
 }

@@ -111,17 +111,13 @@ int	cmd_export(char **argv, t_list **env_ms)
 	sort_copy_env(env_copy);
 	if (argv[1])
 		export_line(argv, env_ms);
-	// char *value = search_value_by_key(*env_ms, "PWD");
-	// printf("value = %s\n", value);
-	// value = search_value_by_key(*env_ms, "OLDPWD");
-	// printf("value_old = %s\n", value);
 	point = *env_copy;
 	while (point)
 	{
 		point->data->is_sort = 0;
 		if (!argv[1])
 		{
-			if (ft_strchr(point->data->line, '='))
+			if (point->data->value)
 				printf("declare -x %s=\"%s\"\n", point->data->key, point->data->value);
 			else
 				printf("declare -x %s\n", point->data->key);

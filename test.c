@@ -60,13 +60,11 @@ int	cmd_cd(char **argv, t_list **env_ms)
 		cd_minus(&line, pwd, *env_ms);
 	else if (!ft_strcmp(argv[1], "~"))
 		cd_tilda(&line, *env_ms);
-	else
-		line = argv[1];
 	if (chdir(line) == -1)
 	{
 		printf("aser%s\n", argv[1]);
 		ft_putstr_fd("minishell: cd: ", 1);
-		perror(argv[1]);
+		perror(line);
 		return (0);
 	}
 	old_pwd = ft_strjoin("export OLDPWD=", pwd);
