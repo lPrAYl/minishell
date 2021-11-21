@@ -126,6 +126,8 @@ int	execute_line(t_token *token, t_list **env_ms)
 			find_builtins(token->cmd[0])(token->cmd, env_ms);
 		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "echo"))
 			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "pwd"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
 			// return (0);
 		else if (token->error)
 		{
