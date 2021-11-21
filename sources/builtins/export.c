@@ -71,7 +71,7 @@ static void	export_line(char **argv, t_list **env_ms)
 		if (check_key(tmp->key))
 		{
 			tmp->value = ft_substr(argv[i], j + 1, -1);
-			// tmp->line = argv[i];
+			tmp->line = ft_strdup(argv[i]);
 			tmp->is_sort = 0;
 			point = *env_ms;
 			while (point)
@@ -98,6 +98,7 @@ static void	export_line(char **argv, t_list **env_ms)
 			free(tmp);
 			printf("minishell: export: \'%s\': not a valid identifier\n", argv[i]);
 		}
+				printf("%s\n", tmp->value);
 		i++;
 	}
 }

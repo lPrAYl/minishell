@@ -13,6 +13,7 @@ char	**list_to_array(t_list *env_ms)
 	tmp = env_ms;
 	while (tmp)
 	{
+		printf("line = %s\n", tmp->data->line);
 		env[i] = ft_strdup(tmp->data->line);
 		tmp = tmp->next;
 		i++;

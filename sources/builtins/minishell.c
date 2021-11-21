@@ -217,15 +217,16 @@ void	init_start_struct(t_list **env_ms, char **env)
 	}
 }
 
-void	execution(char *line, t_parser **pr, t_token **token, t_list **env_ms)
+void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 {
 	if (*line)
 	{
 		add_history(line);
-		(*pr)->line = preparser(ft_strdup(line));
-		if ((*pr)->line)
+		pr->line = preparser(ft_strdup(line));
+		if (pr->line)
 		{
-			parser(token, *pr);
+			printf("test1\n");
+			parser(token, pr);
 			signals_non_interactive_shell();
 			execute_line(*token, env_ms);
 			signals_interactive_shell();
@@ -233,7 +234,10 @@ void	execution(char *line, t_parser **pr, t_token **token, t_list **env_ms)
 		}
 	}
 	free(line);
-	(*pr)->env = ft_free_array((*pr)->env);
+			printf("test2\n");
+	pr->env = ft_free_array(pr->env);
+			printf("test3\n");
+			
 }
 
 int	main(int argc, char **argv, char **env)
@@ -250,13 +254,15 @@ int	main(int argc, char **argv, char **env)
 	pr = (t_parser *)malloc(sizeof(t_parser));	
 	while (1)
 	{
+		printf("test4\n");
 		pr->env = list_to_array(env_ms);
+		printf("test5\n");
 		signals_interactive_shell();
 		line = NULL;
 		line = readline("minishell § ");
 		if (!line)
 			signals_ctrl_D(12) ;
-		execution(line, &pr, &token, &env_ms);
+		execution(line, pr, &token, &env_ms);
 	}
 	exit(g_status);
 }
