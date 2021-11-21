@@ -61,7 +61,7 @@ char	*ft_gap2(char *str, int *i, char **env)
 			str = ft_dollar(str, i, env);
 		if (str[*i] == '\"')
 			break ;
-		(*i)++;
+		//(*i)++;
 	}
 	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str, j + 1, *i - j - 1);
@@ -115,6 +115,8 @@ char	*ft_dollar(char *str, int *i, char **env)
 		tmp3 = ft_substr(str, 0, j);
 		tmp3 = ft_strjoin(tmp3, tmp2);
 		tmp3 = ft_strjoin(tmp3, ft_substr(str, *i, ft_strlen(str)));
+		if (env[k] == NULL)
+			*i = (*i) - ft_strlen(tmp) - 1;
 	}
 	else
 		tmp3 = ft_itoa(g_status);
