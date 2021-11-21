@@ -53,7 +53,7 @@ char	*ft_gap2(char *str, int *i, char **env)
 	char	*tmp3;
 
 	j = *i;
-	while ((str[*i]))
+	while ((str[++(*i)]))
 	{
 		if (str[*i] == '\\' && (str[*i + 1] == '\"' || str[*i + 1] == '$' || str[*i + 1] == '\\'))
 			str = ft_slesh(str, i);
