@@ -18,5 +18,5 @@ int	cmd_env(char **argv, t_list **env_ms)
 			printf("%s=%s\n", tmp->data->key, tmp->data->value);
 		tmp = tmp->next;
 	}
-	return (0);
+	return (1);
 }

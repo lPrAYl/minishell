@@ -76,7 +76,7 @@ int	execute_line(t_token *token, t_list **env_ms)
 	open_pipe(&token);
 	tmp = token;
 	t_token *temp;
-	//print_token(token);
+	print_token(token);
 	while (token)
 	{
 		if (token->stopheredoc)
@@ -170,12 +170,10 @@ int	execute_line(t_token *token, t_list **env_ms)
 				{
 					printf("minishell: %s: %s\n", token->cmd[0], strerror(21));
 					closedir(opendir(token->cmd[0]));
-					exit(EXIT_FAILURE);
 				}
 				else
 					printf("minishell: %s: %s\n", token->cmd[0], strerror(errno));
-				exit(EXIT_FAILURE);
-				//return (1);
+				return (1);
 			}
 		}
 		token = token->next;
@@ -246,14 +244,12 @@ int	main(int argc, char **argv, char **env)
 			signals_ctrl_D(12) ;
 		if (*line)
 		{
-			add_history(line);
 			pr->line = preparser(ft_strdup(line));
 			if (pr->line)
 			{
 				parser(&token, pr);
-				signals_non_interactive_shell();
+				add_history(line);
 				execute_line(token, &env_ms);
-				signals_interactive_shell();
 				clear_token(&token);
 			}
 		}

@@ -49,5 +49,5 @@ int	cmd_unset(char **argv, t_list **env_ms)
 		i++;
 	}
 	// free_array(argv);
-	return (0);
+	return (1);
 }
