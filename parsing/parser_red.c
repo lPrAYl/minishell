@@ -98,13 +98,16 @@ void	ft_red_heredoc(t_token *new, int *i)
 	{
 		//printf(" nashel heredoc= %s\n", new->cmd[*i]);
 		//printf(" nashel stopslovo= %s\n", new->cmd[*i + 1]);
-		if (new->stopheredoc != NULL)
-		{
-			new->stopheredoc = ft_strjoin(new->stopheredoc, " ");
-			new->stopheredoc = ft_strjoin(new->stopheredoc, new->cmd[*i + 1]);
-		}
-		if (new->stopheredoc == NULL)
-			new->stopheredoc = ft_strdup(new->cmd[*i + 1]);
+
+//		if (new->stopheredoc != NULL)
+//		{
+//			new->stopheredoc = ft_strjoin(new->stopheredoc, " ");
+//			new->stopheredoc = ft_strjoin(new->stopheredoc, new->cmd[*i + 1]);
+//		}
+//		if (new->stopheredoc == NULL)
+//			new->stopheredoc = ft_strdup(new->cmd[*i + 1]);
+//
+
 		//printf("new->stopheredoc= %s\n", new->stopheredoc);
 //		ft_close_fd(new, 1);
 //		new->fd1 = open(new->cmd[*i + 1], O_WRONLY | O_CREAT | O_APPEND,
@@ -125,6 +128,7 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 	i = 0;
 	new->fd0 = 0;
 	new->fd1 = 1;
+	ft_heredoc_stops(new);
 	while (new->cmd[i] != '\0')
 	{
 		new->cmd[i] = parser_str(new->cmd[i], pr->env);

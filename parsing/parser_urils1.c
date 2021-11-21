@@ -99,6 +99,7 @@ void	print_token(t_token *token)
 		printf("token->redOrPipe= |%d| fd0= |%d| fd1= |%d| stopheredoc= |%s| "
 			   "error= |%s| ", tmp_token->redOrPipe, tmp_token->fd0,
 			   tmp_token->fd1, tmp_token->stopheredoc, tmp_token->error);
+		printf("g_status = %d ", g_status);
 		printf("token->next= %p\n", tmp_token->next);
 		tmp_token = tmp_token->next;
 
