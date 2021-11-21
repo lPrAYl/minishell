@@ -1,4 +1,4 @@
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 void	parser(t_token **token, t_parser *pr)
 {

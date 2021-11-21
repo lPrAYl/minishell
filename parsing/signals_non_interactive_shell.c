@@ -1,4 +1,4 @@
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 static void	sig_noninter_quit(int sig)
 {

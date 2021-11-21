@@ -1,4 +1,4 @@
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 char	*outputError(char *str, char *line, int exit_status)
 {

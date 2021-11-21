@@ -1,4 +1,4 @@
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 void	ms_sig_inter_ctrl_c(int sig)
 {

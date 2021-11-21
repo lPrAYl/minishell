@@ -1,4 +1,4 @@
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 static unsigned int	ft_count_new_str(char *s, char c)
 {
