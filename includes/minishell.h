@@ -15,6 +15,7 @@
 # include <sys/errno.h>
 # include <dirent.h>
 # include "../libft/libft.h"
+# include "parser.h"
 
 # define BUILTINS	"echo:cd:pwd:export:unset:env:exit"
 
