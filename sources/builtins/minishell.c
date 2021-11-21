@@ -114,7 +114,17 @@ int	execute_line(t_token *token, t_list **env_ms)
 				i++;
 			}
 		}
-		if (!tmp->next && !ft_strcmp(tmp->cmd[0], "exit"))
+		if (!tmp->next && !ft_strcmp(tmp->cmd[0], "cd"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "exit"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "export"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "env"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "unset"))
+			find_builtins(token->cmd[0])(token->cmd, env_ms);
+		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "echo"))
 			find_builtins(token->cmd[0])(token->cmd, env_ms);
 			// return (0);
 		else if (token->error)
@@ -217,14 +227,16 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	t_list	*env_ms;
 
+	g_status = 0;
 	init_start_struct(&env_ms, env);
 	pr = (t_parser *)malloc(sizeof(t_parser));
-	pr->env = env;
 	/*	Loop reading and executing lines until the use quit. */
 	while (1)
 	{
 		line = NULL;
 		line = readline("minishell § ");
+		if (!line)
+			signals_ctrl_D(12) ;
 		if (*line)
 		{
 			pr->line = preparser(ft_strdup(line));
@@ -237,6 +249,7 @@ int	main(int argc, char **argv, char **env)
 			}
 		}
 		free(line);
+		pr->env = ft_free_array(pr->env);
 	}
 	exit(0);
 }

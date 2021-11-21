@@ -71,11 +71,13 @@ void	ft_clear_empty_line(t_token *new, int max_i);
 char	**parser_split(char *s, char c);
 void	print_token(t_token *token);
 char	*break_on_error(char *str1, char *str2, int exit_status);
+char	**ft_free_array(char **arr);
 
 void	parser(t_token **token, t_parser *pr);
 void	clear_token(t_token **token);
 
 void	signals_interactive_shell(void);
 void	signals_non_interactive_shell(void);
+void	signals_ctrl_D(int sig);
 
 #endif

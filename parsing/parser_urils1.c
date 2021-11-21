@@ -36,7 +36,7 @@ char	*break_on_error(char *str1, char *str2, int exit_status)
 
 int	ifkey(char c)
 {
-	if (c == '_' || c == '*' || c == '!' || ft_isalnum(c))
+	if (c == '?' ||c == '_' || c == '*' || c == '!' || ft_isalnum(c))
 		return (1);
 	return (0);
 }
