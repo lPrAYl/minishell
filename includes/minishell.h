@@ -49,5 +49,6 @@ void	*malloc_x(size_t size);
 void	get_current_pwd(char **pwd, t_list *env_ms);
 char	*search_value_by_key(t_list *env_ms, char *key);
 char	**list_to_array(t_list *env_ms);
+void	heredoc(t_token *point);
 
 #endif
