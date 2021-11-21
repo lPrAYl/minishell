@@ -24,7 +24,7 @@ $(LIBFT)		:	./libft/*.c ./libft/*.h
 					@$(MAKE) -C ./libft/
 					@$(MAKE) clean -C ./libft
 
-OBJS			=	$(patsubst %.c, %.o, $(SRCS))
+OBJS			=	$(patsubst @%.c, %.o, $(SRCS))
 
 $(NAME)			:	$(OBJS) $(HDRS) $(LIBFT)
 					@$(GCC) $(INCS) $(OBJS) $(LFLAGS) $(RDL) -o $(NAME)

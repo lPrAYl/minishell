@@ -25,7 +25,25 @@ static void	cd_tilda(char **line, t_list *env_ms)
 	if (value)
 		*line = ft_strdup(value);
 	else
-		*line = ft_strdup("/Users/gtyene");
+	{
+		printf("asdf\n");
+		char *tmp123 = parser_str("$USER", list_to_array(env_ms));
+		*line = ft_strjoin("/Users/", tmp123);
+	}
+}
+
+static void	cd_home(char **line, char *pwd, t_list *env_ms)
+{
+	char	*value;
+
+	value = search_value_by_key(env_ms, "HOME");
+	if (value)
+		*line = ft_strdup(value);
+	else
+	{
+		ft_putendl_fd("minishell: cd: OLDPWD not set", 1);
+		*line = ft_strdup(pwd);
+	}
 }
 
 int	cmd_cd(char **argv, t_list **env_ms)
@@ -33,6 +51,7 @@ int	cmd_cd(char **argv, t_list **env_ms)
 	char	*pwd;
 	char	*old_pwd;
 	char	*new_pwd;
+	// char	*line;
 
 	get_current_pwd(&pwd, *env_ms);
 	printf("%s\n", pwd);
