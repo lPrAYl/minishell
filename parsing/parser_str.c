@@ -6,7 +6,7 @@
 //	;	- разделает команды
 //	|	- pipe разделение на команды по пайпам
 
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 char	*ft_slesh(char *str, int *i)
 {

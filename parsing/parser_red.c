@@ -1,4 +1,4 @@
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 void	ft_free_str_in_token(t_token *new, int i)
 {
