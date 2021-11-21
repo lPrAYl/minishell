@@ -236,8 +236,6 @@ int	main(int argc, char **argv, char **env)
 	
 	while (1)
 	{
-		pr->env = list_to_array(env_ms);
-		signals_interactive_shell();
 		line = NULL;
 		line = readline("minishell § ");
 		if (!line)
