@@ -1,5 +1,4 @@
 #include "../../includes/minishell.h"
-#include "../../includes/parser.h"
 
 static int	child_process(t_token *point, char *stop, int fd[2])
 {
