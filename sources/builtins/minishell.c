@@ -235,6 +235,7 @@ int	main(int argc, char **argv, char **env)
 	init_start_struct(&env_ms, env);
 	pr = (t_parser *)malloc(sizeof(t_parser));
 	/*	Loop reading and executing lines until the use quit. */ 
+	
 	while (1)
 	{
 		pr->env = list_to_array(env_ms);
