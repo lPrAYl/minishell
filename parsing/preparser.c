@@ -7,21 +7,17 @@ int	search_next(char *line, int i, char letter)
 	return (i);
 }
 
-int		search_pipe(char *line, int i)
+int	search_pipe(char *line, int i)
 {
 	int	j;
 	int	k;
 
 	j = i;
-	//printf("iii= %d\n", i);
 	while (line[j])
 		j++;
-	//printf("line[k]= %c", line[k]);
 	k = i++;
-	//&& line[k] != ' ') && line[k] != '\0'
 	while (line[k] == '|')
 	{
-		//printf("k==== %d line[k]= %c\n", k, line[k]);
 		k++;
 	}
 	if (line[k] == '|' || line[k] == '\0' || i == 0)
@@ -29,36 +25,32 @@ int		search_pipe(char *line, int i)
 	return (i);
 }
 
-int		search_red(char *line, int i)
+int	search_red(char *line, int i)
 {
 	int	j;
 
 	j = i;
 	while (line[j])
 		j++;
-
 	if (line[i] == '<')
 	{
-		if ((line[i + 1] == '\0') || (line[i + 1] == '|') || (line[i + 1] ==
-		' ' && line[i + 2] ==
-		'|'))
+		if ((line[i + 1] == '\0') || (line[i + 1] == '|') || (line[i + 1] \
+			==' ' && line[i + 2] == '|'))
 			return (j);
 	}
 	if (line[i] == '>')
 	{
-		if ((line[i + 1] == '\0') || (line[i + 1] == '<') || (line[i + 2] !=
-		'\0' && (line[i + 2] == '<' || line[i + 2] == '>')) || (line[i + 2]
-		== '|'))
+		if ((line[i + 1] == '\0') || (line[i + 1] == '<') || (line[i + 2] != \
+		'\0' && (line[i + 2] == '<' || line[i + 2] == '>')) || (line[i + 2] \
+			== '|'))
 			return (j);
 	}
 	return (i);
 }
 
-char	*deleteSpace(char *line)
+char	*delete_space(char *line)
 {
 	char	*str;
-	//char	*tmp;
-	//char	*tmp2;
 	int		i;
 	int		j;
 
@@ -92,15 +84,11 @@ char	*deleteSpace(char *line)
 char	*preparser(char *line)
 {
 	int		i;
-	char	*tmpline;
-	int		flag;
+	//int		flag;
 
-	i = 0;
-	flag = 0;
-	tmpline = line;
-	//line = deleteSpace(line);
-	//printf("preparser_line= %s\n", line);
-	while (line[i])
+	i = -1;
+	//flag = 0;
+	while (line[++i])
 	{
 		if (line[i] == '\'')
 			i = search_next(line, ++i, '\'');
@@ -110,25 +98,14 @@ char	*preparser(char *line)
 			i = search_pipe(line, i);
 		if (line[i] == '<' || line[i] == '>')
 			i = search_red(line, i);
-//		if (line[i] == ';')
-//		{
-//			outputError("syntax error", line, 258);
-//			flag = 1;
-//			break ;
-//		}
 		if (line[i] == '\0')
 		{
 			output_error("syntax error", line, 258);
-			flag = 1;
+			//flag = 1;
 			break ;
 		}
-//		printf("i= %d line[i]= %c ", i, line[i]);
-//		if (i == 10)
-//			printf("\n");
-		i++;
 	}
-	//while(1);
-	if (line && flag != 1)
+	if (line && i > 0)
 		return (line);
 	else
 		return (NULL);
