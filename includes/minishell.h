@@ -78,7 +78,7 @@ char	*ft_gap(char *str, int *i);
 char	*ft_gap2(char *str, int *i, char **env);
 char	*ft_insert_space_after_red(char *str, int *i);
 int		ifkey(char c);
-char	*deleteSpace(char *line);
+char	*delete_space(char *line);
 int		search_red(char *line, int i);
 int		search_pipe(char *line, int i);
 int		search_next(char *line, int i, char letter);
