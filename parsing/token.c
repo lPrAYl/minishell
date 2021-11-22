@@ -21,7 +21,7 @@ void	create_token(t_token **token, t_parser *pr, char *str, int redorpipe)
 	if (!(new))
 	{
 		clear_token(token);
-		outputError("error create new token", NULL, 1);
+		output_error("error create new token", NULL, 1);
 		exit(g_status);
 	}
 	new->cmd = parser_split(str, ' ');

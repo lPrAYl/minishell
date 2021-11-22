@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-char	*outputError(char *str, char *line, int exit_status)
+char	*output_error(char *str, char *line, int exit_status)
 {
 	//int tmp;
 

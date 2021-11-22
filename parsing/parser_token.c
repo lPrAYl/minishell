@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int	parserToken(t_token **token, t_parser *pr, int pp)
+int	parser_token(t_token **token, t_parser *pr, int pp)
 {
 	char	*tmp;
 	//char	*tmp2;

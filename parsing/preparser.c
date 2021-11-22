@@ -1,13 +1,13 @@
 #include "../includes/minishell.h"
 
-int	searchNext(char *line, int i, char letter)
+int	search_next(char *line, int i, char letter)
 {
 	while (line[i] != letter && line[i] != '\0')
 		i++;
 	return (i);
 }
 
-int		searchPipe(char *line, int i)
+int		search_pipe(char *line, int i)
 {
 	int	j;
 	int	k;
@@ -29,7 +29,7 @@ int		searchPipe(char *line, int i)
 	return (i);
 }
 
-int		searchRed(char *line, int i)
+int		search_red(char *line, int i)
 {
 	int	j;
 
@@ -72,9 +72,9 @@ char	*deleteSpace(char *line)
 	while (line[i])
 	{
 		if (line[i] == '\'')
-			i = searchNext(line, ++i, '\'');
+			i = search_next(line, ++i, '\'');
 		if (line[i] == '"')
-			i = searchNext(line, ++i, '"');
+			i = search_next(line, ++i, '"');
 		while (line[i] != '\0' && (line[i] == ' ' && line[i + 1] == ' '))
 			i++;
 		str[++j] = line[i];
@@ -103,13 +103,13 @@ char	*preparser(char *line)
 	while (line[i])
 	{
 		if (line[i] == '\'')
-			i = searchNext(line, ++i, '\'');
+			i = search_next(line, ++i, '\'');
 		if (line[i] == '"')
-			i = searchNext(line, ++i, '"');
+			i = search_next(line, ++i, '"');
 		if (line[i] == '|')
-			i = searchPipe(line, i);
+			i = search_pipe(line, i);
 		if (line[i] == '<' || line[i] == '>')
-			i = searchRed(line, i);
+			i = search_red(line, i);
 //		if (line[i] == ';')
 //		{
 //			outputError("syntax error", line, 258);
@@ -118,7 +118,7 @@ char	*preparser(char *line)
 //		}
 		if (line[i] == '\0')
 		{
-			outputError("syntax error", line, 258);
+			output_error("syntax error", line, 258);
 			flag = 1;
 			break ;
 		}

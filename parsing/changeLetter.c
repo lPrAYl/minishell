@@ -8,9 +8,9 @@ char	*changeLetter(char *str, char in, char out)
 	while (str[i])
 	{
 		if(str[i] == '\'')
-			i = searchNext(str, ++i, '\'');
+			i = search_next(str, ++i, '\'');
 		if (str[i] == '"')
-			i = searchNext(str, ++i, '"');
+			i = search_next(str, ++i, '"');
 		if (str[i] == in)
 			str[i] = out;
 		i++;

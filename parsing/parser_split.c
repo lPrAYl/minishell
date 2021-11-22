@@ -12,9 +12,9 @@ static unsigned int	ft_count_new_str(char *s, char c)
 		while (s[i] && s[i] == c)
 		{
 			if (s[i] == '\'')
-				i = searchNext(s, ++i, '\'');
+				i = search_next(s, ++i, '\'');
 			if (s[i] == '"')
-				i = searchNext(s, ++i, '"');
+				i = search_next(s, ++i, '"');
 			i++;
 		}
 		if ((s[i] && s[i] != c))
@@ -22,9 +22,9 @@ static unsigned int	ft_count_new_str(char *s, char c)
 		while (s[i] && s[i] != c)
 		{
 			if (s[i] == '\'')
-				i = searchNext(s, ++i, '\'');
+				i = search_next(s, ++i, '\'');
 			if (s[i] == '"')
-				i = searchNext(s, ++i, '"');
+				i = search_next(s, ++i, '"');
 			i++;
 		}
 	}
@@ -55,9 +55,9 @@ static void	ft_get_next_str(char *s, unsigned int *k, unsigned int *i, char c)
 	while (s[*i])
 	{
 		if (s[*i] == '\'')
-			*i = searchNext(s, ++(*i), '\'');
+			*i = search_next(s, ++(*i), '\'');
 		if (s[*i] == '"')
-			*i = searchNext(s, ++(*i), '"');
+			*i = search_next(s, ++(*i), '"');
 		if (s[*i] == c)
 			return ;
 		(*i)++;

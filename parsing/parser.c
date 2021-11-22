@@ -9,18 +9,18 @@ void	parser(t_token **token, t_parser *pr)
 	while (pr->line[pr->i])
 	{
 		if (pr->line[pr->i] == '\'')
-			pr->i = searchNext(pr->line, ++pr->i, '\'');
+			pr->i = search_next(pr->line, ++pr->i, '\'');
 		if (pr->line[pr->i] == '"')
-			pr->i = searchNext(pr->line, ++pr->i, '"');
+			pr->i = search_next(pr->line, ++pr->i, '"');
 		if (pr->line[pr->i] == '|')
 		{
-			pr->i = parserToken(token, pr, 1); //1 - означает, что есть pipe
+			pr->i = parser_token(token, pr, 1); //1 - означает, что есть pipe
 			pr->k = pr->i;
 			pr->k++;
 		}
 		if (pr->line[pr->i + 1] == '\0')
 		{
-			pr->i = parserToken(token, pr, 0);
+			pr->i = parser_token(token, pr, 0);
 			pr->k = pr->i;
 			pr->k++;
 		}
