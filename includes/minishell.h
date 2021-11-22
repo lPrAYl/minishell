@@ -21,7 +21,7 @@ int		g_status;
 typedef struct s_token
 {
 	char	**cmd;
-	int		redOrPipe;
+	int		redorpipe;
 	int		fd0;
 	int		fd1;
 	int		fd[2];
@@ -85,7 +85,7 @@ int		searchNext(char *line, int i, char letter);
 char	*parser_str(char *line, char **env);
 char	*outputError(char *str, char *line, int exit_status);
 int		parserToken(t_token **token, t_parser *pr, int pp);
-void	createToken(t_token **token, t_parser *pr, char *str, int redOrPipe);
+void	create_token(t_token **token, t_parser *pr, char *str, int redorpipe);
 void	*free_token(t_token **t);
 void	ft_token(t_token **token, char *str, t_parser *pr, int pp);
 char	*changeLetter(char *str, char in, char out);
@@ -105,6 +105,6 @@ void	clear_token(t_token **token);
 
 void	signals_interactive_shell(void);
 void	signals_non_interactive_shell(void);
-void	signals_ctrl_D(int sig);
+void	signals_ctrl_d(int sig);
 
 #endif
