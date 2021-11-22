@@ -47,13 +47,10 @@ void clear_token(t_token **tmp_token)
 	int		tmp_i;
 
 	token = *tmp_token;
-	*tmp_token = NULL;
 	while (token)
 	{
-		//write(1, "stop\n", 5);
 		tmp_i = 0;
-		//printf("clear_token - start\n");
-		while (token->cmd[tmp_i] != NULL)
+		while (token->cmd[tmp_i])
 		{
 			if (token->cmd[tmp_i])
 			{
@@ -63,7 +60,7 @@ void clear_token(t_token **tmp_token)
 				//printf("token->cmd%d= |%s|", tmp_i, tmp_token->cmd[tmp_i]);
 			tmp_i++;
 		}
-		if (!token->cmd)
+		if (token->cmd)
 		{
 			free(token->cmd);
 			token->cmd = NULL;
@@ -74,9 +71,10 @@ void clear_token(t_token **tmp_token)
 			free(token->stopheredoc);
 		token = token->next;
 	}
+	free(*tmp_token);
+	*tmp_token = NULL;
 	free(token);
 	token = NULL;
-	//printf("clear_token - stop\n");
 }
 
 void	print_token(t_token *token)
@@ -96,8 +94,8 @@ void	print_token(t_token *token)
 			tmp_i++;
 		}
 		printf("\n");
-		printf("token->redOrPipe= |%d| fd0= |%d| fd1= |%d| stopheredoc= |%s| "
-			   "error= |%s| ", tmp_token->redOrPipe, tmp_token->fd0,
+		printf("token->redorpipe= |%d| fd0= |%d| fd1= |%d| stopheredoc= |%s| "
+			   "error= |%s| ", tmp_token->redorpipe, tmp_token->fd0,
 			   tmp_token->fd1, tmp_token->stopheredoc, tmp_token->error);
 		printf("g_status = %d ", g_status);
 		printf("token->next= %p\n", tmp_token->next);

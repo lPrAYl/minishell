@@ -233,8 +233,13 @@ int	main(int argc, char **argv, char **env)
 		line = NULL;
 		line = readline("minishell § ");
 		if (!line)
+<<<<<<< HEAD
 			signals_ctrl_D(12) ;
 		execution(line, pr, &token, &env_ms);
+=======
+			signals_ctrl_d(12) ;
+		execution(line, &pr, &token, &env_ms);
+>>>>>>> parsing
 	}
 	exit(g_status);
 }

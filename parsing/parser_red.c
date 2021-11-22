@@ -148,7 +148,7 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 				//outputError(strerror(errno), NULL, errno);
 			ft_free_str_in_token(new, i + 1);
 			ft_free_str_in_token(new, i);
-			new->redOrPipe = 21;
+			new->redorpipe = 21;
 		}
 		if (new->cmd[i][0] == '<' && new->cmd[i][1] != '<')
 		{
@@ -165,23 +165,23 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 				//outputError(strerror(errno), NULL, errno);
 			ft_free_str_in_token(new, i + 1);
 			ft_free_str_in_token(new, i);
-			new->redOrPipe = 20;
+			new->redorpipe = 20;
 		}
 		if (new->cmd[i][0] == '>' && new->cmd[i][1] == '>')
 		{
 			if (ft_append_red(new, &i) == 1)
 				break;
 			ft_free_str_in_token(new, i);
-			new->redOrPipe = 22;
+			new->redorpipe = 22;
 		}
 		if (new->cmd[i][0] == '<' && new->cmd[i][1] == '<')
 		{
 			ft_red_heredoc(new, &i);
 			ft_free_str_in_token(new, i);
-			new->redOrPipe = 23;
+			new->redorpipe = 23;
 		}
 		i++;
 	}
-	if (new->redOrPipe >= 20)
+	if (new->redorpipe >= 20)
 		ft_clear_empty_line(new, i);
 }
