@@ -98,7 +98,7 @@ static void	export_line(char **argv, t_list **env_ms)
 			free(tmp);
 			printf("minishell: export: \'%s\': not a valid identifier\n", argv[i]);
 		}
-				printf("%s\n", tmp->value);
+				// printf("%s\n", tmp->value);
 		i++;
 	}
 }

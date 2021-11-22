@@ -63,7 +63,6 @@ int	cmd_cd(char **argv, t_list **env_ms)
 		line = argv[1];
 	if (chdir(line) == -1)
 	{
-		printf("aser%s\n", argv[1]);
 		ft_putstr_fd("minishell: cd: ", 1);
 		perror(argv[1]);
 		return (0);

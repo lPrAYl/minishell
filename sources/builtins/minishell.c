@@ -84,10 +84,44 @@ static int	open_pipe(t_token **token)
 	return (1);
 }
 
-// void	child_process()
-// {
-	
-// }
+void	child_process(t_token *point, t_token *token, t_list **env_ms)
+{
+	if (point->fd0 != 0)
+	{
+		dup2(point->fd0, 0);
+		close(point->fd0);
+	}
+	if (point->fd1 != 1)
+	{
+		dup2(point->fd1, 1);
+		close(point->fd1);
+	}
+	t_token *temp = token;
+	while(temp->next)
+	{
+		close(temp->fd[0]);
+		close(temp->fd[1]);
+		temp = temp->next;
+	}
+	if ((find_builtins(point->cmd[0]))(point->cmd, env_ms))
+		exit (EXIT_SUCCESS);
+	if (!ft_strcmp(point->cmd[0], "./minishell"))
+	{
+		int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
+		char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+		cmd_export(ft_split(for_export, ' '), env_ms);
+	}
+	char **env = list_to_array(*env_ms);
+	execve(get_command(point->cmd[0], *env_ms), point->cmd, env);
+	if (errno == 13 && opendir(point->cmd[0]))
+	{
+		printf("minishell: %s: %s\n", point->cmd[0], strerror(21));
+		closedir(opendir(point->cmd[0]));
+	}
+	else
+		printf("minishell: %s: %s\n", point->cmd[0], strerror(errno));
+	exit(EXIT_FAILURE);
+}
 
 void	wait_children(t_token **token)
 {
@@ -111,88 +145,31 @@ void	wait_children(t_token **token)
 	}
 }
 
-int	execute_line(t_token *token, t_list **env_ms)
+void	execute_line(t_token *token, t_list **env_ms)
 {
-	t_token		*tmp;
+	t_token		*point;
 	char		**env;
 	
 	if (!open_pipe(&token))
-		return (0);
-	tmp = token;
-	t_token *temp;
-	while (token)
+		return ;
+	point = token;
+	while (point && point->cmd[0])
 	{
-		if (token->stopheredoc)
-			heredoc(token);
-		if (!tmp->next && !ft_strcmp(tmp->cmd[0], "cd"))
-			find_builtins(token->cmd[0])(token->cmd, env_ms);
-		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "exit"))
-			find_builtins(token->cmd[0])(token->cmd, env_ms);
-		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "export"))
-			find_builtins(token->cmd[0])(token->cmd, env_ms);
-		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "env"))
-			find_builtins(token->cmd[0])(token->cmd, env_ms);
-		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "unset"))
-			find_builtins(token->cmd[0])(token->cmd, env_ms);
-		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "echo"))
-			find_builtins(token->cmd[0])(token->cmd, env_ms);
-		else if (!tmp->next && !ft_strcmp(tmp->cmd[0], "pwd"))
-			find_builtins(token->cmd[0])(token->cmd, env_ms);
-			// return (0);
-		else if (token->error)
-		{
-			printf("%s\n", token->error);
-		}
+		if (point->stopheredoc)
+			heredoc(point);
+		if (!token->next && ft_strcmp(token->cmd[0], "echo") && find_builtins(token->cmd[0])(token->cmd, env_ms))
+			return ;
+		else if (point->error)
+			printf("%s\n", point->error);
 		else 
-		{
-			
-			token->pid = fork();
+		{			
+			point->pid = fork();
 			if (!token->pid)
-			{
-				if (token->fd0 != 0)
-				{
-					dup2(token->fd0, 0);
-					close(token->fd0);
-				}
-				if (token->fd1 != 1)
-				{
-					dup2(token->fd1, 1);
-					close(token->fd1);
-				}
-				temp = tmp;
-				while(temp->next)
-				{
-					close(temp->fd[0]);
-					close(temp->fd[1]);
-					temp = temp->next;
-				}
-				if ((find_builtins(token->cmd[0]))(token->cmd, env_ms))
-					exit (0);
-				if (!ft_strcmp(token->cmd[0], "./minishell"))
-				{
-					int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
-					char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
-					cmd_export(ft_split(for_export, ' '), env_ms);
-				}
-				env = list_to_array(*env_ms);
-				execve(get_command(token->cmd[0], *env_ms), token->cmd, env);
-				if (errno == 13 && opendir(token->cmd[0]))
-				{
-					printf("minishell: %s: %s\n", token->cmd[0], strerror(21));
-					closedir(opendir(token->cmd[0]));
-					exit(EXIT_FAILURE);
-				}
-				else
-					printf("minishell: %s: %s\n", token->cmd[0], strerror(errno));
-				exit(EXIT_FAILURE);
-				printf("%d\n", g_status);
-				//return (1);
-			}
+				child_process(point, token, env_ms);
 		}
-		token = token->next;
+		point = point->next;
 	}
-	wait_children(&tmp);
-	return (0);
+	wait_children(&token);
 }
 
 void	init_start_struct(t_list **env_ms, char **env)
@@ -225,7 +202,6 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 		pr->line = preparser(ft_strdup(line));
 		if (pr->line)
 		{
-			printf("test1\n");
 			parser(token, pr);
 			signals_non_interactive_shell();
 			execute_line(*token, env_ms);
@@ -234,9 +210,7 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 		}
 	}
 	free(line);
-			printf("test2\n");
 	pr->env = ft_free_array(pr->env);
-			printf("test3\n");
 			
 }
 
@@ -254,9 +228,7 @@ int	main(int argc, char **argv, char **env)
 	pr = (t_parser *)malloc(sizeof(t_parser));	
 	while (1)
 	{
-		printf("test4\n");
 		pr->env = list_to_array(env_ms);
-		printf("test5\n");
 		signals_interactive_shell();
 		line = NULL;
 		line = readline("minishell § ");
