@@ -149,7 +149,7 @@ void	execute_line(t_token *token, t_list **env_ms)
 {
 	t_token		*point;
 	char		**env;
-	
+
 	if (!open_pipe(&token))
 		return ;
 	point = token;
@@ -161,8 +161,8 @@ void	execute_line(t_token *token, t_list **env_ms)
 			return ;
 		else if (point->error)
 			printf("%s\n", point->error);
-		else 
-		{			
+		else
+		{
 			point->pid = fork();
 			if (!token->pid)
 				child_process(point, token, env_ms);
@@ -211,7 +211,7 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 	}
 	free(line);
 	pr->env = ft_free_array(pr->env);
-			
+
 }
 
 int	main(int argc, char **argv, char **env)
@@ -225,7 +225,7 @@ int	main(int argc, char **argv, char **env)
 
 	g_status = 0;
 	init_start_struct(&env_ms, env);
-	pr = (t_parser *)malloc(sizeof(t_parser));	
+	pr = (t_parser *)malloc(sizeof(t_parser));
 	while (1)
 	{
 		pr->env = list_to_array(env_ms);
@@ -234,7 +234,7 @@ int	main(int argc, char **argv, char **env)
 		line = readline("minishell § ");
 		if (!line)
 			signals_ctrl_d(12) ;
-		execution(line, &pr, &token, &env_ms);
+		execution(line, pr, &token, &env_ms);
 	}
 	exit(g_status);
 }
