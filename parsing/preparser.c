@@ -84,10 +84,8 @@ char	*delete_space(char *line)
 char	*preparser(char *line)
 {
 	int		i;
-	//int		flag;
 
 	i = -1;
-	//flag = 0;
 	while (line[++i])
 	{
 		if (line[i] == '\'')
@@ -98,14 +96,15 @@ char	*preparser(char *line)
 			i = search_pipe(line, i);
 		if (line[i] == '<' || line[i] == '>')
 			i = search_red(line, i);
+		if (line[i] == '\\')
+			i++;
 		if (line[i] == '\0')
 		{
 			output_error("syntax error", line, 258);
-			//flag = 1;
-			break ;
+			return (NULL);
 		}
 	}
-	if (line && i > 0)
+	if (*line)
 		return (line);
 	else
 		return (NULL);
