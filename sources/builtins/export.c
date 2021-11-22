@@ -63,7 +63,6 @@ static void	export_line(char **argv, t_list **env_ms)
 	i = 1;
 	while (argv[i])
 	{
-		printf("%s\n", argv[1]);
 		j = 0;
 		tmp = malloc_x(sizeof(t_env));
 		while (argv[i][j] != '=' && argv[i][j])
@@ -81,15 +80,17 @@ static void	export_line(char **argv, t_list **env_ms)
 						break;
 				point = point->next;
 			}
-			// printf("%s\t%s\n", tmp->key, tmp->value);
 			if (point && !ft_strcmp(tmp->key, point->data->key))
 			{
-				// printf("1%s\n", point->data->line);
+				free(point->data->key);
+				free(point->data->value);
 				free(point->data);
-				tmp->line = ft_strjoin(tmp->key, "=");
-				tmp->line = ft_strjoin(tmp->key, tmp->value);
+				tmp->line = ft_strjoin(ft_strjoin(tmp->key, "="), tmp->value);
+				// tmp->line = ft_strjoin(tmp->line, tmp->value);
 				point->data = tmp;
-				// printf("2%s\n", tmp->line);
+				free(tmp->key);
+				free(tmp->value);
+				free(tmp->line);
 			}
 			else
 				ft_lstadd_back(env_ms, ft_lstnew(tmp));
@@ -126,6 +127,6 @@ int	cmd_export(char **argv, t_list **env_ms)
 		}
 		point = point->next;
 	}
-	// free_list(env_copy);
+	free_list(env_copy);
 	return (1);
 }

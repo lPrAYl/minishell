@@ -50,7 +50,6 @@ typedef struct s_command
 }			t_command;
 
 /*	builtins	*/
-
 int		cmd_echo(char **argv, t_list **env_ms);
 int		cmd_pwd(char **argv, t_list **env_ms);
 int		cmd_exit(char **argv, t_list **env_ms);
@@ -58,9 +57,10 @@ int		cmd_env(char **argv, t_list **env_ms);
 int		cmd_export(char **argv, t_list **env_ms);
 int		cmd_unset(char **argv, t_list **env_ms);
 int		cmd_cd(char **argv, t_list **env_ms);
+int		cmd_null(char **argv, t_list **env_ms);
+int		(*find_builtins(char *name))(char **, t_list **);
 
 /*	utils	*/
-
 int		print_errno(void);
 void	free_array(char **argv);
 void	free_list(t_list **list);
@@ -68,7 +68,7 @@ void	*malloc_x(size_t size);
 void	get_current_pwd(char **pwd, t_list *env_ms);
 char	*search_value_by_key(t_list *env_ms, char *key);
 char	**list_to_array(t_list *env_ms);
-void	heredoc(t_token *point);
+void	change_shlvl(t_list **env_ms, char way);
 
 /*	parsing	*/
 char	*preparser(char *line);
@@ -103,8 +103,16 @@ void	ft_heredoc_stops(t_token *new);
 void	parser(t_token **token, t_parser *pr);
 void	clear_token(t_token **token);
 
+/*	signals	*/
 void	signals_interactive_shell(void);
 void	signals_non_interactive_shell(void);
 void	signals_ctrl_d(int sig);
+
+/*	pipex	*/
+void	heredoc(t_token *point);
+char	*get_command(char *command, t_list *env_ms);
+int		error_create_pipe(t_token *token);
+
+void	execute_line(t_token *token, t_list **env_ms);
 
 #endif

@@ -52,3 +52,18 @@ char	*search_value_by_key(t_list *env_ms, char *key)
 	}
 	return (NULL);
 }
+
+void	change_shlvl(t_list **env_ms, char way)
+{
+	int		shlvl;
+	char	*for_export;
+
+	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL"));
+	if (way == '+')
+		shlvl++;
+	else
+		shlvl--;
+	for_export = ft_strjoin("export SHLVL=", ft_itoa(shlvl));
+	cmd_export(ft_split(for_export, ' '), env_ms);
+	free(for_export);
+}
