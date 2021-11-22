@@ -208,7 +208,6 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 			execute_line(*token, env_ms);
 			signals_interactive_shell();
 			clear_token(token);
-			free(pr->line);
 		}
 	}
 	free(line);
