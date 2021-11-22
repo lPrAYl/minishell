@@ -164,7 +164,7 @@ void	execute_line(t_token *token, t_list **env_ms)
 		else
 		{
 			point->pid = fork();
-			if (!token->pid)
+			if (!point->pid)
 				child_process(point, token, env_ms);
 		}
 		point = point->next;
