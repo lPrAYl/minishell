@@ -63,6 +63,7 @@ static void	export_line(char **argv, t_list **env_ms)
 	i = 1;
 	while (argv[i])
 	{
+		printf("%s\n", argv[1]);
 		j = 0;
 		tmp = malloc_x(sizeof(t_env));
 		while (argv[i][j] != '=' && argv[i][j])

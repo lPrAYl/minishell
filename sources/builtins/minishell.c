@@ -84,7 +84,7 @@ static int	open_pipe(t_token **token)
 	return (1);
 }
 
-void	child_process(t_token *point, t_token *token, t_list **env_ms)
+void	duplicate_fd(t_token *point, t_token *token)
 {
 	if (point->fd0 != 0)
 	{
@@ -96,19 +96,32 @@ void	child_process(t_token *point, t_token *token, t_list **env_ms)
 		dup2(point->fd1, 1);
 		close(point->fd1);
 	}
-	t_token *temp = token;
-	while(temp->next)
+	while(token->next)
 	{
-		close(temp->fd[0]);
-		close(temp->fd[1]);
-		temp = temp->next;
+		close(token->fd[0]);
+		close(token->fd[1]);
+		token = token->next;
 	}
+}
+
+// void	change_shlvl(t_list **env_ms, char way)
+// {
+// 	int		shlvl;
+
+// 	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL"));
+
+// }
+
+void	child_process(t_token *point, t_token *token, t_list **env_ms)
+{
+	duplicate_fd(point, token);
 	if ((find_builtins(point->cmd[0]))(point->cmd, env_ms))
 		exit (EXIT_SUCCESS);
 	if (!ft_strcmp(point->cmd[0], "./minishell"))
 	{
 		int	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL")) + 1;
-		char *for_export = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+		char *for_export = ft_strjoin("export SHLVL=", ft_itoa(shlvl));
+		// printf("%s\n", ft_split(for_export, ' ')[1]);
 		cmd_export(ft_split(for_export, ' '), env_ms);
 	}
 	char **env = list_to_array(*env_ms);
@@ -157,7 +170,8 @@ void	execute_line(t_token *token, t_list **env_ms)
 	{
 		if (point->stopheredoc)
 			heredoc(point);
-		if (!token->next && ft_strcmp(token->cmd[0], "echo") && find_builtins(token->cmd[0])(token->cmd, env_ms))
+		if (!token->next && ft_strcmp(token->cmd[0], "echo") && 
+			find_builtins(token->cmd[0])(token->cmd, env_ms))
 			return ;
 		else if (point->error)
 			printf("%s\n", point->error);
@@ -207,6 +221,7 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 			execute_line(*token, env_ms);
 			signals_interactive_shell();
 			clear_token(token);
+			free(pr->line);
 		}
 	}
 	free(line);
