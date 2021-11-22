@@ -29,6 +29,7 @@ void	create_token(t_token **token, t_parser *pr, char *str, int redorpipe)
 	new->stopheredoc = NULL;
 	new->error = NULL;
 	new->next = NULL;
+	free(str);
 	ft_parser_red(new, pr);
 	ptr = *token;
 	if (!ptr)
