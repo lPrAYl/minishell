@@ -71,7 +71,7 @@ static void	export_line(char **argv, t_list **env_ms)
 		if (check_key(tmp->key))
 		{
 			tmp->value = ft_substr(argv[i], j + 1, -1);
-			tmp->line = ft_strdup(argv[i]);
+			// tmp->line = ft_strdup(argv[i]);
 			tmp->is_sort = 0;
 			point = *env_ms;
 			while (point)
@@ -88,9 +88,6 @@ static void	export_line(char **argv, t_list **env_ms)
 				tmp->line = ft_strjoin(ft_strjoin(tmp->key, "="), tmp->value);
 				// tmp->line = ft_strjoin(tmp->line, tmp->value);
 				point->data = tmp;
-				free(tmp->key);
-				free(tmp->value);
-				free(tmp->line);
 			}
 			else
 				ft_lstadd_back(env_ms, ft_lstnew(tmp));
@@ -100,7 +97,6 @@ static void	export_line(char **argv, t_list **env_ms)
 			free(tmp);
 			printf("minishell: export: \'%s\': not a valid identifier\n", argv[i]);
 		}
-				// printf("%s\n", tmp->value);
 		i++;
 	}
 }
@@ -127,6 +123,8 @@ int	cmd_export(char **argv, t_list **env_ms)
 		}
 		point = point->next;
 	}
+	free (argv[0]);
+	// free_array(argv);
 	free_list(env_copy);
 	return (1);
 }

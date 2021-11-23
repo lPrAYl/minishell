@@ -27,6 +27,7 @@ void	free_list(t_list **list)
 		free(tmp);
 	}
 	free(*list);
+	free(list);
 }
 
 void	free_array(char **argv)
@@ -36,7 +37,6 @@ void	free_array(char **argv)
 	i = 0;
 	while (argv[i])
 		free(argv[i++]);
-	free(argv);
 }
 
 char	*search_value_by_key(t_list *env_ms, char *key)
@@ -64,6 +64,8 @@ void	change_shlvl(t_list **env_ms, char way)
 	else
 		shlvl--;
 	for_export = ft_strjoin("export SHLVL=", ft_itoa(shlvl));
-	cmd_export(ft_split(for_export, ' '), env_ms);
+	char **argv = ft_split(for_export, ' ');
+	cmd_export(argv, env_ms);
 	free(for_export);
+	free(argv);
 }
