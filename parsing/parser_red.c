@@ -53,16 +53,8 @@ void	ft_clear_empty_line(t_token *new, int max_i)
 
 int	ft_append_red(t_token *new, int *i)
 {
-//	if (new->cmd[*i][2])
-//	{
-//		if (new->cmd[*i][0] == '>' && new->cmd[*i][1] == '>' &&
-//		new->cmd[*i][2] == '>')
-//			if (errno != 0)
-//				outputError(strerror(errno), NULL, errno);
-//	}
 	if (new->cmd[*i][0] == '>' && new->cmd[*i][1] == '>')
 	{
-		//printf(" nashel redirect= %c\n", new->cmd[*i][0]);
 		ft_close_fd(new, 1);
 		new->fd1 = open(new->cmd[*i + 1], O_WRONLY | O_CREAT | O_APPEND,
 						0644);
@@ -71,12 +63,7 @@ int	ft_append_red(t_token *new, int *i)
 			new->error = break_on_error(new->cmd[*i + 1], strerror(errno),1);
 			return (1);
 		}
-		//printf("cmd%d = %s\n  %s\n", *i, new->cmd[*i], strerror(errno));
-		//printf("%s\n", strerror(errno));
-//		if (errno != 0)
-//			outputError(strerror(errno), NULL, errno);
 		ft_free_str_in_token(new, *i + 1);
-		//*i++;
 	}
 	return (0);
 }
@@ -92,33 +79,36 @@ void	ft_red_heredoc(t_token *new, int *i)
 			ft_free_str_in_token(new, *i + 1);
 			return ;
 		}
-
 	}
 	if (new->cmd[*i][0] == '<' && new->cmd[*i][1] == '<')
 	{
-		//printf(" nashel heredoc= %s\n", new->cmd[*i]);
-		//printf(" nashel stopslovo= %s\n", new->cmd[*i + 1]);
-
-//		if (new->stopheredoc != NULL)
-//		{
-//			new->stopheredoc = ft_strjoin(new->stopheredoc, " ");
-//			new->stopheredoc = ft_strjoin(new->stopheredoc, new->cmd[*i + 1]);
-//		}
-//		if (new->stopheredoc == NULL)
-//			new->stopheredoc = ft_strdup(new->cmd[*i + 1]);
-//
-
-		//printf("new->stopheredoc= %s\n", new->stopheredoc);
-//		ft_close_fd(new, 1);
-//		new->fd1 = open(new->cmd[*i + 1], O_WRONLY | O_CREAT | O_APPEND,
-//						0644);
-//		printf("cmd%d = %s\n  %s\n", *i, new->cmd[*i], strerror(errno));
-//		printf("%s\n", strerror(errno));
-//		if (errno != 0)
-//			outputError(strerror(errno), NULL, errno);
 		ft_free_str_in_token(new, *i + 1);
-		//*i++;
 	}
+}
+
+int	ft_parser_red_out(t_token *new, int i)
+{
+	if (new->cmd[i][0] == '>' && new->cmd[i][1] != '>')
+	{
+		ft_close_fd(new, 1);
+		new->fd1 = open(new->cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (new->fd1 < 0)
+		{
+			new->error = break_on_error(new->cmd[i + 1], strerror(errno), 1);
+			return (1);
+		}
+		ft_free_str_in_token(new, i + 1);
+		ft_free_str_in_token(new, i);
+		new->redorpipe = 21;
+	}
+	if (new->cmd[i][0] == '>' && new->cmd[i][1] == '>')
+	{
+		if (ft_append_red(new, &i) == 1)
+			return (1);
+		ft_free_str_in_token(new, i);
+		new->redorpipe = 22;
+	}
+	return (0);
 }
 
 void	ft_parser_red(t_token *new, t_parser *pr)
@@ -132,48 +122,42 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 	while (new->cmd[i] != '\0')
 	{
 		new->cmd[i] = parser_str(new->cmd[i], pr->env);
-		if (new->cmd[i][0] == '>' && new->cmd[i][1] != '>')
-		{
-			//printf(" nashel redirect= %c\n", new->cmd[i][0]);
-			ft_close_fd(new, 1);
-			new->fd1 = open(new->cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC,
-							0644);
-			//printf("cmd%d = %s\n  %s\n", i, new->cmd[i + 1], strerror(errno));
-			if (new->fd1 < 0)
-			{
-				new->error = break_on_error(new->cmd[i + 1], strerror(errno),1);
-				break;
-			}
-//				new->error = ft_strjoin(new->cmd[i + 1], strerror(errno));
-				//outputError(strerror(errno), NULL, errno);
-			ft_free_str_in_token(new, i + 1);
-			ft_free_str_in_token(new, i);
-			new->redorpipe = 21;
-		}
+		if (ft_parser_red_out(new, i))
+			break;
+//		if (new->cmd[i][0] == '>' && new->cmd[i][1] != '>')
+//		{
+//			ft_close_fd(new, 1);
+//			new->fd1 = open(new->cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC, \
+//				0644);
+//			if (new->fd1 < 0)
+//			{
+//				new->error = break_on_error(new->cmd[i + 1], strerror(errno),1);
+//				break;
+//			}
+//			ft_free_str_in_token(new, i + 1);
+//			ft_free_str_in_token(new, i);
+//			new->redorpipe = 21;
+//		}
 		if (new->cmd[i][0] == '<' && new->cmd[i][1] != '<')
 		{
-			//printf(" nashel redirect= %c\n", new->cmd[i][0]);
 			ft_close_fd(new, 0);
 			new->fd0 = open(new->cmd[i + 1], O_RDONLY, 0644);
-			//printf("cmd%d = %s\n  %s\n", i, new->cmd[i], strerror(errno));
-			//printf("%s\n", strerror(errno));
 			if (new->fd0 < 0)
 			{
 				new->error = break_on_error(new->cmd[i + 1], strerror(errno),1);
 				break;
 			}
-				//outputError(strerror(errno), NULL, errno);
 			ft_free_str_in_token(new, i + 1);
 			ft_free_str_in_token(new, i);
 			new->redorpipe = 20;
 		}
-		if (new->cmd[i][0] == '>' && new->cmd[i][1] == '>')
-		{
-			if (ft_append_red(new, &i) == 1)
-				break;
-			ft_free_str_in_token(new, i);
-			new->redorpipe = 22;
-		}
+//		if (new->cmd[i][0] == '>' && new->cmd[i][1] == '>')
+//		{
+//			if (ft_append_red(new, &i) == 1)
+//				break;
+//			ft_free_str_in_token(new, i);
+//			new->redorpipe = 22;
+//		}
 		if (new->cmd[i][0] == '<' && new->cmd[i][1] == '<')
 		{
 			ft_red_heredoc(new, &i);
