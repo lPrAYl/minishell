@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int	ft_parser_red_out12(t_token *new, int i)
+int	ft_parser_red_out(t_token *new, int i)
 {
 	if (new->cmd[i][0] == '>' && new->cmd[i][1] != '>')
 	{

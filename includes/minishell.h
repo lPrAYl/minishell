@@ -96,6 +96,9 @@ void	ft_free_str_in_token(t_token *new, int i);
 void	ft_clear_empty_line(t_token *new, int max_i);
 char	**parser_split(char *s, char c, int str_start, int str_end);
 void	print_token(t_token *token);
+int		ft_parser_red_out(t_token *new, int i);
+
+
 char	*break_on_error(char *str1, char *str2, int exit_status);
 char	**ft_free_array(char **arr);
 void	ft_heredoc_stops(t_token *new);
