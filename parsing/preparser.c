@@ -37,6 +37,8 @@ int	search_red(char *line, int i)
 		if ((line[i + 1] == '\0') || (line[i + 1] == '|') || (line[i + 1] \
 			==' ' && line[i + 2] == '|'))
 			return (j);
+		if (line[i + 1] == '<' && line[i + 2] == '<' && line[i + 3] == '<')
+			return (j);
 	}
 	if (line[i] == '>')
 	{

@@ -25,11 +25,11 @@ void	ft_close_fd(t_token *new, int fd)
 
 void	ft_clear_empty_line(t_token *new, int max_i)
 {
+	char	**mass;
 	int		i;
-	int 	k;
+	int		k;
 	int		y;
 	int		t;
-	char 	**mass;
 
 	i = -1;
 	y = -1;
@@ -38,7 +38,6 @@ void	ft_clear_empty_line(t_token *new, int max_i)
 	while (++y <= max_i)
 		if (!(ft_strncmp(new->cmd[y], " ", ft_strlen(new->cmd[y]))))
 			t++;
-		//(new->cmd[y] != " ")
 	mass = (char **) malloc(sizeof(char *) * (t + 1));
 	while (++i <= max_i)
 	{
@@ -56,60 +55,16 @@ int	ft_append_red(t_token *new, int *i)
 	if (new->cmd[*i][0] == '>' && new->cmd[*i][1] == '>')
 	{
 		ft_close_fd(new, 1);
-		new->fd1 = open(new->cmd[*i + 1], O_WRONLY | O_CREAT | O_APPEND,
-						0644);
+		new->fd1 = open(new->cmd[*i + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (new->fd1 < 0)
 		{
-			new->error = break_on_error(new->cmd[*i + 1], strerror(errno),1);
+			new->error = break_on_error(new->cmd[*i + 1], strerror(errno), 1);
 			return (1);
 		}
 		ft_free_str_in_token(new, *i + 1);
 	}
 	return (0);
 }
-
-void	ft_red_heredoc(t_token *new, int *i)
-{
-	if (new->cmd[*i][2])
-	{
-		if (new->cmd[*i][0] == '<' && new->cmd[*i][1] == '<' &&
-			new->cmd[*i][2] == '<')
-		{
-			ft_free_str_in_token(new, *i);
-			ft_free_str_in_token(new, *i + 1);
-			return ;
-		}
-	}
-	if (new->cmd[*i][0] == '<' && new->cmd[*i][1] == '<')
-	{
-		ft_free_str_in_token(new, *i + 1);
-	}
-}
-
-//int	ft_parser_red_out(t_token *new, int i)
-//{
-//	if (new->cmd[i][0] == '>' && new->cmd[i][1] != '>')
-//	{
-//		ft_close_fd(new, 1);
-//		new->fd1 = open(new->cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-//		if (new->fd1 < 0)
-//		{
-//			new->error = break_on_error(new->cmd[i + 1], strerror(errno), 1);
-//			return (1);
-//		}
-//		ft_free_str_in_token(new, i + 1);
-//		ft_free_str_in_token(new, i);
-//		new->redorpipe = 21;
-//	}
-//	if (new->cmd[i][0] == '>' && new->cmd[i][1] == '>')
-//	{
-//		if (ft_append_red(new, &i) == 1)
-//			return (1);
-//		ft_free_str_in_token(new, i);
-//		new->redorpipe = 22;
-//	}
-//	return (0);
-//}
 
 void	ft_parser_red(t_token *new, t_parser *pr)
 {
@@ -123,47 +78,9 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 	{
 		new->cmd[i] = parser_str(new->cmd[i], pr->env);
 		if (ft_parser_red_out(new, i))
-			break;
-//		if (new->cmd[i][0] == '>' && new->cmd[i][1] != '>')
-//		{
-//			ft_close_fd(new, 1);
-//			new->fd1 = open(new->cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC, \
-//				0644);
-//			if (new->fd1 < 0)
-//			{
-//				new->error = break_on_error(new->cmd[i + 1], strerror(errno),1);
-//				break;
-//			}
-//			ft_free_str_in_token(new, i + 1);
-//			ft_free_str_in_token(new, i);
-//			new->redorpipe = 21;
-//		}
-		if (new->cmd[i][0] == '<' && new->cmd[i][1] != '<')
-		{
-			ft_close_fd(new, 0);
-			new->fd0 = open(new->cmd[i + 1], O_RDONLY, 0644);
-			if (new->fd0 < 0)
-			{
-				new->error = break_on_error(new->cmd[i + 1], strerror(errno),1);
-				break;
-			}
-			ft_free_str_in_token(new, i + 1);
-			ft_free_str_in_token(new, i);
-			new->redorpipe = 20;
-		}
-//		if (new->cmd[i][0] == '>' && new->cmd[i][1] == '>')
-//		{
-//			if (ft_append_red(new, &i) == 1)
-//				break;
-//			ft_free_str_in_token(new, i);
-//			new->redorpipe = 22;
-//		}
-		if (new->cmd[i][0] == '<' && new->cmd[i][1] == '<')
-		{
-			ft_red_heredoc(new, &i);
-			ft_free_str_in_token(new, i);
-			new->redorpipe = 23;
-		}
+			break ;
+		if (ft_parser_red_in(new, i))
+			break ;
 		i++;
 	}
 	if (new->redorpipe >= 20)
