@@ -2,10 +2,8 @@
 
 void	parser(t_token **token, t_parser *pr)
 {
-
 	pr->i = 0;
 	pr->k = 0;
-	//printf("line= %s\n", line);
 	while (pr->line[pr->i])
 	{
 		if (pr->line[pr->i] == '\'')
@@ -14,7 +12,7 @@ void	parser(t_token **token, t_parser *pr)
 			pr->i = search_next(pr->line, ++pr->i, '"');
 		if (pr->line[pr->i] == '|')
 		{
-			pr->i = parser_token(token, pr, 1); //1 - означает, что есть pipe
+			pr->i = parser_token(token, pr, 1);
 			pr->k = pr->i;
 			pr->k++;
 		}
@@ -27,3 +25,4 @@ void	parser(t_token **token, t_parser *pr)
 		pr->i++;
 	}
 }
+/* pr->i = parser_token(token, pr, 1); 1 - means there is a pipe */

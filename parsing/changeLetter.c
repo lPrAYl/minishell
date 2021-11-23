@@ -1,13 +1,13 @@
 #include "../includes/minishell.h"
 
-char	*changeLetter(char *str, char in, char out)
+char	*change_letter(char *str, char in, char out)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if(str[i] == '\'')
+		if (str[i] == '\'')
 			i = search_next(str, ++i, '\'');
 		if (str[i] == '"')
 			i = search_next(str, ++i, '"');
@@ -17,4 +17,3 @@ char	*changeLetter(char *str, char in, char out)
 	}
 	return (str);
 }
-

@@ -24,12 +24,11 @@ void	create_token(t_token **token, t_parser *pr, char *str, int redorpipe)
 		output_error("error create new token", NULL, 1);
 		exit(g_status);
 	}
-	new->cmd = parser_split(str, ' ');
+	new->cmd = parser_split(str, ' ', pr->j, pr->j);
 	new->redorpipe = redorpipe;
 	new->stopheredoc = NULL;
 	new->error = NULL;
 	new->next = NULL;
-	free(str);
 	ft_parser_red(new, pr);
 	ptr = *token;
 	if (!ptr)
@@ -45,5 +44,7 @@ void	create_token(t_token **token, t_parser *pr, char *str, int redorpipe)
 	/* 1 - pipe, 20 - < , 21 - > , 22 - >> , 23 - << - heredoc */
 void	ft_token(t_token **token, char *str, t_parser *pr, int pp)
 {
+	pr->j = 0;
 	create_token(token, pr, str, pp);
+	free(str);
 }
