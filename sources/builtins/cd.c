@@ -67,11 +67,18 @@ int	cmd_cd(char **argv, t_list **env_ms)
 		perror(argv[1]);
 		return (0);
 	}
-	old_pwd = ft_strjoin("export OLDPWD=", pwd);
-	cmd_export(ft_split(old_pwd, ' '), env_ms);
+	old_pwd = ft_strjoin("true OLDPWD=", pwd);
+	char **tmp = ft_split(old_pwd, ' ');
+	cmd_export(tmp, env_ms);
+	free(tmp);
+	free(old_pwd);
+	free(pwd);
 	get_current_pwd(&pwd, *env_ms);
-	new_pwd = ft_strjoin("export PWD=", pwd);
-	cmd_export(ft_split(new_pwd, ' '), env_ms);
+	new_pwd = ft_strjoin("true PWD=", pwd);
+	tmp = ft_split(new_pwd, ' ');
+	cmd_export(tmp, env_ms);
+	free(tmp);
+	free(new_pwd);
 	free(pwd);
 	return (1);
 }

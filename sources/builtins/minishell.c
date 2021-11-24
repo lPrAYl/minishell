@@ -15,7 +15,7 @@ void	init_start_struct(t_list **env_ms, char **env)
 			j++;
 		field->key = ft_substr(env[i], 0, j);
 		field->value = ft_substr(env[i], j + 1, -1);
-		field->line = env[i];
+		field->line = ft_strdup(env[i]);
 		field->is_sort = 0;
 		ft_lstadd_back(env_ms, ft_lstnew(field));
 		i++;
@@ -38,6 +38,7 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 			signals_interactive_shell();
 			clear_token(token);
 			free(pr->line);
+			pr->line = NULL;
 		}
 	}
 	free(line);
@@ -59,6 +60,7 @@ int	main(int argc, char **argv, char **env)
 	pr = (t_parser *)malloc(sizeof(t_parser));
 	while (1)
 	{
+		printf("hueta\n");
 		pr->env = list_to_array(env_ms);
 		signals_interactive_shell();
 		line = NULL;
@@ -67,5 +69,6 @@ int	main(int argc, char **argv, char **env)
 			signals_ctrl_d(12) ;
 		execution(line, pr, &token, &env_ms);
 	}
+	// free_list(&env_ms);
 	exit(g_status);
 }

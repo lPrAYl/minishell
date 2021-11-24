@@ -80,7 +80,6 @@ static void	wait_children(t_token **token)
 void	execute_line(t_token *token, t_list **env_ms)
 {
 	t_token		*point;
-	char		**env;
 
 	if (!open_pipe(&token))
 		return ;
