@@ -98,14 +98,14 @@ char	**parser_split(char *s, char c, int str_start, int str_end);
 void	print_token(t_token *token);
 int		ft_parser_red_out(t_token *new, int i);
 int		ft_parser_red_in(t_token *new, int i);
-void	free_str(char *tmp1, char *tmp2, char *tmp3);
+void	free_str(char *tmp1, char *tmp2, char *tmp3, char *tmp4);
 char	*break_on_error(char *str1, char *str2, int exit_status);
 char	**ft_free_array(char **arr);
 void	ft_heredoc_stops(t_token *new);
 char	*ft_dollar_utils(char *tmp, int *i, char **env);
 void	parser(t_token **token, t_parser *pr);
 void	clear_token(t_token **token);
-
+char	*ft_strjoin_with_clean(char *s1, char *s2);
 void	signals_interactive_shell(void);
 void	signals_non_interactive_shell(void);
 void	signals_ctrl_d(int sig);
