@@ -81,7 +81,6 @@ char	*ft_gap(char *str, int *i);
 char	*ft_gap2(char *str, int *i, char **env);
 char	*ft_insert_space_after_red(char *str, int *i);
 int		ifkey(char c);
-char	*delete_space(char *line);
 int		search_red(char *line, int i);
 int		search_pipe(char *line, int i);
 int		search_next(char *line, int i, char letter);
@@ -91,7 +90,6 @@ int		parser_token(t_token **token, t_parser *pr, int pp);
 void	create_token(t_token **token, t_parser *pr, char *str, int redorpipe);
 void	*free_token(t_token **t);
 void	ft_token(t_token **token, char *str, t_parser *pr, int pp);
-char	*change_letter(char *str, char in, char out);
 void	ft_parser_red(t_token *new, t_parser *pr);
 int		ft_append_red(t_token *new, int *i);
 void	ft_close_fd(t_token *new, int fd);
@@ -105,10 +103,10 @@ void	free_str(char *tmp1, char *tmp2, char *tmp3, char *tmp4);
 char	*break_on_error(char *str1, char *str2, int exit_status);
 char	**ft_free_array(char **arr);
 void	ft_heredoc_stops(t_token *new);
-char	*ft_dollar_utils(char *tmp, int *i, char **env);
+char	*ft_dollar1(char *tmp, int k, char **env);
 void	parser(t_token **token, t_parser *pr);
 void	clear_token(t_token **token);
-char	*ft_strjoin_with_clean(char *s1, char *s2);
+char	*ft_strjoin_f(char *s1, char *s2);
 
 /*	signals	*/
 void	signals_interactive_shell(void);
