@@ -103,19 +103,18 @@ char	*ft_insert_space_after_red(char *str, int *i)
 	int		j;
 	char	*tmp;
 	char	*tmp2;
-	char	*c;
+	char	*tmp3;
 
 	j = *i;
-	c = ft_strdup(" ");
 
 	if (str[j + 1] != '>' && str[j + 1] != '<' && str[j + 1] != ' ')
 	{
 		tmp = ft_substr(str, 0, (j + 1));
 		tmp2 = ft_substr(str, (j + 1), (ft_strlen(str) - j));
-		tmp = ft_strjoin(tmp, c);
-		tmp = ft_strjoin(tmp, tmp2);
-		free(str);
-		free(c);
+		tmp3 = ft_strjoin(tmp, " ");
+		free(tmp);
+		tmp = ft_strjoin(tmp3, tmp2);
+		free_str(str, NULL, tmp3, tmp2);
 		*i = j + 2;
 		return (tmp);
 	}
