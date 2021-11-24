@@ -31,6 +31,7 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 		pr->line = preparser(ft_strdup(line));
 		if (pr->line)
 		{
+			*token = NULL;
 			parser(token, pr);
 			print_token(*token);
 			signals_non_interactive_shell();
