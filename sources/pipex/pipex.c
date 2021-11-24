@@ -16,7 +16,7 @@ static int	open_pipe(t_token **token)
 	return (1);
 }
 
-static void duplicate_fd(t_token *point, t_token *token)
+static void	duplicate_fd(t_token *point, t_token *token)
 {
 	if (point->fd0 != 0)
 	{
@@ -28,7 +28,7 @@ static void duplicate_fd(t_token *point, t_token *token)
 		dup2(point->fd1, 1);
 		close(point->fd1);
 	}
-	while(token->next)
+	while (token->next)
 	{
 		close(token->fd[0]);
 		close(token->fd[1]);
@@ -88,8 +88,8 @@ void	execute_line(t_token *token, t_list **env_ms)
 	{
 		if (point->stopheredoc)
 			heredoc(point);
-		if (!token->next && ft_strcmp(token->cmd[0], "echo") && 
-			find_builtins(token->cmd[0])(token->cmd, env_ms))
+		if (!token->next && ft_strcmp(token->cmd[0], "echo")
+			&& find_builtins(token->cmd[0])(token->cmd, env_ms))
 			return ;
 		else if (point->error)
 			printf("%s\n", point->error);
