@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 00:31:49 by salyce            #+#    #+#             */
+/*   Updated: 2021/11/25 00:31:51 by salyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	**ft_free_array(char **arr)
@@ -62,12 +74,10 @@ void	free_str(char *tmp1, char *tmp2, char *tmp3, char *tmp4)
 	}
 }
 
-char	*ft_dollar_utils(char *tmp, int *i, char **env)
+char	*ft_dollar1(char *tmp, int k, char **env)
 {
-	int		k;
 	int		n;
 	char	*tmp2;
-	char	*tmp3;
 
 	k = -1;
 	tmp2 = NULL;
@@ -86,14 +96,13 @@ char	*ft_dollar_utils(char *tmp, int *i, char **env)
 	}
 	free_str(tmp2, NULL, NULL, NULL);
 	if (env[k] == NULL)
-		tmp3 = ft_strdup("");
+		tmp2 = ft_strdup("");
 	else
-		tmp3 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
-	return (tmp3);
+		tmp2 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
+	return (tmp2);
 }
 
-
-char	*ft_strjoin_with_clean(char *s1, char *s2)
+char	*ft_strjoin_f(char *s1, char *s2)
 {
 	int		l;
 	int		l2;

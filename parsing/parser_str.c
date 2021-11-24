@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_str.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 00:29:38 by salyce            #+#    #+#             */
+/*   Updated: 2021/11/25 00:29:40 by salyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	*ft_slesh(char *str, int *i)
@@ -10,7 +22,6 @@ char	*ft_slesh(char *str, int *i)
 	tmp = ft_strjoin(tmp, tmp2);
 	free(str);
 	free(tmp2);
-	++(*i);
 	return (tmp);
 }
 
@@ -84,61 +95,39 @@ char	*ft_dollar(char *str, int *i, char **env)
 	tmp = ft_substr(str, j + 1, *i - j - 1);
 	if (ft_strcmp(tmp, "?") != 0)
 	{
-		tmp2 = ft_dollar_utils(tmp, i, env);
-		tmp3 = ft_substr(str, 0, j);
-		tmp3 = ft_strjoin_with_clean(tmp3, tmp2);
-		tmp3 = ft_strjoin_with_clean(tmp3, ft_substr(str, *i, ft_strlen(str)));
+		tmp3 = ft_strjoin_f(ft_substr(str, 0, j), ft_dollar1(tmp, 0, env));
+		tmp3 = ft_strjoin_f(tmp3, ft_substr(str, *i, ft_strlen(str)));
+		(*i)--;
 		if (ft_strcmp(tmp2, "") == 0)
-			*i = (*i) - ft_strlen(tmp) - 1;
+			*i = (*i) - ft_strlen(tmp);
 	}
 	else
 		tmp3 = ft_itoa(g_status);
 	free_str(str, NULL, tmp, NULL);
-	//str = tmp3;
 	return (tmp3);
-}
-
-char	*ft_insert_space_after_red(char *str, int *i)
-{
-	int		j;
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-
-	j = *i;
-
-	if (str[j + 1] != '>' && str[j + 1] != '<' && str[j + 1] != ' ')
-	{
-		tmp = ft_substr(str, 0, (j + 1));
-		tmp2 = ft_substr(str, (j + 1), (ft_strlen(str) - j));
-		tmp3 = ft_strjoin(tmp, " ");
-		free(tmp);
-		tmp = ft_strjoin(tmp3, tmp2);
-		free_str(str, NULL, tmp3, tmp2);
-		*i = j + 2;
-		return (tmp);
-	}
-	else
-		return (str);
 }
 
 char	*parser_str(char *str, char **env)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
 	{
 		if (str[i] == '\'')
+		{
 			str = ft_gap(str, &i);
+			i = i - 2;
+		}
 		if (str[i] == '\\')
 			str = ft_slesh(str, &i);
 		if (str[i] == '\"')
+		{
 			str = ft_gap2(str, &i, env);
+			i = i - 2;
+		}
 		if (str[i] == '$')
 			str = ft_dollar(str, &i, env);
-//		if (str[i] == '>' || str[i] == '<')
-//			str = ft_insert_space_after_red(str, &i);
 	}
 	return (str);
 }

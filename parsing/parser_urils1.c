@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_urils1.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 00:31:41 by salyce            #+#    #+#             */
+/*   Updated: 2021/11/25 00:31:43 by salyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	*output_error(char *str, char *line, int exit_status)
@@ -39,7 +51,7 @@ int	ifkey(char c)
 void	clear_token(t_token **tmp_token)
 {
 	t_token	*token;
-	t_token *tmp111;
+	t_token	*tmp111;
 	int		tmp_i;
 
 	token = *tmp_token;
@@ -63,14 +75,6 @@ void	clear_token(t_token **tmp_token)
 			tmp111 = NULL;
 		}
 	}
-//	if (*tmp_token)
-//	{
-//		free(*tmp_token);
-//		*tmp_token = NULL;
-//	}
-//	if (token)
-//		free(token);
-//	token = NULL;
 }
 
 void	print_token(t_token *token)

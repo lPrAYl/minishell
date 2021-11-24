@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_token.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 00:29:51 by salyce            #+#    #+#             */
+/*   Updated: 2021/11/25 00:29:53 by salyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	parser_token(t_token **token, t_parser *pr, int pp)
@@ -21,4 +33,27 @@ int	parser_token(t_token **token, t_parser *pr, int pp)
 	}
 	ft_token(token, tmp, pr, pp);
 	return (pr->i);
+}
+
+char	*ft_insert_space_after_red(char *str, int *i)
+{
+	int		j;
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
+
+	j = *i;
+	if (str[j + 1] != '>' && str[j + 1] != '<' && str[j + 1] != ' ')
+	{
+		tmp = ft_substr(str, 0, (j + 1));
+		tmp2 = ft_substr(str, (j + 1), (ft_strlen(str) - j));
+		tmp3 = ft_strjoin(tmp, " ");
+		free(tmp);
+		tmp = ft_strjoin(tmp3, tmp2);
+		free_str(str, NULL, tmp3, tmp2);
+		*i = j + 2;
+		return (tmp);
+	}
+	else
+		return (str);
 }

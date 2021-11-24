@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals_interactive_shell.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 00:32:12 by salyce            #+#    #+#             */
+/*   Updated: 2021/11/25 00:32:14 by salyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	ms_sig_inter_ctrl_c(int sig)
 {
 	(void)sig;
 	write (STDERR_FILENO, "\n", 1);
-	//rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 	g_status = 1;

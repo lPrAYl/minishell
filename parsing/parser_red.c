@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_red.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 00:29:06 by salyce            #+#    #+#             */
+/*   Updated: 2021/11/25 00:29:09 by salyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	ft_free_str_in_token(t_token *new, int i)
@@ -77,11 +89,11 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 	ft_heredoc_stops(new);
 	while (new->cmd[i] != '\0')
 	{
-		new->cmd[i] = parser_str(new->cmd[i], pr->env);
 		if (ft_parser_red_out(new, i))
 			break ;
 		if (ft_parser_red_in(new, i))
 			break ;
+		new->cmd[i] = parser_str(new->cmd[i], pr->env);
 		i++;
 	}
 	if (new->redorpipe >= 20)
