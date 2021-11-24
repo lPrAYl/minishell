@@ -38,14 +38,28 @@ void	ft_heredoc_stops(t_token *new)
 	}
 }
 
-void	free_str(char *tmp1, char *tmp2, char *tmp3)
+void	free_str(char *tmp1, char *tmp2, char *tmp3, char *tmp4)
 {
 	if (tmp1)
+	{
 		free(tmp1);
+		tmp1 = NULL;
+	}
 	if (tmp2)
+	{
 		free(tmp2);
+		tmp2 = NULL;
+	}
 	if (tmp3)
+	{
 		free(tmp3);
+		tmp3 = NULL;
+	}
+	if (tmp4)
+	{
+		free(tmp4);
+		tmp4 = NULL;
+	}
 }
 
 char	*ft_dollar_utils(char *tmp, int *i, char **env)
@@ -53,6 +67,7 @@ char	*ft_dollar_utils(char *tmp, int *i, char **env)
 	int		k;
 	int		n;
 	char	*tmp2;
+	char	*tmp3;
 
 	k = -1;
 	while (env[++k])
@@ -65,11 +80,42 @@ char	*ft_dollar_utils(char *tmp, int *i, char **env)
 			tmp2 = ft_substr(env[k], 0, n);
 			if (ft_strncmp(tmp, tmp2, ft_strlen(tmp2)) == 0)
 				break ;
+			free(tmp2);
+			tmp2 = NULL;
 		}
 	}
+	free_str(tmp2, NULL, NULL, NULL);
 	if (env[k] == NULL)
-		tmp2 = ft_strdup("");
+		tmp3 = ft_strdup("");
 	else
-		tmp2 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
-	return (tmp2);
+		tmp3 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
+	return (tmp3);
+}
+
+
+char	*ft_strjoin_with_clean(char *s1, char *s2)
+{
+	int		l;
+	int		l2;
+	int		ct;
+	char	*str;
+
+	l2 = ft_strlen(s1);
+	l = ft_strlen(s1) + ft_strlen(s2);
+	if (!s1 || !s2 || l < 0)
+		return (NULL);
+	str = ft_malloc(l + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	ct = -1;
+	while (++ct < l)
+	{
+		if (ct < l2)
+			str[ct] = s1[ct];
+		else
+			str[ct] = s2[ct - l2];
+	}
+	str[l] = '\0';
+	free_str(s1, s2, NULL, NULL);
+	return (str);
 }
