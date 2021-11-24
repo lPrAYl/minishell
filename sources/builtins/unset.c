@@ -29,11 +29,9 @@ static void	lst_del_one(t_list **head, t_list *lst)
 
 int	cmd_unset(char **argv, t_list **env_ms)
 {
-	int 	i;
-	// char	**argv;
+	int		i;
 	t_list	*tmp;
 
-	// argv = ft_split(line, ' ');
 	i = 1;
 	while (argv[i])
 	{
@@ -43,12 +41,11 @@ int	cmd_unset(char **argv, t_list **env_ms)
 			if (!ft_strcmp(argv[i], tmp->data->key))
 			{
 				lst_del_one(env_ms, tmp);
-				break;
+				break ;
 			}
 			tmp = tmp->next;
 		}
 		i++;
 	}
-	// free_array(argv);
 	return (1);
 }

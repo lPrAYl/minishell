@@ -20,14 +20,14 @@ int		g_status;
 
 typedef struct s_token
 {
-	char	**cmd;
-	int		redorpipe;
-	int		fd0;
-	int		fd1;
-	int		fd[2];
-	char	*stopheredoc;
-	char	*error;
-	pid_t	pid;
+	char			**cmd;
+	int				redorpipe;
+	int				fd0;
+	int				fd1;
+	int				fd[2];
+	char			*stopheredoc;
+	char			*error;
+	pid_t			pid;
 	struct s_token	*next;
 }				t_token;
 
@@ -60,10 +60,13 @@ int		cmd_cd(char **argv, t_list **env_ms);
 int		cmd_null(char **argv, t_list **env_ms);
 int		(*find_builtins(char *name))(char **, t_list **);
 
+void	make_copy_env(t_list ***env_copy, t_list *env_ms);
+void	sort_copy_env(t_list **env_copy);
+void	export_line(char **argv, t_list **env_ms);
+
 /*	utils	*/
 int		print_errno(void);
 void	free_array(char **argv);
-void	free_list(t_list **list);
 void	*malloc_x(size_t size);
 void	get_current_pwd(char **pwd, t_list *env_ms);
 char	*search_value_by_key(t_list *env_ms, char *key);
@@ -106,7 +109,6 @@ char	*ft_dollar_utils(char *tmp, int *i, char **env);
 void	parser(t_token **token, t_parser *pr);
 void	clear_token(t_token **token);
 char	*ft_strjoin_with_clean(char *s1, char *s2);
-
 
 /*	signals	*/
 void	signals_interactive_shell(void);

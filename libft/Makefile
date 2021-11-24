@@ -16,7 +16,7 @@ SRCS		=		ft_atoi.c		ft_bzero.c		ft_calloc.c		ft_isascii.c		\
 
 BONUS_SRCS		=	ft_lstclear.c	ft_lstfind.c	ft_lstiter.c	ft_lstadd_back.c	\
 					ft_lstlast.c	ft_lstmap.c		ft_lstnew.c		ft_lstadd_front.c	\
-					ft_lstsize.c	ft_lstdelone.c	 									\
+					ft_lstsize.c	ft_lstdelone.c	free_list.c							\
 					ft_isspace.c	ft_memory.c		ft_memory_utils.c					\
 					deque.c			deque_utils.c	binary_search.c	ft_sort.c			\
 					ft_minmax.c		ft_sqrt.c											\

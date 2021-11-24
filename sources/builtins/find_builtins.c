@@ -7,7 +7,7 @@ int	cmd_null(char **argv, t_list **env_ms)
 	return (0);
 }
 
-int	(*find_builtins(char *name))(char **, t_list **)
+int	(*find_builtins(char *name))(char **argv, t_list **env_ms)
 {
 	if (ft_strcmp(name, "echo") == 0)
 		return (cmd_echo);

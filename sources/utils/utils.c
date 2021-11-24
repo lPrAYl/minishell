@@ -16,19 +16,6 @@ void	*malloc_x(size_t size)
 	return (ptr);
 }
 
-void	free_list(t_list **list)
-{
-	t_list	*tmp;
-
-	while (*list)
-	{
-		tmp = *list;
-		(*list) = (*list)->next;
-		free(tmp);
-	}
-	free(list);
-}
-
 void	free_array(char **argv)
 {
 	int	i;
@@ -38,24 +25,11 @@ void	free_array(char **argv)
 		free(argv[i++]);
 }
 
-char	*search_value_by_key(t_list *env_ms, char *key)
-{
-	t_list	*tmp;
-
-	tmp = env_ms;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->data->key, key))
-			return (tmp->data->value);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
 void	change_shlvl(t_list **env_ms, char way)
 {
 	int		shlvl;
 	char	*for_export;
+	char	**argv;
 
 	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL"));
 	if (way == '+')
@@ -63,7 +37,7 @@ void	change_shlvl(t_list **env_ms, char way)
 	else
 		shlvl--;
 	for_export = ft_strjoin("_export_ SHLVL=", ft_itoa(shlvl));
-	char **argv = ft_split(for_export, ' ');
+	argv = ft_split(for_export, ' ');
 	cmd_export(argv, env_ms);
 	free(for_export);
 	free(argv);

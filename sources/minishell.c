@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	init_start_struct(t_list **env_ms, char **env)
 {
