@@ -39,6 +39,7 @@ int	ifkey(char c)
 void	clear_token(t_token **tmp_token)
 {
 	t_token	*token;
+	t_token *tmp111;
 	int		tmp_i;
 
 	token = *tmp_token;
@@ -54,12 +55,22 @@ void	clear_token(t_token **tmp_token)
 			free(token->error);
 		if (token->stopheredoc)
 			free(token->stopheredoc);
+		tmp111 = token;
 		token = token->next;
+		if (tmp111)
+		{
+			free(tmp111);
+			tmp111 = NULL;
+		}
 	}
-	free(*tmp_token);
-	*tmp_token = NULL;
-	free(token);
-	token = NULL;
+//	if (*tmp_token)
+//	{
+//		free(*tmp_token);
+//		*tmp_token = NULL;
+//	}
+//	if (token)
+//		free(token);
+//	token = NULL;
 }
 
 void	print_token(t_token *token)

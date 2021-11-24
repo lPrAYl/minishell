@@ -12,6 +12,10 @@ int	parser_token(t_token **token, t_parser *pr, int pp)
 		tmp = ft_substr(pr->line, pr->k, (pr->i - pr->k));
 	while (tmp[++i])
 	{
+		if (tmp[i] == '\'')
+			i = search_next(tmp, ++i, '\'');
+		if (tmp[i] == '"')
+			i = search_next(tmp, ++i, '"');
 		if (tmp[i] == '>' || tmp[i] == '<')
 			tmp = ft_insert_space_after_red(tmp, &i);
 	}

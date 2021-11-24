@@ -46,6 +46,7 @@ void	ft_clear_empty_line(t_token *new, int max_i)
 		if (new->cmd[i])
 			free(new->cmd[i]);
 	}
+	free(new->cmd);
 	mass[k + 1] = NULL;
 	new->cmd = mass;
 }
