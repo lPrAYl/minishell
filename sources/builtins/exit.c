@@ -14,8 +14,8 @@ static int	is_num(char *code)
 			sign = 1;
 		i++;
 	}
-	if ((ft_strcmp(code + i, "9223372036854775807") > 0 && sign == 0) ||
-		(ft_strcmp(code, "-9223372036854775808") > 0 && sign == 1))
+	if ((ft_strcmp(code + i, "9223372036854775807") > 0 && sign == 0)
+		|| (ft_strcmp(code, "-9223372036854775808") > 0 && sign == 1))
 		return (0);
 	len = ft_strlen(code + i);
 	while (code[i] && ft_isdigit(code[i]))
@@ -41,10 +41,10 @@ static int	check_exit(char *argv)
 
 int	cmd_exit(char **argv, t_list **env_ms)
 {
-	(void)env_ms;
 	int		i;
 	int		code;
 
+	(void)env_ms;
 	ft_putendl_fd("exit", 1);
 	if (!argv[1])
 		exit(0);

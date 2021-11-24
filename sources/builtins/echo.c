@@ -15,8 +15,8 @@ int	cmd_echo(char **argv, t_list **env_ms)
 {
 	int		i;
 	int		n_option;
-	(void)env_ms;
 
+	(void)env_ms;
 	i = 1;
 	n_option = 1;
 	while (argv[i])

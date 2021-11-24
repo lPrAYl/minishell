@@ -43,32 +43,29 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 	}
 	free(line);
 	pr->env = ft_free_array(pr->env);
-
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	(void)argc;
-	(void)argv;
 	t_parser	*pr;
 	t_token		*token;
 	t_list		*env_ms;
 	char		*line;
 
+	(void)argc;
+	(void)argv;
 	g_status = 0;
 	init_start_struct(&env_ms, env);
 	pr = (t_parser *)malloc(sizeof(t_parser));
 	while (1)
 	{
-		printf("hueta\n");
 		pr->env = list_to_array(env_ms);
 		signals_interactive_shell();
 		line = NULL;
 		line = readline("minishell § ");
 		if (!line)
-			signals_ctrl_d(12) ;
+			signals_ctrl_d(12);
 		execution(line, pr, &token, &env_ms);
 	}
-	// free_list(&env_ms);
 	exit(g_status);
 }

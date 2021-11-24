@@ -22,6 +22,7 @@ static void	lst_del_one(t_list **head, t_list *lst)
 	}
 	free(lst->data->key);
 	free(lst->data->value);
+	free(lst->data->line);
 	free(lst->data);
 	free(lst);
 }

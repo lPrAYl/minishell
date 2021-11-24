@@ -87,11 +87,8 @@ static void	export_line(char **argv, t_list **env_ms)
 				free(point->data->value);
 				free(point->data->line);
 				free(point->data);
-				// tmp->line = ft_strjoin(tmp->key, "=");
-				// tmp->line = ft_strjoin(tmp->line, tmp->value);
 				point->data = tmp;
-				// free(tmp->line);
-				// free(argv[i]);
+				
 			}
 			else
 				ft_lstadd_back(env_ms, ft_lstnew(tmp));
@@ -103,7 +100,7 @@ static void	export_line(char **argv, t_list **env_ms)
 		}
 		i++;
 	}
-	if (!ft_strcmp(argv[0], "true"))
+	if (!ft_strcmp(argv[0], "_export_"))
 		free_array(argv);
 }
 
@@ -129,9 +126,6 @@ int	cmd_export(char **argv, t_list **env_ms)
 		}
 		point = point->next;
 	}
-	// int	i = 0;
-	// free(argv[0]);
-	// free(argv);
 	free_list(env_copy);
 	return (1);
 }
