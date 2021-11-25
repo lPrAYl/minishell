@@ -14,8 +14,7 @@
 
 char	*output_error(char *str, char *line, int exit_status)
 {
-	printf("minishell:");
-	printf(" %s\n", str);
+	print_error("minishell: ", str, "\n");
 	if (line)
 		free(line);
 	g_status = exit_status;
