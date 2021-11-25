@@ -6,11 +6,18 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:26 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 19:50:27 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/26 00:42:43 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	print_error(char *str1, char *str2, char *str3)
+{
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd(str2, 2);
+	ft_putstr_fd(str3, 2);
+}
 
 int	print_errno(void)
 {
