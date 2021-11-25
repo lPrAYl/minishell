@@ -6,7 +6,7 @@
 /*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 00:31:59 by salyce            #+#    #+#             */
-/*   Updated: 2021/11/25 00:32:01 by salyce           ###   ########.fr       */
+/*   Updated: 2021/11/26 00:07:13 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,16 @@ int	search_pipe(char *line, int i)
 {
 	int	j;
 	int	k;
+	int	n;
 
 	j = i;
+	n = 0;
 	while (line[j])
 		j++;
+	while (line[n] == ' ')
+		n++;
+	if (line[n] == '|')
+		return (j);
 	k = i++;
 	while (line[k] == '|')
 	{
