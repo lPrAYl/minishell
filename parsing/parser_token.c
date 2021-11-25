@@ -6,7 +6,7 @@
 /*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 00:29:51 by salyce            #+#    #+#             */
-/*   Updated: 2021/11/25 00:29:53 by salyce           ###   ########.fr       */
+/*   Updated: 2021/11/25 23:37:51 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	parser_token(t_token **token, t_parser *pr, int pp)
 			i = search_next(tmp, ++i, '\'');
 		if (tmp[i] == '"')
 			i = search_next(tmp, ++i, '"');
+		if (tmp[i] == '>' || tmp[i] == '<')
+			tmp = ft_insert_space_past_red(tmp, &i);
 		if (tmp[i] == '>' || tmp[i] == '<')
 			tmp = ft_insert_space_after_red(tmp, &i);
 	}
@@ -52,6 +54,34 @@ char	*ft_insert_space_after_red(char *str, int *i)
 		tmp = ft_strjoin(tmp3, tmp2);
 		free_str(str, NULL, tmp3, tmp2);
 		*i = j + 2;
+		return (tmp);
+	}
+	else
+		return (str);
+}
+
+char	*ft_insert_space_past_red(char *str, int *i)
+{
+	int		j;
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
+
+	j = *i;
+	if (str[j - 1] && str[j - 1] != '>' && str[j - 1] != '<' && str[j - 1] !=
+	' ')
+	{
+		tmp = ft_substr(str, 0, (j));
+		//printf("1= %s\n", tmp);
+		tmp2 = ft_substr(str, j, (ft_strlen(str) - j));
+		//printf("2= %s\n", tmp2);
+		tmp3 = ft_strjoin(tmp, " ");
+		//printf("3= %s\n", tmp3);
+		free(tmp);
+		tmp = ft_strjoin(tmp3, tmp2);
+		//printf("4= %s\n", tmp);
+		free_str(str, NULL, tmp3, tmp2);
+		*i = j + 1;
 		return (tmp);
 	}
 	else

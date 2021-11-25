@@ -6,7 +6,7 @@
 /*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 00:32:12 by salyce            #+#    #+#             */
-/*   Updated: 2021/11/25 00:32:14 by salyce           ###   ########.fr       */
+/*   Updated: 2021/11/25 23:37:51 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	signals_interactive_shell(void)
 void	signals_ctrl_d(int sig)
 {
 	(void)sig;
-	ft_putstr_fd("\e[1A\e[12C" "exit\n", STDERR_FILENO);
+	//ft_putstr_fd("\e[1A\e[12C" "exit\n", STDERR_FILENO);
 	exit(0);
 }

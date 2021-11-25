@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:45:46 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 19:45:47 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/25 23:37:51 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ char	*ft_dollar1(char *tmp, int k, char **env);
 void	parser(t_token **token, t_parser *pr);
 void	clear_token(t_token **token);
 char	*ft_strjoin_f(char *s1, char *s2);
+char	*ft_insert_space_past_red(char *str, int *i);
 
 /*	signals	*/
 void	signals_interactive_shell(void);
