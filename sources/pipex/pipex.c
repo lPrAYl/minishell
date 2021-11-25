@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:15 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/26 00:42:20 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/26 01:17:23 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,19 @@ static void	wait_children(t_token **token)
 	}
 }
 
-void	execute_line(t_token *token, t_list **env_ms)
+void	execute_line(t_token *tkn, t_list **env_ms)
 {
 	t_token		*point;
 
-	if (!open_pipe(&token))
+	if (!open_pipe(&tkn))
 		return ;
-	point = token;
+	point = tkn;
 	while (point && point->cmd[0])
 	{
 		if (point->stopheredoc)
 			heredoc(point);
-		if (!token->next && ft_strcmp(token->cmd[0], "echo")
-			&& find_builtins(token->cmd[0])(token->cmd, env_ms))
+		if (!tkn->next && ft_strcmp(tkn->cmd[0], "echo") && ft_strcmp(tkn-> \
+			cmd[0], "pwd") && find_builtins(tkn->cmd[0])(tkn->cmd, env_ms))
 			return ;
 		else if (point->error)
 			printf("%s\n", point->error);
@@ -115,9 +115,9 @@ void	execute_line(t_token *token, t_list **env_ms)
 		{
 			point->pid = fork();
 			if (!point->pid)
-				child_process(point, token, env_ms);
+				child_process(point, tkn, env_ms);
 		}
 		point = point->next;
 	}
-	wait_children(&token);
+	wait_children(&tkn);
 }

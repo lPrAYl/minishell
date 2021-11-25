@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:49:37 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/26 00:47:25 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/26 01:46:34 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	change_pwd(char *pwd, t_list **env_ms)
 	old_pwd = ft_split(ft_strjoin("_export_ OLDPWD=", pwd), ' ');
 	cmd_export(old_pwd, env_ms);
 	free(old_pwd);
-	free(pwd);
+	// free(pwd);
 	get_current_pwd(&pwd, *env_ms);
 	new_pwd = ft_split(ft_strjoin("_export_ PWD=", pwd), ' ');
 	cmd_export(new_pwd, env_ms);
