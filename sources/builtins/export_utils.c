@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:49:52 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 19:49:53 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/26 00:57:14 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	check_key(char *key)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	while (key[i])
 	{
 		if (!ft_isalpha(key[0]) || !ft_isalnum(key[i]))
@@ -108,7 +108,8 @@ void	export_line(char **argv, t_list **env_ms)
 		{
 			free(tmp->key);
 			free(tmp);
-			printf("minishell: export: \'%s\': not a valid identifier\n", argv[i]);
+			print_error("minishell: export: \'", argv[i],
+				"\': not a valid identifier\n");
 		}
 	}
 	if (!ft_strcmp(argv[0], "_export_"))

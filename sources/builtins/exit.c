@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:49:48 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 23:58:32 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/26 00:46:02 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static int	check_exit(char *argv)
 {
 	if (!is_num(argv))
 	{
-		ft_putstr_fd("minishell: exit: ", 1);
-		ft_putstr_fd(argv, 1);
-		ft_putendl_fd(": numeric argument required", 1);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(argv, 2);
+		ft_putendl_fd(": numeric argument required", 2);
 		free(argv);
 		return (255);
 	}
@@ -65,7 +65,7 @@ int	cmd_exit(char **argv, t_list **env_ms)
 		i++;
 	if (i > 2 && is_num(argv[1]))
 	{
-		ft_putendl_fd("minishell: exit: too many arguments", 1);
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
 		return (1);
 	}
 	code = check_exit(argv[1]) % 256;

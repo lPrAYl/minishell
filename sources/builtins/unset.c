@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:05 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 19:50:06 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/26 00:57:52 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	lst_del_one(t_list **head, t_list *lst)
 			temp = temp->next;
 		if (!temp)
 		{
-			ft_putstr_fd("ERROR_IN_FT_LSTDELONE_2\n", 1);
+			ft_putstr_fd("ERROR_IN_FT_LSTDELONE_2\n", 2);
 			return ;
 		}
 		temp->next = lst->next;

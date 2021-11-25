@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:49:37 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 19:49:38 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/26 00:47:25 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	cd_minus(char **line, char *pwd, t_list *env_ms)
 	}
 	else
 	{
-		ft_putendl_fd("minishell: cd: OLDPWD not set", 1);
+		ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
 		*line = ft_strdup(pwd);
 	}
 }
@@ -57,7 +57,7 @@ static void	cd_home(char **line, char *pwd, t_list *env_ms)
 		*line = ft_strdup(value);
 	else
 	{
-		ft_putendl_fd("minishell: cd: HOME not set", 1);
+		ft_putendl_fd("minishell: cd: HOME not set", 2);
 		*line = ft_strdup(pwd);
 	}
 }
