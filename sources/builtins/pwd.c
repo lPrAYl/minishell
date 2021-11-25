@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:02 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 19:50:03 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/25 20:13:48 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ int	cmd_pwd(char **ignore, t_list **env_ms)
 		ft_putendl_fd(pwd, STDOUT_FILENO);
 	else
 		print_errno();
-	free(pwd);
 	return (1);
 }
