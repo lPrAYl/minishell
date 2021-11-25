@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:15 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 23:37:51 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 23:59:06 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	child_process(t_token *point, t_token *token, t_list **env_ms)
 		exit (EXIT_SUCCESS);
 	env = list_to_array(*env_ms);
 	execve(get_command(point->cmd[0], *env_ms), point->cmd, env);
-	if (access(point->cmd[0], F_OK | X_OK))
+	if (point->cmd[0][0] != '/' &&access(point->cmd[0], F_OK | X_OK))
 		printf("minishell: %s: command not found\n", point->cmd[0]);
 	else if (errno == 13 && opendir(point->cmd[0]))
 	{

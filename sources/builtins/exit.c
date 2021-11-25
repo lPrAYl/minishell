@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:49:48 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 19:49:49 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/25 23:58:32 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	cmd_exit(char **argv, t_list **env_ms)
 	if (i > 2 && is_num(argv[1]))
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", 1);
-		return (0);
+		return (1);
 	}
 	code = check_exit(argv[1]) % 256;
 	exit(code);
