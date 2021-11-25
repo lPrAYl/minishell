@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 19:50:29 by gtyene            #+#    #+#             */
+/*   Updated: 2021/11/25 19:52:06 by gtyene           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	init_start_struct(t_list **env_ms, char **env)
@@ -33,7 +45,6 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 		{
 			*token = NULL;
 			parser(token, pr);
-			print_token(*token);
 			signals_non_interactive_shell();
 			execute_line(*token, env_ms);
 			signals_interactive_shell();

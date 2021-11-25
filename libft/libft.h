@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 11:22:42 by yfu               #+#    #+#             */
-/*   Updated: 2021/10/23 22:13:52 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/25 19:46:31 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 typedef struct s_env
 {
 	char	*key;
-	char 	*value;
+	char	*value;
 	char	*line;
 	int		is_sort;
 }			t_env;
