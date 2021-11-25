@@ -8,7 +8,10 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libft/)
 
 FILE(GLOB SRC
         "parsing/*.c"
+        "sources/*.c"
         "sources/builtins/*.c"
+        "sources/pipex/*.c"
+        "sources/utils/*.c"
         )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -Wall")
