@@ -31,6 +31,6 @@ void	signals_interactive_shell(void)
 void	signals_ctrl_d(int sig)
 {
 	(void)sig;
-	ft_putstr_fd("\e[1A\e[12C" "exit\n", STDERR_FILENO);
+	//ft_putstr_fd("\e[1A\e[12C" "exit\n", STDERR_FILENO);
 	exit(0);
 }
