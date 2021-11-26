@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:26 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/26 00:42:43 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 02:23:17 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,14 @@ void	free_array(char **argv)
 		free(argv[i++]);
 }
 
-void	change_shlvl(t_list **env_ms, char way)
-{
-	int		shlvl;
-	char	*for_export;
-	char	**argv;
-
-	shlvl = ft_atoi(search_value_by_key(*env_ms, "SHLVL"));
-	if (way == '+')
-		shlvl++;
-	else
-		shlvl--;
-	for_export = ft_strjoin("_export_ SHLVL=", ft_itoa(shlvl));
-	argv = ft_split(for_export, ' ');
-	cmd_export(argv, env_ms);
-	free(for_export);
-	free(argv);
+void	fill_in_env(t_list **env_ms)
+{	
+	char	pwd[4096];
+	char	*env[3];
+	
+	getcwd(pwd, 4096);
+	env[0] = ft_strjoin("PWD=", pwd);
+	env[1] = "SHLVL=0";
+	env[2] = NULL;	
+	init_start_struct(env_ms, env);
 }

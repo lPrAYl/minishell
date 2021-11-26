@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:15 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/26 01:17:23 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 01:41:15 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static void	child_process(t_token *point, t_token *token, t_list **env_ms)
 {
 	char	**env;
 
+	if (point->stopheredoc)
+		heredoc(point);
 	duplicate_fd(point, token);
 	if ((find_builtins(point->cmd[0]))(point->cmd, env_ms))
 		exit (EXIT_SUCCESS);
@@ -103,8 +105,6 @@ void	execute_line(t_token *tkn, t_list **env_ms)
 	point = tkn;
 	while (point && point->cmd[0])
 	{
-		if (point->stopheredoc)
-			heredoc(point);
 		if (!tkn->next && ft_strcmp(tkn->cmd[0], "echo") && ft_strcmp(tkn-> \
 			cmd[0], "pwd") && find_builtins(tkn->cmd[0])(tkn->cmd, env_ms))
 			return ;
