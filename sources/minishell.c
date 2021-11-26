@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:29 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/25 19:52:06 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 02:31:14 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	init_start_struct(t_list **env_ms, char **env)
 	t_env	*field;
 
 	i = 0;
+	if (!*env)
+		fill_in_env(env_ms);
 	while (env[i])
 	{
 		field = malloc(sizeof(t_env));
@@ -72,6 +74,8 @@ int	main(int argc, char **argv, char **env)
 	pr = (t_parser *)malloc(sizeof(t_parser));
 	while (1)
 	{
+		if (!env_ms)
+			fill_in_env(&env_ms);
 		pr->env = list_to_array(env_ms);
 		signals_interactive_shell();
 		line = NULL;
