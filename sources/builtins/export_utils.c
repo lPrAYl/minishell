@@ -108,8 +108,8 @@ void	export_line(char **argv, t_list **env_ms)
 		{
 			free(tmp->key);
 			free(tmp);
-			print_error("minishell: export: \'", argv[i],
-				"\': not a valid identifier\n");
+			pr_err("minishell: export: \'", argv[i],
+				   "\': not a valid identifier\n", 1);
 		}
 	}
 	if (!ft_strcmp(argv[0], "_export_"))

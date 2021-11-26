@@ -58,18 +58,18 @@ static void	child_process(t_token *point, t_token *token, t_list **env_ms)
 	env = list_to_array(*env_ms);
 	execve(get_command(point->cmd[0], *env_ms), point->cmd, env);
 	if (!ft_strchr(point->cmd[0], '/'))
-		print_error("minishell: ", point->cmd[0], " : command not found\n");
+		pr_err("minishell: ", point->cmd[0], " : command not found\n", 127);
 	else if (errno == 13 && chdir(point->cmd[0]))
 	{
-		print_error("minishell: ", point->cmd[0], " : ");
+		pr_err("minishell: ", point->cmd[0], " : ", 1);
 		ft_putendl_fd(strerror(21), 2);
 	}
 	else
 	{
-		print_error("minishell: ", point->cmd[0], " : ");
+		pr_err("minishell: ", point->cmd[0], " : ", 127);
 		ft_putendl_fd(strerror(errno), 2);
 	}
-	exit(EXIT_FAILURE);
+	exit(g_status);
 }
 
 static void	wait_children(t_token **token)
@@ -117,8 +117,8 @@ void	execute_line(t_token *tkn, t_list **env_ms)
 				child_process(point, tkn, env_ms);
 			if (point->pid == -1)
 			{
-				print_error("minishell: ", NULL, \
-					"fork: Resource temporarily unavailable\n");
+				pr_err("minishell: ", NULL, \
+                    "fork: Resource temporarily unavailable\n", 1);
 				break ;
 			}
 		}

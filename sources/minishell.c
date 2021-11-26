@@ -45,6 +45,7 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 		{
 			*token = NULL;
 			parser(token, pr);
+			//print_token(*token);
 			signals_non_interactive_shell();
 			execute_line(*token, env_ms);
 			signals_interactive_shell();
@@ -74,7 +75,7 @@ int	main(int argc, char **argv, char **env)
 		pr->env = list_to_array(env_ms);
 		signals_interactive_shell();
 		line = NULL;
-		line = readline("minishell § ");
+		line = readline(NULL);
 		if (!line)
 			signals_ctrl_d(12);
 		execution(line, pr, &token, &env_ms);

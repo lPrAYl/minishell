@@ -15,7 +15,11 @@
 int	search_next(char *line, int i, char letter)
 {
 	while (line[i] != letter && line[i] != '\0')
+	{
+		if (letter == '\"' && line[i] == '\\')
+			i++;
 		i++;
+	}
 	return (i);
 }
 

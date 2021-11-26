@@ -16,13 +16,15 @@ char	*ft_slesh(char *str, int *i)
 {
 	char	*tmp;
 	char	*tmp2;
+	char	*tmp3;
 
 	tmp = ft_substr(str, 0, *i);
-	tmp2 = ft_strdup(str + *i + 1);
-	tmp = ft_strjoin(tmp, tmp2);
+	tmp2 = ft_substr(str, *i + 1, ft_strlen(str));
+	tmp3 = ft_strjoin(tmp, tmp2);
 	free(str);
 	free(tmp2);
-	return (tmp);
+	(*i)++;
+	return (tmp3);
 }
 
 char	*ft_gap(char *str, int *i)
@@ -98,7 +100,7 @@ char	*ft_dollar(char *str, int *i, char **env)
 		tmp3 = ft_strjoin_f(ft_substr(str, 0, j), ft_dollar1(tmp, 0, env));
 		tmp3 = ft_strjoin_f(tmp3, ft_substr(str, *i, ft_strlen(str)));
 		(*i)--;
-		if (ft_strcmp(tmp2, "") == 0)
+		if (ft_strcmp(ft_dollar1(tmp, 0, env), "") == 0)
 			*i = (*i) - ft_strlen(tmp);
 	}
 	else

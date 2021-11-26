@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	print_error(char *str1, char *str2, char *str3)
+void	pr_err(char *str1, char *str2, char *str3, int exit_status)
 {
 	if (str1)
 		ft_putstr_fd(str1, 2);
@@ -20,6 +20,7 @@ void	print_error(char *str1, char *str2, char *str3)
 		ft_putstr_fd(str2, 2);
 	if (str3)
 		ft_putstr_fd(str3, 2);
+	g_status = exit_status;
 }
 
 int	print_errno(void)

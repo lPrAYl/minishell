@@ -80,7 +80,6 @@ char	*ft_dollar1(char *tmp, int k, char **env)
 	char	*tmp2;
 
 	k = -1;
-	tmp2 = NULL;
 	while (env[++k])
 	{
 		if (ft_strnstr(env[k], tmp, ft_strlen(env[k])))
@@ -89,9 +88,10 @@ char	*ft_dollar1(char *tmp, int k, char **env)
 			while (env[k][n] != '=' && env[k][n])
 				n++;
 			tmp2 = ft_substr(env[k], 0, n);
-			if (ft_strncmp(tmp, tmp2, ft_strlen(tmp2)) == 0)
+			if (ft_strcmp(tmp, tmp2) == 0)
 				break ;
 			free(tmp2);
+			tmp2 = NULL;
 		}
 	}
 	free_str(tmp2, NULL, NULL, NULL);

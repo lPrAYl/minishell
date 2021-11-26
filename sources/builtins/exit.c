@@ -57,7 +57,7 @@ int	cmd_exit(char **argv, t_list **env_ms)
 	int		code;
 
 	(void)env_ms;
-	ft_putendl_fd("exit", 1);
+	//ft_putendl_fd("exit", 1);
 	if (!argv[1])
 		exit(0);
 	i = 1;

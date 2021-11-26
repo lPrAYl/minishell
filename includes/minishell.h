@@ -84,7 +84,7 @@ void	get_current_pwd(char **pwd, t_list *env_ms);
 char	*search_value_by_key(t_list *env_ms, char *key);
 char	**list_to_array(t_list *env_ms);
 void	change_shlvl(t_list **env_ms, char way);
-void	print_error(char *str1, char *str2, char *str3);
+void	pr_err(char *str1, char *str2, char *str3, int exit_status);
 
 /*	parsing	*/
 char	*preparser(char *line);
