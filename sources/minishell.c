@@ -47,7 +47,7 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 		{
 			*token = NULL;
 			parser(token, pr);
-			//print_token(*token);
+			print_token(*token);
 			signals_non_interactive_shell();
 			execute_line(*token, env_ms);
 			signals_interactive_shell();

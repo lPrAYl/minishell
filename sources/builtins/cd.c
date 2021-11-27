@@ -66,12 +66,12 @@ static void	change_pwd(char *pwd, t_list **env_ms)
 {
 	char	**old_pwd;
 	char	**new_pwd;
+	char	*tmp_pwd1;
 
 	old_pwd = ft_split(ft_strjoin("_export_ OLDPWD=", pwd), ' ');
 	cmd_export(old_pwd, env_ms);
 	free(old_pwd);
-	if (chdir(pwd) != -1)
-		free(pwd);
+	free(pwd);
 	get_current_pwd(&pwd, *env_ms);
 	new_pwd = ft_split(ft_strjoin("_export_ PWD=", pwd), ' ');
 	cmd_export(new_pwd, env_ms);
@@ -83,6 +83,7 @@ int	cmd_cd(char **argv, t_list **env_ms)
 {
 	char	*pwd;
 	char	*line;
+	char	*tmp_pwd;
 	
 	get_current_pwd(&pwd, *env_ms);
 	if (!argv[1])

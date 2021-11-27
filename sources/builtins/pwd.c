@@ -16,7 +16,10 @@ void	get_current_pwd(char **pwd, t_list *env_ms)
 {	
 	*pwd = malloc_x(sizeof(char) * 4096);
 	if (!getcwd(*pwd, 4096))
-		*pwd = search_value_by_key(env_ms, "PWD");
+	{
+		free(*pwd);
+		*pwd = ft_strdup(search_value_by_key(env_ms, "PWD"));
+	}
 }
 
 int	cmd_pwd(char **ignore, t_list **env_ms)
