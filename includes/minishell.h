@@ -121,7 +121,6 @@ void	ft_heredoc_stops(t_token *new);
 char	*ft_dollar1(char *tmp, int k, char **env);
 void	parser(t_token **token, t_parser *pr);
 void	clear_token(t_token **token);
-char	*ft_strjoin_f(char *s1, char *s2);
 char	*ft_insert_space_past_red(char *str, int *i);
 
 /*	signals	*/

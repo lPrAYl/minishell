@@ -93,43 +93,12 @@ char	*ft_dollar1(char *tmp, int k, char **env)
 			if (ft_strcmp(tmp, tmp2) == 0)
 				break ;
 			free(tmp2);
-			tmp2 = NULL;
 		}
 	}
-	//printf("tmp2 dollar=== %s\n", tmp2);
-	if (tmp2)
-		free(tmp2);
-	//printf("tmp2 dollar=== %s\n", tmp2);
+	free_str(tmp2, NULL, NULL, NULL);
 	if (env[k] == NULL)
 		tmp3 = ft_strdup("");
 	else
 		tmp3 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
 	return (tmp3);
-}
-
-char	*ft_strjoin_f(char *s1, char *s2)
-{
-	int		l;
-	int		l2;
-	int		ct;
-	char	*str;
-
-	l2 = ft_strlen(s1);
-	l = ft_strlen(s1) + ft_strlen(s2);
-	if (!s1 || !s2 || l < 0)
-		return (NULL);
-	str = malloc_x((l + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	ct = -1;
-	while (++ct < l)
-	{
-		if (ct < l2)
-			str[ct] = s1[ct];
-		else
-			str[ct] = s2[ct - l2];
-	}
-	str[l] = '\0';
-	free_str(s1, s2, NULL, NULL);
-	return (str);
 }

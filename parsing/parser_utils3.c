@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_interactive_shell.c                        :+:      :+:    :+:   */
+/*   parser_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: salyce <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 00:32:12 by salyce            #+#    #+#             */
-/*   Updated: 2021/11/25 23:37:51 by                  ###   ########.fr       */
+/*   Created: 2021/11/27 19:52:13 by salyce            #+#    #+#             */
+/*   Updated: 2021/11/27 19:52:16 by salyce           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ms_sig_inter_ctrl_c(int sig)
+char	*ft_slesh(char *str, int *i)
 {
-	(void)sig;
-	write (STDERR_FILENO, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	g_status = 1;
-}
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
 
-void	signals_interactive_shell(void)
-{
-	signal(SIGTERM, SIG_IGN);
-	signal(SIGINT, &ms_sig_inter_ctrl_c);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	signals_ctrl_d(int sig)
-{
-	(void)sig;
-	ft_putstr_fd("\e[1A\e[12C" "exit\n", STDERR_FILENO);
-	exit(0);
+	tmp = ft_substr(str, 0, *i);
+	tmp2 = ft_substr(str, *i + 1, ft_strlen(str));
+	tmp3 = ft_strjoin(tmp, tmp2);
+	free(str);
+	free(tmp2);
+	(*i)++;
+	return (tmp3);
 }

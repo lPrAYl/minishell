@@ -47,12 +47,6 @@ void	ft_clear_empty_line(t_token *new, int max_i)
 	y = -1;
 	k = -1;
 	t = 0;
-//	while (++y <= max_i)
-//	{
-//		printf("cmd[i]= %s\n", new->cmd[y]);
-//		if ((ft_strcmp(new->cmd[y], " ")))
-//			t++;
-//	}
 	mass = (char **) malloc(sizeof(char *) * (max_i + 1));
 	while (++i < max_i)
 	{
@@ -103,7 +97,6 @@ void	ft_parser_red(t_token *new, t_parser *pr)
 		new->cmd[i] = parser_str(new->cmd[i], pr->env);
 		i++;
 	}
-	//print_token(new);
 	if (new->redorpipe >= 20)
 		ft_clear_empty_line(new, max_i);
 }
