@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:45:46 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/27 20:02:44 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 20:06:47 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	change_shlvl(t_list **env_ms, char way);
 void	pr_err(char *str1, char *str2, char *str3, int exit_status);
 void	init_start_struct(t_list **env_ms, char **env);
 void	fill_in_env(t_list **env_ms);
+void	error_fork(void);
 
 /*	parsing	*/
 char	*preparser(char *line);
