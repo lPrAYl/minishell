@@ -96,10 +96,10 @@ char	*ft_dollar1(char *tmp, int k, char **env)
 			tmp2 = NULL;
 		}
 	}
-	printf("tmp2 dollar=== %s\n", tmp2);
+	//printf("tmp2 dollar=== %s\n", tmp2);
 	if (tmp2)
 		free(tmp2);
-	printf("tmp2 dollar=== %s\n", tmp2);
+	//printf("tmp2 dollar=== %s\n", tmp2);
 	if (env[k] == NULL)
 		tmp3 = ft_strdup("");
 	else

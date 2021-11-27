@@ -64,8 +64,8 @@ int	cmd_export(char **argv, t_list **env_ms)
 
 	make_copy_env(&env_copy, *env_ms);
 	sort_copy_env(env_copy);
-	printf("expppp 0==== %s\n", argv[0]);
-	printf("expppp 1==== %s\n", argv[1]);
+//	printf("expppp 0==== %s\n", argv[0]);
+//	printf("expppp 1==== %s\n", argv[1]);
 	//printf("expppp 2==== %s\n", argv[2]);
 //	if (argv[1] && ((ft_strcmp(argv[1], "SHLVL=2") != 0)))
 //		if (check_export(argv[1]))

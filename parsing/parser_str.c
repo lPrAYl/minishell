@@ -123,15 +123,15 @@ char	*ft_dollar(char *str, int *i, char **env)
 		(*i)--;
 		if (ft_strcmp(tmp2, "") == 0)
 			*i = (*i) - ft_strlen(tmp);
+		if (tmp2)
+			free(tmp2);
+		free_str(str, tmp, tmp23, tmp24);
+		free_str(tmp22, NULL, NULL, NULL);
 	}
 	else
 		tmp3 = ft_itoa(g_status);
-	printf("tmp2=== %s\n", tmp2);
-	if (tmp2)
-		free(tmp2);
-	printf("tmp2=== %s\n", tmp2);
-	free_str(str, tmp, tmp23, tmp24);
-	free_str(tmp22, NULL, NULL, NULL);
+	//printf("tmp2=== %s\n", tmp2);
+	//printf("tmp2=== %s\n", tmp2);
 	return (tmp3);
 }
 
