@@ -78,6 +78,7 @@ char	*ft_dollar1(char *tmp, int k, char **env)
 {
 	int		n;
 	char	*tmp2;
+	char	*tmp3;
 
 	k = -1;
 	while (env[++k])
@@ -94,12 +95,13 @@ char	*ft_dollar1(char *tmp, int k, char **env)
 			tmp2 = NULL;
 		}
 	}
-	free_str(tmp2, NULL, NULL, NULL);
+	if (tmp2)
+		free(tmp2);
 	if (env[k] == NULL)
-		tmp2 = ft_strdup("");
+		tmp3 = ft_strdup("");
 	else
-		tmp2 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
-	return (tmp2);
+		tmp3 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
+	return (tmp3);
 }
 
 char	*ft_strjoin_f(char *s1, char *s2)

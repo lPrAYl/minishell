@@ -66,6 +66,7 @@ int	cmd_exit(char **argv, t_list **env_ms)
 	if (i > 2 && is_num(argv[1]))
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		g_status = 1;
 		return (1);
 	}
 	code = check_exit(argv[1]) % 256;
