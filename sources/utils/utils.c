@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:26 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/27 02:23:17 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 17:48:35 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	fill_in_env(t_list **env_ms)
 	getcwd(pwd, 4096);
 	env[0] = ft_strjoin("PWD=", pwd);
 	env[1] = "SHLVL=0";
-	env[2] = NULL;	
+	env[2] = "_=/usr/bin/env";
+	env[3] = NULL;
 	init_start_struct(env_ms, env);
 }

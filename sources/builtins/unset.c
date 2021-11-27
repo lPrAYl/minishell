@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:05 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/26 00:57:52 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 17:50:07 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	cmd_unset(char **argv, t_list **env_ms)
 	t_list	*tmp;
 
 	i = 1;
+	if (argv[i][0] == '_')
+		return (1);
 	while (argv[i])
 	{
 		tmp = *env_ms;

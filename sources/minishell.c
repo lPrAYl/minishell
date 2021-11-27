@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:29 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/27 02:31:14 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 17:46:34 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	main(int argc, char **argv, char **env)
 	pr = (t_parser *)malloc(sizeof(t_parser));
 	while (1)
 	{
-		if (!env_ms)
-			fill_in_env(&env_ms);
+		// if (!env_ms)
+		// 	fill_in_env(&env_ms);
 		pr->env = list_to_array(env_ms);
 		signals_interactive_shell();
 		line = NULL;
