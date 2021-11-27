@@ -81,11 +81,27 @@ char	*ft_gap2(char *str, int *i, char **env)
 	return (tmp);
 }
 
+char	*ft_strjoin_f1(char *s1, char *s2, char *s3)
+{
+	char	*tmp1;
+	char	*tmp2;
+
+	tmp1 = ft_strjoin(s1, s2);
+	tmp2 = ft_strjoin(tmp1, s3);
+	free(s1);
+	free(s2);
+	free(tmp1);
+	return (tmp2);
+}
+
 char	*ft_dollar(char *str, int *i, char **env)
 {
 	int		j;
 	char	*tmp;
 	char	*tmp2;
+	char	*tmp22;
+	char	*tmp23;
+	char	*tmp24;
 	char	*tmp3;
 
 	j = *i;
@@ -97,15 +113,25 @@ char	*ft_dollar(char *str, int *i, char **env)
 	tmp = ft_substr(str, j + 1, *i - j - 1);
 	if (ft_strcmp(tmp, "?") != 0)
 	{
-		tmp3 = ft_strjoin_f(ft_substr(str, 0, j), ft_dollar1(tmp, 0, env));
-		tmp3 = ft_strjoin_f(tmp3, ft_substr(str, *i, ft_strlen(str)));
+		tmp2 = ft_dollar1(tmp, 0, env);
+		tmp22 = ft_substr(str, 0, j);
+		tmp23 = ft_strjoin(tmp2, tmp22);
+		//tmp3 = ft_strjoin_f(ft_substr(str, 0, j), ft_dollar1(tmp, 0, env));
+		//tmp3 = ft_strjoin_f(tmp3, ft_substr(str, *i, ft_strlen(str)));
+		tmp24 = ft_substr(str, *i, ft_strlen(str));
+		tmp3 = ft_strjoin(tmp23, tmp24);
 		(*i)--;
-		if (ft_strcmp(ft_dollar1(tmp, 0, env), "") == 0)
+		if (ft_strcmp(tmp2, "") == 0)
 			*i = (*i) - ft_strlen(tmp);
 	}
 	else
 		tmp3 = ft_itoa(g_status);
-	free_str(str, NULL, tmp, NULL);
+	printf("tmp2=== %s\n", tmp2);
+	if (tmp2)
+		free(tmp2);
+	printf("tmp2=== %s\n", tmp2);
+	free_str(str, tmp, tmp23, tmp24);
+	free_str(tmp22, NULL, NULL, NULL);
 	return (tmp3);
 }
 

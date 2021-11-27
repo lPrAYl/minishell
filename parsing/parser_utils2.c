@@ -81,6 +81,7 @@ char	*ft_dollar1(char *tmp, int k, char **env)
 	char	*tmp3;
 
 	k = -1;
+	tmp2 = NULL;
 	while (env[++k])
 	{
 		if (ft_strnstr(env[k], tmp, ft_strlen(env[k])))
@@ -95,8 +96,10 @@ char	*ft_dollar1(char *tmp, int k, char **env)
 			tmp2 = NULL;
 		}
 	}
+	printf("tmp2 dollar=== %s\n", tmp2);
 	if (tmp2)
 		free(tmp2);
+	printf("tmp2 dollar=== %s\n", tmp2);
 	if (env[k] == NULL)
 		tmp3 = ft_strdup("");
 	else
@@ -115,7 +118,7 @@ char	*ft_strjoin_f(char *s1, char *s2)
 	l = ft_strlen(s1) + ft_strlen(s2);
 	if (!s1 || !s2 || l < 0)
 		return (NULL);
-	str = ft_malloc(l + 1, sizeof(char));
+	str = malloc_x((l + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	ct = -1;

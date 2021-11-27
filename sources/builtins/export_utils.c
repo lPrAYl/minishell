@@ -17,6 +17,8 @@ static int	check_key(char *key)
 	int	i;
 
 	i = 0;
+	if (ft_strlen(key) == 0)
+		return (0);
 	while (key[i])
 	{
 		if (!ft_isalpha(key[0]) || !ft_isalnum(key[i]))
