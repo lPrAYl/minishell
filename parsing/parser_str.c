@@ -94,6 +94,24 @@ char	*ft_strjoin_f1(char *s1, char *s2, char *s3)
 	return (tmp2);
 }
 
+static char *ft_str_1(char *str, int j, int *i, char **env)
+{
+	tmp2 = ft_dollar1(tmp, 0, env);
+	tmp22 = ft_substr(str, 0, j);
+	tmp23 = ft_strjoin(tmp2, tmp22);
+	//tmp3 = ft_strjoin_f(ft_substr(str, 0, j), ft_dollar1(tmp, 0, env));
+	//tmp3 = ft_strjoin_f(tmp3, ft_substr(str, *i, ft_strlen(str)));
+	tmp24 = ft_substr(str, *i, ft_strlen(str));
+	tmp3 = ft_strjoin(tmp23, tmp24);
+	(*i)--;
+	if (ft_strcmp(tmp2, "") == 0)
+		*i = (*i) - ft_strlen(tmp);
+	if (tmp2)
+		free(tmp2);
+	free_str(str, tmp, tmp23, tmp24);
+	free_str(tmp22, NULL, NULL, NULL);
+}
+
 char	*ft_dollar(char *str, int *i, char **env)
 {
 	int		j;
@@ -155,7 +173,10 @@ char	*parser_str(char *str, char **env)
 			i = i - 2;
 		}
 		if (str[i] == '$')
+		{
 			str = ft_dollar(str, &i, env);
+			i--;
+		}
 	}
 	return (str);
 }
