@@ -22,7 +22,8 @@ static int	open_pipe(t_token **token)
 		if (pipe(point->fd) < 0)
 			return (error_create_pipe(*token));
 		point->fd1 = point->fd[1];
-		point->next->fd0 = point->fd[0];
+		if (point->next->fd0 == 0)
+			point->next->fd0 = point->fd[0];
 		point = point->next;
 	}
 	return (1);
@@ -82,10 +83,14 @@ static void	wait_children(t_token **token)
 	point = *token;
 	while (point->next)
 	{
+		if (point->fd0)
+			close(point->fd0);
 		close(point->fd[0]);
 		close(point->fd[1]);
 		point = point->next;
 	}
+	if (point->fd0)
+		close(point->fd0);
 	while (*token)
 	{
 		waitpid((*token)->pid, &status, 0);

@@ -32,6 +32,7 @@ char	*get_command(char *command, t_list *env_ms)
 		return (command);
 	}
 	i = -1;
+	path = NULL;
 	while (paths[++i])
 	{
 		if (path)
