@@ -12,21 +12,6 @@
 
 #include "../includes/minishell.h"
 
-char	*ft_slesh(char *str, int *i)
-{
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-
-	tmp = ft_substr(str, 0, *i);
-	tmp2 = ft_substr(str, *i + 1, ft_strlen(str));
-	tmp3 = ft_strjoin(tmp, tmp2);
-	free(str);
-	free(tmp2);
-	(*i)++;
-	return (tmp3);
-}
-
 char	*ft_gap(char *str, int *i)
 {
 	int		j;
@@ -81,27 +66,34 @@ char	*ft_gap2(char *str, int *i, char **env)
 	return (tmp);
 }
 
-char	*ft_strjoin_f1(char *s1, char *s2, char *s3)
+static	char	*ft_str_1(char *str, int j, int *i, char **env)
 {
-	char	*tmp1;
+	char	*tmp;
 	char	*tmp2;
+	char	*tmp22;
+	char	*tmp23;
+	char	*tmp3;
 
-	tmp1 = ft_strjoin(s1, s2);
-	tmp2 = ft_strjoin(tmp1, s3);
-	free(s1);
-	free(s2);
-	free(tmp1);
-	return (tmp2);
+	tmp = ft_substr(str, j + 1, *i - j - 1);
+	tmp2 = ft_dollar1(tmp, 0, env);
+	tmp22 = ft_substr(str, 0, j);
+	tmp23 = ft_strjoin(tmp22, tmp2);
+	free(tmp22);
+	tmp22 = ft_substr(str, *i, ft_strlen(str));
+	tmp3 = ft_strjoin(tmp23, tmp22);
+	(*i)--;
+	if (ft_strcmp(tmp2, "") == 0)
+		*i = (*i) - ft_strlen(tmp);
+	if (tmp2)
+		free(tmp2);
+	free_str(str, tmp, tmp23, tmp22);
+	return (tmp3);
 }
 
 char	*ft_dollar(char *str, int *i, char **env)
 {
 	int		j;
 	char	*tmp;
-	char	*tmp2;
-	char	*tmp22;
-	char	*tmp23;
-	char	*tmp24;
 	char	*tmp3;
 
 	j = *i;
@@ -113,25 +105,11 @@ char	*ft_dollar(char *str, int *i, char **env)
 	tmp = ft_substr(str, j + 1, *i - j - 1);
 	if (ft_strcmp(tmp, "?") != 0)
 	{
-		tmp2 = ft_dollar1(tmp, 0, env);
-		tmp22 = ft_substr(str, 0, j);
-		tmp23 = ft_strjoin(tmp2, tmp22);
-		//tmp3 = ft_strjoin_f(ft_substr(str, 0, j), ft_dollar1(tmp, 0, env));
-		//tmp3 = ft_strjoin_f(tmp3, ft_substr(str, *i, ft_strlen(str)));
-		tmp24 = ft_substr(str, *i, ft_strlen(str));
-		tmp3 = ft_strjoin(tmp23, tmp24);
-		(*i)--;
-		if (ft_strcmp(tmp2, "") == 0)
-			*i = (*i) - ft_strlen(tmp);
-		if (tmp2)
-			free(tmp2);
-		free_str(str, tmp, tmp23, tmp24);
-		free_str(tmp22, NULL, NULL, NULL);
+		tmp3 = ft_str_1(str, j, i, env);
 	}
 	else
 		tmp3 = ft_itoa(g_status);
-	//printf("tmp2=== %s\n", tmp2);
-	//printf("tmp2=== %s\n", tmp2);
+	free(tmp);
 	return (tmp3);
 }
 
@@ -155,7 +133,10 @@ char	*parser_str(char *str, char **env)
 			i = i - 2;
 		}
 		if (str[i] == '$')
+		{
 			str = ft_dollar(str, &i, env);
+			i--;
+		}
 	}
 	return (str);
 }

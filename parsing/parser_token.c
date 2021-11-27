@@ -68,18 +68,14 @@ char	*ft_insert_space_past_red(char *str, int *i)
 	char	*tmp3;
 
 	j = *i;
-	if (str[j - 1] && str[j - 1] != '>' && str[j - 1] != '<' && str[j - 1] !=
-	' ')
+	if (str[j - 1] && str[j - 1] != '>' && str[j - 1] != '<' && str[j - 1] \
+		!= ' ')
 	{
 		tmp = ft_substr(str, 0, (j));
-		//printf("1= %s\n", tmp);
 		tmp2 = ft_substr(str, j, (ft_strlen(str) - j));
-		//printf("2= %s\n", tmp2);
 		tmp3 = ft_strjoin(tmp, " ");
-		//printf("3= %s\n", tmp3);
 		free(tmp);
 		tmp = ft_strjoin(tmp3, tmp2);
-		//printf("4= %s\n", tmp);
 		free_str(str, NULL, tmp3, tmp2);
 		*i = j + 1;
 		return (tmp);
