@@ -4,7 +4,7 @@ SRCS			= 	${shell find ./sources ./parsing -name "*.c"}
 HDRS			=	${shell find ./includes -name "*.h"}
 
 INCS		=		-I./includes -I./libft/
-GCC				=	gcc -Wall -Wextra -Werror -g
+GCC				=	gcc -Wall -Wextra -Werror
 
 LIBFT			=	./libft/libft.a
 LFLAGS			=	-L ./libft -lft
@@ -26,8 +26,11 @@ $(LIBFT)		:	./libft/*.c ./libft/*.h
 
 OBJS			=	$(patsubst %.c, %.o, $(SRCS))
 
+%.o:				%.c
+					$(GCC) $(RDL_INC) -c -g $< -o $@
+
 $(NAME)			:	$(OBJS) $(HDRS) $(LIBFT)
-					@$(GCC) $(INCS) $(OBJS) $(LFLAGS) $(RDL) -o $(NAME)
+					@$(GCC) $(INCS) $(OBJS) $(LFLAGS) -o $(NAME) $(RDL)
 					@echo "\n$(NAME): $(GREEN)object files were created$(RESET)"
 					@echo "$(NAME): $(GREEN)project was created$(RESET)\n"
 

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static int	child_process(t_token *point, char *stop, int fd[2])
+static int	child_process(char *stop, int fd[2])
 {
 	char	*line;
 
@@ -55,7 +55,7 @@ void	heredoc(t_token *point)
 		}
 		pid = fork();
 		if (!pid)
-			child_process(point, stop[i], fd);
+			child_process(stop[i], fd);
 		else
 			parent_process(point, pid, fd);
 		i++;

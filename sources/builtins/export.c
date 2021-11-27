@@ -22,23 +22,23 @@ int	not_valid(char *agr)
 	return (1);
 }
 
-static int	check_export(char *arg)
-{
-	int	i;
-
-	i = 0;
-	if (arg[0] == '=')
-		return (not_valid(arg));
-	while (arg[i] && arg[i] != '=')
-	{
-		if (ft_isdigit(arg[0]) || !ft_isalpha(arg[0]))
-			return (not_valid(arg));
-		if (!ft_isdigit(arg[i]) && !ft_isalpha(arg[i]))
-			return (not_valid(arg));
-		i++;
-	}
-	return (0);
-}
+//static int	check_export(char *arg)
+//{
+//	int	i;
+//
+//	i = 0;
+//	if (arg[0] == '=')
+//		return (not_valid(arg));
+//	while (arg[i] && arg[i] != '=')
+//	{
+//		if (ft_isdigit(arg[0]) || !ft_isalpha(arg[0]))
+//			return (not_valid(arg));
+//		if (!ft_isdigit(arg[i]) && !ft_isalpha(arg[i]))
+//			return (not_valid(arg));
+//		i++;
+//	}
+//	return (0);
+//}
 
 void static	cmd_point(char **argv, t_list *point)
 {
