@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:26 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/27 17:48:35 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 18:17:05 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	free_array(char **argv)
 void	fill_in_env(t_list **env_ms)
 {	
 	char	pwd[4096];
-	char	*env[3];
-	
+	char	*env[4];
+
 	getcwd(pwd, 4096);
 	env[0] = ft_strjoin("PWD=", pwd);
 	env[1] = "SHLVL=0";

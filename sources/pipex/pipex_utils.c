@@ -5,12 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 19:50:12 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/26 00:42:27 by gtyene           ###   ########.fr       */
+/*   Created: 2021/11/27 19:45:43 by gtyene            #+#    #+#             */
+/*   Updated: 2021/11/27 20:01:38 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	error_fork(void)
+{
+	pr_err("minishell: ", NULL, \
+					"fork: Resource temporarily unavailable\n", 1);
+}
 
 char	*get_command(char *command, t_list *env_ms)
 {
@@ -19,20 +25,23 @@ char	*get_command(char *command, t_list *env_ms)
 	char	*path;
 	char	**paths;
 
-	if (ft_strchr(command, '/'))
-		return (command);
 	paths = ft_split(search_value_by_key(env_ms, "PATH"), ':');
-	i = 0;
-	while (paths[i])
+	if (ft_strchr(command, '/') || !paths)
 	{
+		free(paths);
+		return (command);
+	}
+	i = -1;
+	while (paths[++i])
+	{
+		if (path)
+			free(path);
 		tmp = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(tmp, command);
 		free(tmp);
 		free(paths[i]);
 		if (!access(path, F_OK | X_OK))
 			return (path);
-		free(path);
-		i++;
 	}
 	free(paths);
 	return (path);

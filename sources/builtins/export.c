@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:49:55 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/27 02:29:16 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 18:11:24 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void static	cmd_point(char **argv, t_list *point)
 		{
 			if (point->data->value)
 				printf("declare -x %s=\"%s\"\n", point->data->key,
-					   point->data->value);
+					point->data->value);
 			else
 				printf("declare -x %s\n", point->data->key);
 		}
@@ -64,15 +64,6 @@ int	cmd_export(char **argv, t_list **env_ms)
 
 	make_copy_env(&env_copy, *env_ms);
 	sort_copy_env(env_copy);
-//	printf("expppp 0==== %s\n", argv[0]);
-//	printf("expppp 1==== %s\n", argv[1]);
-	//printf("expppp 2==== %s\n", argv[2]);
-//	if (argv[1] && ((ft_strcmp(argv[1], "SHLVL=2") != 0)))
-//		if (check_export(argv[1]))
-//		{
-//			free_list(env_copy);
-//			return (1);
-//		}
 	if (argv[1])
 		export_line(argv, env_ms);
 	point = *env_copy;

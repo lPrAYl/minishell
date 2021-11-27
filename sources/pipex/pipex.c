@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:15 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/27 01:41:15 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 20:01:30 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,18 +109,14 @@ void	execute_line(t_token *tkn, t_list **env_ms)
 			cmd[0], "pwd") && find_builtins(tkn->cmd[0])(tkn->cmd, env_ms))
 			return ;
 		else if (point->error)
-			printf("%s\n", point->error);
+			pr_err(point->error, "\n", NULL, 1);
 		else
 		{
 			point->pid = fork();
 			if (!point->pid)
 				child_process(point, tkn, env_ms);
 			if (point->pid == -1)
-			{
-				pr_err("minishell: ", NULL, \
-                    "fork: Resource temporarily unavailable\n", 1);
-				break ;
-			}
+				return (error_fork());
 		}
 		point = point->next;
 	}

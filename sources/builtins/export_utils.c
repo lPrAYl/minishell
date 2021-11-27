@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:49:52 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/26 00:57:14 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 18:10:48 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	export_line(char **argv, t_list **env_ms)
 			free(tmp->key);
 			free(tmp);
 			pr_err("minishell: export: \'", argv[i],
-				   "\': not a valid identifier\n", 1);
+				"\': not a valid identifier\n", 1);
 		}
 	}
 	if (!ft_strcmp(argv[0], "_export_"))

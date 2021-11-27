@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/27 18:12:24 by gtyene            #+#    #+#             */
+/*   Updated: 2021/11/27 18:12:49 by gtyene           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
@@ -23,7 +34,6 @@ static void	parent_process(t_token *point, pid_t pid, int fd[2])
 	waitpid(pid, NULL, 0);
 	point->fd0 = fd[0];
 	close(fd[1]);
-
 }
 
 void	heredoc(t_token *point)

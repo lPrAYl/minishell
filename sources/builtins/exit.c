@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:49:48 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/26 00:46:02 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 18:08:11 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	cmd_exit(char **argv, t_list **env_ms)
 	int		code;
 
 	(void)env_ms;
-	//ft_putendl_fd("exit", 1);
+	ft_putendl_fd("exit", 1);
 	if (!argv[1])
 		exit(0);
 	i = 1;

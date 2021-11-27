@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:29 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/27 17:46:34 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 19:22:27 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	execution(char *line, t_parser *pr, t_token **token, t_list **env_ms)
 		{
 			*token = NULL;
 			parser(token, pr);
-			//print_token(*token);
+			print_token(*token);
 			signals_non_interactive_shell();
 			execute_line(*token, env_ms);
 			signals_interactive_shell();
@@ -74,12 +74,10 @@ int	main(int argc, char **argv, char **env)
 	pr = (t_parser *)malloc(sizeof(t_parser));
 	while (1)
 	{
-		// if (!env_ms)
-		// 	fill_in_env(&env_ms);
 		pr->env = list_to_array(env_ms);
 		signals_interactive_shell();
 		line = NULL;
-		line = readline(NULL);
+		line = readline("minishell § ");
 		if (!line)
 			signals_ctrl_d(12);
 		execution(line, pr, &token, &env_ms);

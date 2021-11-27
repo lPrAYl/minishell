@@ -6,7 +6,7 @@
 /*   By: gtyene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:49:37 by gtyene            #+#    #+#             */
-/*   Updated: 2021/11/27 02:29:29 by gtyene           ###   ########.fr       */
+/*   Updated: 2021/11/27 18:07:56 by gtyene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	cmd_cd(char **argv, t_list **env_ms)
 	char	*pwd;
 	char	*line;
 	char	*tmp_pwd;
-	
+
 	get_current_pwd(&pwd, *env_ms);
 	if (!argv[1])
 		cd_home(&line, pwd, *env_ms);
