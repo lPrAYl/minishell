@@ -99,6 +99,6 @@ char	*ft_dollar1(char *tmp, int k, char **env)
 	if (env[k] == NULL)
 		tmp3 = ft_strdup("");
 	else
-		tmp3 = ft_substr(env[k], n + 1, strlen(env[k]) - n);
+		tmp3 = ft_substr(env[k], n + 1, ft_strlen(env[k]) - n);
 	return (tmp3);
 }
